@@ -16,7 +16,7 @@
     </div>
 </div>
 <nz-card nzTitle="Editar Anuncio Loja" [nzExtra]="extraTemplate" *ngIf="isrealy">
-    <div class="row">
+    <!--<div class="row">
 
         <div class="col-lg-12  ">
             <div class="row" *ngIf="isload">
@@ -49,10 +49,9 @@
                     <label for="inputAddress2">Nome</label>
                     <input class="mb-3 mt-3" nz-input [(ngModel)]="obj.nome" id="nome" name="nome" placeholder="Nome Anúncio do Produto">
 
-                    <!-- rating-wrap.// -->
 
 
-                    <!-- price-detail-wrap .// -->
+
 
                     <nz-textarea-count class="mb-3 mt-3" [nzMaxCharacterCount]="200">
                         <textarea rows="4" [(ngModel)]="obj.descricao" placeholder="Descrição do Produto" nz-input></textarea>
@@ -112,9 +111,6 @@
                     </div>
                 </div>
 
-                <!-- product-info-aside .// -->
-
-                <!-- col.// -->
             </div>
             <div class="col-lg-12 mt-3 " *ngIf="isload">
                 <nz-card nzTitle="Itens do Anuncio">
@@ -167,13 +163,149 @@
                         </div>
                     </div>
 
-
+                  -
 
 
                 </nz-card>
             </div>
         </div>
     </div>
+  -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <div class="product-slider" id="galleryTop">
+                        <div class="swiper-container theme-slider position-lg-absolute all-0" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
+                            <div class="swiper-wrapper h-100">
+                                <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="../../../assets/img/products/1.jpg" alt="" /></div>
+                                <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="../../../assets/img/products/1-2.jpg" alt="" /></div>
+                                <div class="swiper-slide h-100"> <img class="rounded-1 fit-cover h-100 w-100" src="../../../assets/img/products/1-3.jpg" alt="" /></div>
+                                <div class="swiper-slide h-100"> <img class="rounded-1 fit-cover h-100 w-100" src="../../../assets/img/products/1-4.jpg" alt="" /></div>
+                                <div class="swiper-slide h-100"> <img class="rounded-1 fit-cover h-100 w-100" src="../../../assets/img/products/1-5.jpg" alt="" /></div>
+                                <div class="swiper-slide h-100"> <img class="rounded-1 fit-cover h-100 w-100" src="../../../assets/img/products/1-6.jpg" alt="" /></div>
+                            </div>
+                            <div class="swiper-nav">
+                                <div class="swiper-button-next swiper-button-white"></div>
+                                <div class="swiper-button-prev swiper-button-white"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <h5>
+                        {{obj.nome}}
+                    </h5>
+                    <div class="mb-3">
+                        <label class="form-label"> Nome</label>
+                        <input class="form-control" [(ngModel)]="obj.nome">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Descrição</label>
+                        <textarea class="form-control" [(ngModel)]="obj.descricao" rows="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label class="form-label"> Saldo</label>
+                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldo">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label class="form-label"> Saldo Minimo</label>
+                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldoMinimo">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label"> Saldo Maximo</label>
+                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldoMaximo">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label"> Saldo Reserva</label>
+                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldoReserva">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label class="form-label"> Reposição</label>
+                                <input class="form-control" nzSize="default" [(ngModel)]="obj.saldoReposicao" readonly nz-input nzSize="default">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+  status?: string,
+ // valorInterno?: number,
+ saldoReposicao?:number,
+  valorFinal?: number,
+  peso?: number,
+  largura?: number,
+  comprimento?: number,
+  altura?: number,
+  unidade?: string,-->
+        </div>
+    </div>
+    <nz-card nzTitle="Itens do Anuncio">
+        <div class="row">
+            <div class="col-lg-6">
+                <table class="mt-3">
+                    <tr>
+                        <th class="col-sm-3">Título </th>
+                        <th class="col-sm-7">Descrição </th>
+                        <th class="col-sm-2"> <button nz-button nzType="link" nzSize="small" (click)="adddescricao()"><i
+        nz-icon nzType="plus"></i></button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let item of obj.descricoes; let i=index ">
+                        <th class="col-sm-3"> <input nzSize="small" nz-input [(ngModel)]="item.titulo"></th>
+                        <th class="col-sm-7"> <input nzSize="small" nz-input [(ngModel)]="item.descricao" id="name" name="name" placeholder=""> </th>
+                        <th class="col-sm-2"> <button nz-button nzType="link" nzSize="small" title="Excluir" (click)="excluirdescricao(i)"> <i nz-icon nzType="delete" nzTheme="outline"></i></button></th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6">
+                <table class="mt-3 table">
+                    <tr>
+                        <th class="col-sm-6">Produto </th>
+                        <th class="col-sm-2">Valor </th>
+                        <th class="col-sm-3">Qtd </th>
+
+                        <th class="col-sm-3">Total </th>
+                        <th class="col-sm-1"> <button nz-button nzType="link" nzSize="small" (click)="addproduto()"><i
+        nz-icon nzType="plus"></i></button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let item of obj.itensProduto; let i=index ">
+
+
+
+                        <th class="col-sm-7">
+                            <nz-select nzSize="small" class="col-sm-7" nzShowSearch [(ngModel)]="item.produto.id" name="value" nzPlaceHolder="" (ngModelChange)="selectproduto($event,i)">
+                                <nz-option *ngFor="let  item1 of produtos" [nzLabel]="item1.nome" [nzValue]="item1.id">
+                                </nz-option>
+                            </nz-select>
+                        </th>
+                        <th class="col-sm-2"> {{item.valor | currency :'R$'}} </th>
+                        <th class="col-sm-2"> <input nzSize="small" nz-input [(ngModel)]="item.quantidade" currencyMask [options]='customIntMaskConfig'> </th>
+
+                        <th class="col-sm-2"> {{item.valor * item.quantidade| currency :'R$'}} </th>
+                        <th class="col-sm-1">
+                            <button nz-button nzType="link" nzSize="small" title="Excluir" nz-popconfirm nzPopconfirmTitle="Deseja excluir produto?" (nzOnConfirm)="excluirproduto(i)"> <i nz-icon nzType="delete" nzTheme="outline"></i></button></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        -
+
+
+    </nz-card>
     <ng-template #extraTemplate>
 
         <ul nz-menu nzMode="horizontal">
@@ -184,10 +316,66 @@
 
                 <ul>
                     <li nz-menu-item>
-                        <a> Para Contrato</a> </li>
-                    <li nz-menu-item><a (click)="cloneWeb() "> Para Web</a> </li>
+                        <a> Para Contrato</a>
+                    </li>
+                    <li nz-menu-item><a nz-popconfirm nzPopconfirmTitle="Deseja clonar para Web?" (nzOnConfirm)="cloneWeb()"> Para Web</a> </li>
                 </ul>
             </li>
         </ul>
     </ng-template>
 </nz-card>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Cadastro Banco" (nzOnCancel)="handleCancel()">
+    <div *nzModalContent>
+        <form class="form-horizontal auth-form" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
+                        <input type="text" [(ngModel)]="banco.nome" id="cnpj" formControlName="nome" nz-input placeholder="nome" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <nz-form-label nzFor="fantasia" nzRequired>Banco</nz-form-label>
+                        <input nz-input type="text" id="fantasia" [(ngModel)]="banco.banco" formControlName="banco" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <nz-form-label nzFor="fantasia" nzRequired>Agencia</nz-form-label>
+                        <input nz-input type="text" id="fantasia" [(ngModel)]="banco.agencia" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <nz-form-label nzFor="fantasia" nzRequired>Conta-digito</nz-form-label>
+                        <input nz-input type="text" id="fantasia" [(ngModel)]="banco.conta" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <nz-form-label nzFor="fantasia" nzRequired>Op-extra</nz-form-label>
+                        <input nz-input type="text" id="fantasia" [(ngModel)]="banco.extension" />
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <nz-form-label nzFor="fantasia" nzRequired>Saldo</nz-form-label>
+                        <input nz-input type="text" id="fantasia" [(ngModel)]="banco.saldo" currencyMask formControlName="saldo" />
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" nz-popconfirm nzPopconfirmTitle="Deseja Incluir Banco?" (nzOnConfirm)="handleOk()" [disabled]="!validateForm.valid"><i nz-icon nzType="save" nzTheme="outline"></i>
+  Cadastrar</button>
+    </div>
+</nz-modal>
