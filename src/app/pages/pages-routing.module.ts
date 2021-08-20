@@ -128,6 +128,12 @@ const routes: Routes = [
         path: 'contaspagar',
         loadChildren: () => import('./movimentofinanceiro/contaspagar/contas-pagar.module')
           .then(m => m.ContasPagarModule),
+      }
+      /*produtos/*/
+      , {
+        path: 'produtos',
+        loadChildren: () => import('./estoque/estoque.module')
+          .then(m => m.EstoqueModule),
       },
     ]
   }

@@ -187,16 +187,18 @@ export class PagesComponent implements OnInit {
         ]
       },
       {
-        title: 'FEATURES',
+        title: 'ESTOQUE',
         group: true,
+        hidden: this.hiddenestoque
       },
       {
-        title: 'Layout',
+        title: 'Cadastros',
         icon: 'layout-outline',
+        hidden: this.hiddenestoque,
         children: [
           {
-            title: 'Stepper',
-            link: '/pages/layout/stepper',
+            title: 'Produtos',
+            link: '/produtos/list-produtos',
           },
           {
             title: 'List',
