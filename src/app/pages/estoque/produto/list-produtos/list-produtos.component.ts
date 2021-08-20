@@ -1,13 +1,14 @@
-import { SampleDto } from './../../../../models/sample-dto';
-import { Produto } from './../../../../models/produto';
-import { ListGenericClass } from './../../genericclasses/list-generic-class';
-import { SeviceGeralService } from './../../../../services/sevice-geral.service';
+import { Produto } from './../../../../../models/estoque/produto';
+import { SeviceGeralService } from 'src/services/sevice-geral.service';
+import { ListGenericClass } from './../../../genericclasses/list-generic-class';
+
 import { NzMessageServiceModule } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SampleDto } from 'src/models/sample-dto';
 
 @Component({
   selector: 'app-list-produtos',
@@ -37,11 +38,11 @@ export class ListProdutosComponent extends ListGenericClass implements OnInit {
     public nzMessage: NzMessageServiceModule,
     public servicegeral: SeviceGeralService) {
 
-    super(modalService, router, nzMessage, servicegeral, 'produtos', 'produtos/');
+    super(modalService, router, nzMessage, servicegeral, 'produtos', 'estoque/edit-produtos/');
   }
 
   ngOnInit(): void {
-
+    super.ngOnInit();
     this.servicegeral.getnomes('modelos')
       .then(
         rest => {

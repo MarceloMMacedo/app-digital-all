@@ -1,6 +1,6 @@
-import { SampleDto } from './sample-dto';
+import { SampleDto } from './../sample-dto';
+
 import { FornecedorProduto } from './fornecedor-produto';
-import { Modelo } from './modelo';
 export interface Produto {
     id?: number;
     categoria?:string;

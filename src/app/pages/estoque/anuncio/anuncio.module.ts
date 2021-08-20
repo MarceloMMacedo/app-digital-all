@@ -1,23 +1,21 @@
+import { AnuncioRoutingModule } from './anuncio-routing.module';
+import { NbModulosModule } from './../../../nb-modulos/nb-modulos.module';
 
-import { AvatarProdutosComponent } from './produto/avatar-produtos/avatar-produtos.component';
-import { EditProdutosComponent } from './produto/edit-produtos/edit-produtos.component';
-import { ListProdutosComponent } from './produto/list-produtos/list-produtos.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 import { NgxPrintModule } from 'ngx-print';
-import { NbModulosModule } from './../../nb-modulos/nb-modulos.module';
 import { NgZorroAntdModule } from 'src/app/nb-modulos/ng-zorro-antd.module';
 import { ChartsModule } from 'ng2-charts';
 
-import { EstoqueRoutingModule } from './estoque-routing.module';
 import { CommonModule } from '@angular/common';
 
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
-import { DescricaoProdutoComponent } from './produto/descricao-produto/descricao-produto.component';
-
+import { DescricaoProdutoComponent } from './descricao-produto/descricao-produto.component';
+import { ListAnuncioLojaComponent } from './loja/list-anuncio-loja/list-anuncio-loja.component';
+import { EditAnuncioLojaComponent } from './loja/edit-anuncio-loja/edit-anuncio-loja.component';
 
 export const customCurrencyMaskConfig = {
   align: "right",
@@ -37,16 +35,16 @@ export const customCurrencyMaskConfig = {
 const maskConfig: Partial<IConfig> = {
   validation: false,
 };
+
 @NgModule({
   declarations: [
-    ListProdutosComponent,
-    EditProdutosComponent,
     DescricaoProdutoComponent,
-    AvatarProdutosComponent,
+    ListAnuncioLojaComponent,
+    EditAnuncioLojaComponent
   ],
   imports: [
     CommonModule,
-    EstoqueRoutingModule,
+    AnuncioRoutingModule,
     NgbPaginationModule,
     ChartsModule,
     NgZorroAntdModule,
@@ -55,7 +53,8 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig),
 
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+
   ],
-  schemas:   [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class EstoqueModule { }
+export class AnuncioModule { }

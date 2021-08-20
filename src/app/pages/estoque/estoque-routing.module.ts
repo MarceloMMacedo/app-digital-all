@@ -1,11 +1,31 @@
-import { ListProdutosComponent } from './list-produtos/list-produtos.component';
+import { ListProdutosComponent } from './produto/list-produtos/list-produtos.component';
+
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditProdutosComponent } from './produto/edit-produtos/edit-produtos.component';
 
-const routes: Routes = [{
-  path:'/list-produtos',
-  component:ListProdutosComponent
-}];
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'list-produtos',
+    pathMatch: 'full',
+  },
+  {
+    path: 'edit-produtos/:id',
+    component: EditProdutosComponent
+  },
+  {
+    path: 'list-produtos',
+    component: ListProdutosComponent
+  }
+/*anuncios*/
+,
+  {
+    path: 'anuncios',
+    loadChildren: () => import('./anuncio/anuncio.module')
+    .then(m => m.AnuncioModule),
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

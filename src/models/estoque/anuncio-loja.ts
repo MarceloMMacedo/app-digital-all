@@ -1,8 +1,6 @@
 import { ListaImagens } from './lista-imagens';
 import { ItemProdutoAnuncio } from './item-produto-anuncio';
 import { GrupoFinanceiroAnuncio } from './grupo-financeiro-anuncio';
-import { SampleDto } from './sample-dto';
-import { BaseDto } from './base-dto';
 import { DescricaoAnuncio } from './descricao-anuncio';
 export interface AnuncioLoja {
 

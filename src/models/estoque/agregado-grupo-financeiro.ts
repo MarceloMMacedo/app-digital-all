@@ -1,4 +1,5 @@
-import { CentroCusto } from './centro-custo';
+import { CentroCusto } from './../centro-custo';
+
 export interface AgregadoGrupoFinanceiro {
   descricao?:string;
  percentual?:number;

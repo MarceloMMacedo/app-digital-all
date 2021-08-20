@@ -1,3 +1,4 @@
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -51,7 +52,8 @@ const nbmodulos=[
   NbTreeGridModule,
   NbIconModule,
   NbInputModule,
-  NbMenuModule
+  NbMenuModule,
+  NzModalModule,
 
 
 ];

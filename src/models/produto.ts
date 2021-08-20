@@ -2,6 +2,7 @@ import { SampleDto } from './sample-dto';
 import { Modelo } from './modelo';
 export interface Produto {
     id?: number;
+    imagemView?:string,
     categoria?:string;
     nome?:string;
     modelo?: SampleDto;

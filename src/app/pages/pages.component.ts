@@ -198,11 +198,11 @@ export class PagesComponent implements OnInit {
         children: [
           {
             title: 'Produtos',
-            link: '/produtos/list-produtos',
+            link: 'estoque',
           },
           {
-            title: 'List',
-            link: '/pages/layout/list',
+            title: 'Anuncios Loja',
+            link: 'estoque/anuncios/anunciosloja',
           },
           {
             title: 'Infinite List',

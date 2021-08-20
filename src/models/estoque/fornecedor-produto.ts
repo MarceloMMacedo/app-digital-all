@@ -1,5 +1,5 @@
-import { SampleDto } from './sample-dto';
-import { Fornecedor } from './fornecedor';
+import { SampleDto } from './../sample-dto';
+
 export interface FornecedorProduto {
 id?:number;
     nome?:string;

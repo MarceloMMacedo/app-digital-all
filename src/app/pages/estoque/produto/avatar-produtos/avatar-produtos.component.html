@@ -1,0 +1,18 @@
+<nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" style="margin: 10px; margin-top: 10px;">
+    <button nz-button><i nz-icon nzType="upload"></i>Selecione Arquivo</button>
+
+</nz-upload>
+<button nz-button (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-bottom: 16px;margin: 10px">
+  {{ uploading ? 'Uploading' : 'Start Upload' }}
+</button>
+<hr>
+<img [src]='produto.imagemView' width="150px">
+<!--<form enctype="multipart/form-data">
+    <div class=" form-group ">
+        <div class="fileinput fileinput-new " data-provides="fileinput ">
+            <iframe [src]="targetUrl" height="600px" width="100%"></iframe>
+
+        </div>
+    </div>
+</form>
+-->

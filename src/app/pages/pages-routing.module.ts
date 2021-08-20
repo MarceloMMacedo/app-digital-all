@@ -131,10 +131,10 @@ const routes: Routes = [
       }
       /*produtos/*/
       , {
-        path: 'produtos',
+        path: 'estoque',
         loadChildren: () => import('./estoque/estoque.module')
           .then(m => m.EstoqueModule),
-      },
+      }
     ]
   }
 ];

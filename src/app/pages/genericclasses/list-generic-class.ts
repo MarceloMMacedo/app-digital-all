@@ -39,8 +39,8 @@ export class ListGenericClass implements OnInit {
   */
   isConfirmLoading = false;
 
-  private subject: Subject<string> = new Subject();
-  private destroy$ = new Subject();
+    subject: Subject<string> = new Subject();
+    destroy$ = new Subject();
 
   constructor(
     _modalService: NzModalService,
@@ -72,7 +72,6 @@ export class ListGenericClass implements OnInit {
       this.getLista();
       ;
     });
-    let i = 1;
     this.time = setInterval(() => {
 
       this.isrealy = false;
