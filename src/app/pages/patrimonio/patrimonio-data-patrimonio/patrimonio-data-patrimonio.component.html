@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <nz-form-label nzFor="pessoa" nzRequired>Nome</nz-form-label>
+      <nz-form-control nzErrorTip="Insira nome">
+        <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.nome" />
+      </nz-form-control>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <nz-form-label nzFor="pessoa" nzRequired>Cod Patrimônio</nz-form-label>
+      <nz-form-control nzErrorTip="Insira nome da pessoa">
+        <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.codPatrimonio" />
+      </nz-form-control>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <nz-form-label nzFor="pessoa" nzRequired>Serial</nz-form-label>
+      <nz-form-control nzErrorTip="Insira nome da pessoa">
+        <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.serial" />
+      </nz-form-control>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <nz-form-label nzFor="pessoa" nzRequired>Descrição</nz-form-label>
+      <nz-form-control nzErrorTip="Insira nome da pessoa">
+        <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.descricao" />
+      </nz-form-control>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <nz-form-label nzFor="pessoa" nzRequired>Data Aquisição</nz-form-label>
+      <nz-form-control nzErrorTip="Insira nome da pessoa">
+        <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="patrimonio.dataAquicao" ></nz-date-picker>
+      </nz-form-control>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <nz-form-label nzFor="pessoa" nzRequired>Valor Compra</nz-form-label>
+      <nz-form-control nzErrorTip="Insira nome da pessoa">
+        <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.valoraquisicao" currencyMask />
+      </nz-form-control>
+    </div>
+  </div>
+</div>
+
+
+<div class="form-row">
+
+  <div class="form-group col-md-4 ">
+    <div class="form-group   ">
+      <label for="inputAddress2">Modelo</label>
+      <input placeholder="Modelo" nz-input [(ngModel)]="patrimonio.modelo.nome" (ngModelChange)="onChange($event)"
+        [nzAutocomplete]="auto" />
+      <nz-autocomplete [nzDataSource]="filteredOptions" #auto></nz-autocomplete>
+    </div>
+  </div>
+
+
+
+  <div class="form-group col-md-4 ">
+    <div class="form-group   ">
+
+    <nz-form-label nzFor="nome"  >Tipo Patrimônio</nz-form-label>
+    <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0; margin-top: 0;" nzShowSearch
+      nzPlaceHolder="Select Grupo Anúncio" [(ngModel)]="patrimonio.tipo">
+      <nz-option nzLabel={{item}} [nzValue]='item' *ngFor="let item of tipopatrimonio;
+          let i=index"></nz-option>
+    </nz-select>
+    </div>
+  </div>
+</div>

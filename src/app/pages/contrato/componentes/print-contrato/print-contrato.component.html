@@ -1,0 +1,280 @@
+<div class=" container">
+  <div class=" ">
+    <div class="row ">
+      <div class="col-sm-2">
+        <img [src]="contrato.empresa.imagemview" alt="" width="100">
+      </div>
+      <div class="col-sm-8">
+        {{contrato.empresa.nome}}
+        <address>
+          <small>{{contrato.empresa.endereco.logradouro}}, Nº {{contrato.empresa.endereco.numero}} </small><br />
+          <small>{{contrato.empresa.endereco.bairro}} - {{contrato.empresa.endereco.localidade}} </small><br />
+          <small> CEP:{{contrato.empresa.endereco.cep}} - {{contrato.empresa.contato.telefonecontato}}</small><br />
+          <small>Email:{{contrato.empresa.contato.emailcontato}} </small>
+        </address>
+      </div>
+    </div>
+    <hr />
+    <div class=" ">
+      <h3 align="center">PRESTAÇÃO DE SERVIÇO DE ALUGUEL DE COPIADORAS</h3>
+      <br>
+        <br><h5 style="margin-left: 145px;">1. IDENTIFICAÇÃO DAS PARTES CONTRATANTES</h5>
+
+      <div style="margin-left:175px ;text-align: justify;">
+        <br><h6>CONTRATANTE: , <span >{{contrato.cliente.nome|uppercase}}
+            REPRESENTADA PELO CNPJ {{contrato.cliente.cnpj|uppercase}}
+            COM ENDEREÇO {{contrato.cliente.endereco.logradouro|uppercase}} Nº
+            {{contrato.cliente.endereco.numero|uppercase}},
+            CIDADE {{contrato.cliente.endereco.localidade|uppercase}} CEP
+            {{contrato.cliente.endereco.cep|uppercase}} ,
+            ESTADO {{contrato.cliente.endereco.uf|uppercase}}
+          </span></h6>
+      </div>
+      <div style="margin-left:175px ;text-align: justify;">
+        <br><h6>CONTRATADA: , <span >{{contrato.empresa.nome|uppercase}} REPRESENTADA PELO CNPJ
+            {{contrato.cliente.cnpj|uppercase}}
+            COM ENDEREÇO {{contrato.empresa.endereco.logradouro|uppercase}} Nº
+            {{contrato.empresa.endereco.numero|uppercase}},
+            CIDADE {{contrato.empresa.endereco.localidade|uppercase}}, CEP
+            {{contrato.empresa.endereco.cep|uppercase}} ,
+            ESTADO {{contrato.empresa.endereco.uf|uppercase}}
+          </span></h6>
+      </div>
+      <div style="text-align: justify;">
+        <br><h5 style="margin-left: 145px;">2. OBJETO DO CONTRATO SERVIÇOS</h5>
+      </div>
+      <p style="margin-left:75px  ;" align="justify">Serviços de Manutenção em equipamento(s) e/ou acessório(s),
+        doravante denominados EQUIPAMENTOS, quando citados em conjunto, cujo(s) modelo(s) é(sâo) aquele(s),
+        relacionado(s), descrito(s) e caracterizado(s) na relação de máquina listados na
+        tabela.</p>
+
+
+      <table id="customers" [width]="'100%'">
+        <thead>
+          <tr>
+            <th style="  border: 1px solid #ddd; padding: 2px;">Equipamento</th>
+
+            <th style="  border: 1px solid #ddd; padding: 2px;">ValorUnit.</th>
+            <th style="  border: 1px solid #ddd; padding: 2px;">Franquia</th>
+            <th style="  border: 1px solid #ddd; padding: 2px;">Valor</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of contrato.itenspatrimonio; let i=index">
+            <td align="center" style="  border: 1px solid #ddd; padding: 2px;"> {{item.patrimonio.nome}} </td>
+            <td align="center" style="  border: 1px solid #ddd; padding: 2px;">{{item.valorUnitarioFranquia  }} </td>
+            <td align="center" style="  border: 1px solid #ddd; padding: 2px;">{{item.franquia}} </td>
+            <td align="center" style="  border: 1px solid #ddd; padding: 2px;">{{item.valorFinal|currency:'R$'}} </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+
+      <br><h5 style="margin-left: 145px;">3. PRAZO DA PRESTAÇÃO DE SERVIÇO</h5>
+      <div style="margin-left:75px  ;" align="justify">a) Prazo:{{contrato.periodo}} ({{periodo}}) meses, a
+        contar da data de instalação
+        do(s) equipamento(s).</div>
+      <p style="margin-left:75px  ;" align="justify"> b) Ao fim dos {{contrato.periodo}} ({{periodo}})
+        meses, este contrato será automaticamente prorrogado por prazo indeterminado, salvo se denunciado, por escrito e
+        com antecedência
+        mínima de trinta (30) dias da data de seu termo final, por qualquer das partes.</p>
+      <p style="margin-left:75px  ;" align="justify">c) Seja qual for o caso, prorrogado este contrato por prazo
+        indeterminado, o mesmo poderá, então, ser rescindido, a qualquer tempo e por qualquer das partes, sem
+        que de tal ato resultem ônus ou multa, bastando para isso mera comunicação, por
+        escrito e com antecedência mínima de trinta (30) dias.</p>
+
+      <br><h5 style="margin-left: 145px;">4. VALOR MENSAL E VENCIMENTOS</h5>
+
+      <p style="margin-left:75px  ;" align="justify">Valor Mensal : {{valor|uppercase}}</p>
+      <p style="margin-left:75px " align="justify">a) ALUGUEL MENSAL - Será o somatório dos valores estipulados
+        para cada modelo de EQUIPAMENTO objeto deste Contrato, conforme descrito na cláusula 2.</p>
+      <p style="margin-left:75px  ;" align="justify">b) DATA VENCIMENTO MENSAL: A data do vencimento será até o
+        dia:{{contrato.diaVencimento}} de cada mês, referente a quitação do mês anterior.</p>
+      <p style="margin-left:75px  ;" align="justify">c) O valor total mensal não pago até a data de vencimento será
+        acrescido da variação do IGP-M aplicada pelos dias de atraso, sem prejuízo das demais sanções
+        aplicáveis, dentre as quais a suspensão da Assistência Técnica, a não concessão de
+        créditos, pela Contratante, se disponíveis, tal como, exemplificativamente, a venda a prazo de produtos
+        de consumo ou a rescisão deste contrato.</p>
+
+
+      <br><h5 style="margin-left: 145px;">5. REAJUSTES</h5>
+      <p style="margin-left:75px  ;" align="justify">a) os reajustes de preço serão com base na variação do IGP-M
+        da FGV, atendida sempre a menor periodicidade da lei, e que, no momento, é de 1(um) ano, a contar do mês
+        da assinatura deste instrumento. Na hipótese de suspensão, extinção ou vedação
+        do uso do IGP-M, fica eleito o índice que oficialmente vier a substituí-lo ou , na ausência deste,
+        aquele que melhor reflita a variação ponderada dos custos, desde que publicamente divulgado, como índice
+        substitutivo</p>
+
+
+      <br><h5 style="margin-left: 145px;">6. INSTALAÇÃO E ENTREGA </h5>
+      <p style="margin-left: 75px;" align="justify">a) Os EQUIPAMENTOS serão instalados pelo Contratante, ficando
+        claro, contudo, que em qualquer hipótese as providências e despesas de preparação das instalações
+        elétricas onde os EQUIPAMENTOS serão instalados, são de responsabilidade exclusiva
+        do(a) CONTRATANTE.</p>
+      <p style="margin-left: 75px;" align="justify">b) A entrega deverá dar-se no prazo de 15 dias, contado da
+        data de assinatura do presente instrumento, ressalvadas as hipóteses de caso fortuito ou de força maior,
+        tal qual estabelecidos na legislação vigente. </p>
+      <p style="margin-left: 75px;" align="justify">c) Em qualquer caso, as despesas de preparação das instalações
+        elétricas e serviços especiais, se necessários, tais como guincho, içamento e obras, correrão por conta
+        exclusiva do(a) CONTRATANTE e sob sua inteira responsabilidade.</p>
+      <p style="margin-left: 75px;" align="justify">d) Fica, desde logo, claro que, na hipótese de mudança de
+        local de instalação do(s) EQUIPAMENTO(S) requerida pelo CONTRATANTE e autorizada pela CONTRATADA, a(o)
+        CONTRATANTE terá que, obrigatoriamente, nos casos em que a instalação do(s) EQUIPAMENTO(S)
+        seja de obrigação da CONTRATADA, requerer a presença desta para executar tais serviços de mudança de
+        local, arcando a(o) CONTRATANTE com todos os custos decorrentes desses serviços, aí incluído o
+        concernente ao pessoal autorizado pelo
+        Locador, colocado na execução dos mesmos. </p>
+      <p style="margin-left: 75px;" align="justify">f) Mesmo sendo de responsabilidade da CONTRATADA a instalação
+        dos EQUIPAMENTOS, objeto deste Contrato, o(a) CONTRATANTE, contudo, à sua opção, poderá solicitar do
+        Locador que a instalação seja por ela executada, caso em que, esta, a Locador,
+        cobrará, então, o valor constante de sua tabela de preços vigente à época.</p>
+
+
+
+      <div style="margin-left: 145px;">
+        <br><h5 align="left">7. MATERIAL DE CONSUMO</h5>
+
+      </div>
+      <p style="margin-left: 75px;" align="justify">
+        a) Estão incluídos no valor mensal do contrato de serviços, o fornecimento de toner, fotorreceptor,
+        peças e outros componentes por desgaste no uso normal do equipamento.
+      </p>
+      <p style="margin-left: 75px;" align="justify">
+        b) Não estão incluídos ainda no valor mensal da contrato de serviços: materiais de consumo : papel, grampo e
+        outros.</p>
+
+
+      <br><h5 style="margin-left: 145px;">
+        8. SERVIÇOS TÉCNICOS DE MANUTENÇÃO E REPARO </h5>
+      <p style="margin-left: 75px;" align="justify"> a) A CONTRATADA se encarregará, enquanto da vigência deste
+        contrato de tais serviços, a serem prestados, sempre, no território nacional e durante seu horário
+        normal de expediente comercial, por si ou por terceiros por ela credenciados, contra
+        chamado do(a) CONTRATANTE, em um prazo máximo de 24 horas nos dias uteis, substituindo todas as peças e
+        outros que se fizerem necessárias por desgaste no uso normal do equipamento. será sempre por conta da
+        CONTRATADA. A manutenção preventiva será
+        prestada no mesmo ato do atendimento
+        corretivo. </p>
+      <p style="margin-left: 75px;" align="justify"> b) A CONTRATADA aplicará nos EQUIPAMENTOS, quando necessária
+        a substituição, partes e peças originais, adequadas, novas ou, quando não, que mantenham as
+        especificações técnicas do fabricante para o que fica, desde logo, autorizada pelo(a)
+        CONTRATANTE.
+      </p>
+      <p style="margin-left: 75px;" align="justify"> c) O prazo de atendimento e conclusão poderá ser extendido caso as
+        peças não esteja em disposição de estoque.
+      </p>
+
+
+      <div align="left">
+        <br><h5 style="margin-left: 145px;">9. CONDIÇÕES GERAIS </h5>
+      </div>
+      <p style="margin-left: 75px;" align="justify">a) A LOCATÁRIA se compromete a: </p>
+      <p style="margin-left: 100px;" align="justify">i. Usar os EQUIPAMENTOS corretamente e não sublocar, ceder ou
+        transferir a contrato de serviços, total ou parcialmente;</p>
+      <p style="margin-left: 100px;" align="justify">ii. mantê-los no local exato da instalação, salvo autorização
+        prévia da CONTRATADA, por escrito e a cada caso, ficando a critério desta a mudança de uma cidade para
+        outra. Quaisquer despesas decorrentes dessas mudanças de local serão de responsabilidade
+        exclusiva da LOCATÁRIA, aí incluídas despesas com pessoal utilizada na movimentação/reinstalação do(s)
+        EQUIPAMENTO(S);</p>
+      <p style="margin-left: 100px;" align="justify">iii. Manter bem visíveis as placas que especificam que a
+        proprietária dos EQUIPAMENTOS ,o modelo, o n° de série e marca, sendo vedada, ainda, a introdução, nos
+        mesmos, de modificações de qualquer natureza; </p>
+      <p style="margin-left: 100px;" align="justify">iv. defender e fazer valer todos os direitos de propriedade e
+        de posse da CONTRATADA sobre os EQUIPAMENTOS, inclusive impedindo sua penhora, seqüestro, arresto,
+        arrecadação, etc., por terceiros, notificando-os sobre os direitos de propriedade
+        e de posse da CONTRATADA sobre os mesmos; </p>
+      <p style="margin-left: 100px;" align="justify">v. Permitir o acesso de pessoal autorizado da CONTRATADA para
+        a realização de leitura dos medidores dos EQUIPAMENTOS, a sua assistência técnica e ainda para o seu
+        desligamento ou remoção, nas hipóteses cabíveis; </p>
+      <p style="margin-left: 100px;" align="justify">vi. responsabilizar-se por qualquer dano, prejuízo ou
+        inutilização dos EQUIPAMENTOS - ressalvadas as hipóteses de casos fortuitos ou de força maior, bem como
+        pelo descumprimento de qualquer de suas obrigações previstas neste contrato ou em
+        lei;
+      </p>
+      <p style="margin-left: 100px;" align="justify">vii. não permitir a intervenção de terceiros não autorizados
+        ou credenciados pela CONTRATADA nas partes e componentes internos dos EQUIPAMENTOS;</p>
+      <p style="margin-left: 75px;" align="justify">b) Cessar de imediato o uso dos EQUIPAMENTOS nas hipóteses de
+        término ou rescisão, por qualquer motivo, deste Contrato;</p>
+      <p style="margin-left: 75px;" align="justify">c) requerer a presença da Locadora para as providências de
+        mudança de local de instalação do(s) EQUIPAMENTO(S), arcando, inclusive, junto a está com os custos do
+        pessoal colocado na execução dessa mudança, bem como permitir o seu acesso para
+        esse fim.
+      </p>
+      <p style="margin-left: 75px;" align="justify">d) A CONTRATADA oferece, durante a&nbsp; contrato de serviços,
+        plena garantia do perfeito funcionamento dos EQUIPAMENTOS quando da respectiva instalação, obedecidas às
+        especificações técnicas, podendo o mesmo ter sido previamente instalados
+        e conter partes e componentes revisados dentro dos mais rigorosos padrões técnicos e de controle de
+        qualidade.</p>
+      <p style="margin-left: 75px;" align="justify">e) Nenhuma tolerância da CONTRATADA em receber qualquer das
+        importâncias aqui estipuladas ou quanto ao cumprimento de qualquer das cláusulas aqui estabelecidas
+        poderá ser entendida como aceitação, novação ou precedente. </p>
+
+
+      <div align="left">
+        <br><h5 style="margin-left: 145px;">10. INFRAÇÃO CONTRATUAL
+        </h5>
+      </div>
+      <p style="margin-left: 75px;" align="justify"> a) Fica estipulada a multa equivalente a 3 (três) vezes o
+        valor do aluguel mínimo mensal então vigente, na qual incorrerá a parte que infringir qualquer das
+        cláusulas ou condições deste Contrato, ficando, ainda, a parte inocente, com o direito
+        de rescindi-lo, independentemente de intimação judicial ou extrajudicial, bastando, para isso, mero
+        aviso, sempre por escrito, com prazo de 10 (dez) dias contados da inadimplência. Custas, despesas
+        judiciais e honorários advocatícios,
+        estes, desde logo, fixados em 20% (vinte por cento), serão ainda suportados pela parte infratora em caso
+        de cobrança judicial.&nbsp;</p>
+      <p style="margin-left: 75px;">b) A recusa em devolver os EQUIPAMENTOS ou o dano neles produzidos obriga o(a)
+        CONTRATANTE, ainda, ao ressarcimento pelos danos e lucros cessantes, estes pelo período em que os mesmos
+        deixarem de ser utilizados pela CONTRATADA.</p>
+      <p style="margin-left: 75px;">c) A infração por parte do(a) CONTRATANTE autoriza, desde logo, a CONTRATADA a
+        exigir e obter a imediata devolução dos EQUIPAMENTOS, cabendo-lhe, inclusive, na via judicial, a
+        reintegração initio litis, válido para os fins dos incisos II e
+        III do artigo 927 do Código de Processo Civil, o documento enviado pela CONTRATADA solicitando a
+        devolução dos mesmos. </p>
+      <p style="margin-left: 75px;">d) Poderá, ainda, a CONTRATADA, facultativamente, considerar rescindida
+        a&nbsp; contrato de serviços e retirar os EQUIPAMENTOS locados nas hipóteses de falência ou insolvência
+        do CONTRATANTE. </p>
+      <div align="left">
+
+
+
+
+
+
+
+        <br><h5 style="margin-left: 145px;">
+          11.FORO
+        </h5>
+      </div>
+      <p style="margin-left: 75px;">Fica eleito o foro da cidade de&nbsp; _ para dirimir quaisquer dúvidas ou
+        questões para as quais não tenha havido solução amigável. E, por estarem as partes assim justas e
+        acordadas, Contratado e Contratante firmam o presente, por si e seus
+        eventuais sucessores, em duas vias de igual teor e conteúdo, na presença das testemunhas ao finais
+        assinadas. </p>
+
+
+
+
+      <div align="right">
+        {{contrato.empresa.endereco.localidade}}, {{dataforum|date:'dd MMMM yyyy'}}
+      </div>
+      <p></p>
+      <p></p>
+      <p align="center">_____________________________________________________________________</p>
+      <br><h5 align="center">Contratante</h5>
+      <p></p>
+      <p></p>
+      <p align="center">_____________________________________________________________________</p>
+      <br><h5 align="center">(Nome e assinatura do Representante legal da Contratada)</h5>
+      <p></p>
+      <p align="center"></p>
+      <p align="center">_____________________________________________________________________</p>
+      <br><h5 align="center">(Nome, RG e assinatura da Testemunha 1) </h5>
+      <p></p>
+      <p></p>
+      <p align="center">_____________________________________________________________________</p>
+      <br><h5 align="center">(Nome, RG e assinatura da Testemunha 2)</h5>
+    </div>
+  </div>
+</div>

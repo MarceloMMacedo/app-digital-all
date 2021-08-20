@@ -1,0 +1,126 @@
+<div *ngIf="isrealy">
+  <nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/contasreceber']" routerLinkActive="router-link-active">Home Contas a Receber</a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+
+
+  <nb-card>
+    <nb-card-body>
+
+      <nz-card nzTitle="Lista de Contas a Receber" [nzExtra]="extraTemplate" nzType='inner' nzSize='small'>
+        <div *ngIf="isrealy" style="margin-top: 30px; ">
+          <nz-card nzTitle="Filtrar" [nzExtra]="extraTemplateFilter" nzType='inner' nzSize='small' nzBordered='false'>
+            <div *ngIf="isrealy" style="margin-top: 30px; ">
+
+              <div class="row">
+
+                <div class="col-lg-6">
+                  <div class="col-lg-12 form-group ">
+                    <nz-form-label nzFor="nome">Clientes</nz-form-label>
+                    <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" [(ngModel)]='cliente.id'
+                      nzShowSearch nzPlaceHolder="Select Cliente">
+                      <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of clientes "></nz-option>
+                    </nz-select>
+                  </div>
+                  <div class="col-lg-12 form-group   ">
+                    <nz-form-label nzFor="nome">Data Inicial</nz-form-label>
+                    <nz-date-picker class="col-lg-12 form-input" [nzFormat]="dateFormat" [(ngModel)]="datainicio"
+                      id="vencimento" placeholder="Inicio">
+                    </nz-date-picker>
+                  </div>
+                  <div class="col-lg-12 form-group   ">
+                    <nz-form-label nzFor="nome">Data Final</nz-form-label>
+                    <nz-date-picker class="col-lg-12" [nzFormat]="dateFormat" [(ngModel)]="datafim" id="fim"
+                      placeholder="Fim">
+                    </nz-date-picker>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h3>Resumo</h3>
+                  <strong style="font-size: 1em;">Total Contrato: {{objAberto.totalContrato|currency:'R$'}}
+                  </strong> <br>
+                  <strong>Total Servico: {{objAberto.totalServico|currency:'R$'}}
+                  </strong> <br>
+                  <strong>Total Vendas: {{objAberto.totalVenda|currency:'R$'}}
+                  </strong><br>
+                  <strong>Total a Receber: {{objAberto.total|currency:'R$'}} </strong>
+                </div>
+              </div>
+            </div>
+            <ng-template #extraTemplateFilter>
+              <button nz-button nzSize='small' nzType="primary" (click)="onLoad()"><i nz-icon nzType="find"
+                  nzTheme="outline"></i> Filtrar</button>
+            </ng-template>
+          </nz-card>
+        </div>
+      </nz-card>
+
+      <ng-template #extraTemplate>
+        <a nz-dropdown [nzDropdownMenu]="menu">
+          Menu
+          <i nz-icon nzType="down"></i>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item>
+              <button (click)="showModal()" nz-button nzSize='small' nzType="link">
+                <i nz-icon nzType="diff" nzTheme="outline"></i> quitar </button>
+            </li>
+
+            <li nz-menu-item>
+              <button nz-button nzSize='small' nzType="link" (click)="print()"><i nz-icon nzType="printer"
+                  nzTheme="outline"></i> Imprimir</button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+
+
+      </ng-template>
+
+      <nz-tabset>
+        <nz-tab nzTitle="Faturas Aberta">
+          <app-list-contratos [faturasContrato]='objAberto.faturasContrato' [totalServico]='objAberto.totalContrato'
+            [isrealy]='isrealy' [empresa]='empresa' (onload)='changeload($event)' [titulo]="'Contratos'"
+            *ngIf="objAberto.faturasContrato.length">
+          </app-list-contratos>
+
+          <app-list-contratos [faturasContrato]='objAberto.faturasVendas' [totalServico]='objAberto.totalVenda'
+            [titulo]="'Vendas'" [isrealy]='isrealy' [empresa]='empresa' (onload)='changeload($event)'
+            *ngIf="objAberto.faturasVendas.length">
+          </app-list-contratos>
+
+          <app-list-contratos [faturasContrato]='objAberto.faturasServico' [totalServico]='objAberto.totalServico'
+            [titulo]="'Serviços'" [isrealy]='isrealy' [empresa]='empresa' (onload)='changeload($event)'
+            *ngIf="objAberto.faturasServico.length">
+          </app-list-contratos>
+        </nz-tab>
+        <nz-tab nzTitle="Faturas Quitadas">
+
+          <app-list-contratos [faturasContrato]='objQuit.faturasContrato' [totalServico]='objQuit.totalContrato'
+            [titulo]="'Contratos'" [isrealy]='isrealy' [empresa]='empresa' (onload)='changeload($event)'>
+          </app-list-contratos>
+
+          <app-list-contratos [faturasContrato]='objQuit.faturasVendas' [totalServico]='objQuit.totalVenda'
+            [titulo]="'Vendas'" [isrealy]='isrealy' [empresa]='empresa' (onload)='changeload($event)'
+            *ngIf="objQuit.faturasVendas.length">
+          </app-list-contratos>
+
+          <app-list-contratos [faturasContrato]='objQuit.faturasServico' [totalServico]='objQuit.totalServico'
+            [titulo]="'Serviços'" [isrealy]='isrealy' [empresa]='empresa' (onload)='changeload($event)'
+            *ngIf="objQuit.faturasServico.length">
+          </app-list-contratos>
+
+        </nz-tab>
+      </nz-tabset>
+
+
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+</nz-skeleton>

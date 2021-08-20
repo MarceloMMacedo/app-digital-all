@@ -1,0 +1,63 @@
+<div class="row">
+
+  <div class="form-group col-md-4 ">
+    <label for="periodo">Nome</label>
+    <input type="text" class="form-control form-control-sm" nz-input [(ngModel)]="itempatrimoniocontrato.nome" id="Nome"
+      placeholder="Nome">
+
+  </div>
+  <div class="col-lg-4">
+    <label for="periodo">Patrimônio</label>
+    <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch (ngModelChange)='loaddata()'
+      nzPlaceHolder="Select patrimonio" [(ngModel)]="itempatrimoniocontrato.patrimonio.id">
+      <nz-option [nzLabel]='itempatrimoniocontrato.patrimonio.nome' [nzValue]='itempatrimoniocontrato.patrimonio.id'  ></nz-option>
+      <nz-option [nzLabel]='item.nome' [nzValue]='item.id' *ngFor="let item of patrimonios;
+                let i=index"></nz-option>
+    </nz-select>
+
+  </div>
+  <div class="form-group col-md-4 ">
+    <label for="periodo">Setor</label>
+    <input type="text" class="form-control form-control-sm" nz-input [(ngModel)]="itempatrimoniocontrato.setor" id="Nome"
+      placeholder="Nome">
+
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-4 ">
+    <label for="periodo">Franquia</label>
+    <input type="text" class="form-control form-control-sm   " nzSize="small" currencyMask
+      [options]="customIntMaskConfig" [(ngModel)]="itempatrimoniocontrato.franquia" id="franquia"
+      placeholder="valorQuitado">
+
+  </div>
+  <div class="form-group col-md-4 ">
+    <label for="periodo">Valor Franquia</label>
+    <input type="text" class="form-control form-control-sm   " nzSize="small" currencyMask
+      [options]="customCurrencyMaskConfig" [(ngModel)]="itempatrimoniocontrato.valorUnitarioFranquia" id="valorFranquia"
+      placeholder="valorQuitado">
+
+  </div>
+  <div class="form-group col-md-4 ">
+    <label for="periodo">Valor Final</label>
+    <input type="text" class="form-control form-control-sm   " nzSize="small" currencyMask readonly
+      [options]="customCurrencyMaskConfig2" [(ngModel)]="itempatrimoniocontrato.valorFinal" id="valorFinal"
+      placeholder="valorQuitado">
+
+  </div>
+</div>
+<app-contato-pessoa [contato]='itempatrimoniocontrato.contato'></app-contato-pessoa>
+<app-endereco-pessoa [controller]="'contrato'" [endereco]='itempatrimoniocontrato.endereco'></app-endereco-pessoa>
+
+<nz-divider></nz-divider>
+<!--
+
+  valorUnitarioFranquia?: number,
+  isFranquado?: string,
+  franquia?: number,
+  valorFranquia?: number,
+  valorPreDeterminado?: number,
+  dataInstalacao?: Date
+  medidorInstalacao?: Medidor,
+  valorFinal?: number,
+-->

@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <nz-form-label nzFor="nome" nzRequired>CNPJ</nz-form-label>
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                <nz-form-control nzErrorTip="Cnpj requerido">
+                    <input type="text" [(ngModel)]="pessoaedit.cnpj" id="cnpj"
+                     nz-input placeholder="Cnpj ou Cpf" mask="000.000.000-00||00.000.000/0000-00" />
+                </nz-form-control>
+            </nz-input-group>
+            <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSearch *ngIf="pessoaedit.cnpj.length >=14" (click)="opdatecnpj()"><i nz-icon
+          nzType="search"></i></button>
+            </ng-template>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="form-group">
+            <nz-form-label nzFor="fantasia" nzRequired>Fantasia</nz-form-label>
+            <nz-form-control nzErrorTip="Insira Nome Fantasia">
+                <input nz-input type="text" id="fantasia" [(ngModel)]="pessoaedit.fantasia" />
+            </nz-form-control>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <nz-form-label nzFor="pessoa" nzRequired>Nome</nz-form-label>
+            <nz-form-control nzErrorTip="Insira nome da pessoa">
+                <input nz-input type="text" id="pessoa" [(ngModel)]="pessoaedit.nome" />
+            </nz-form-control>
+        </div>
+    </div>
+
+
+</div>

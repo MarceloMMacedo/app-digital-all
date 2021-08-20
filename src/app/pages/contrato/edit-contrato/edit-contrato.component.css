@@ -1,0 +1,26 @@
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+app-print-contrato {
+  /* hide the printing component from @media screen  */
+  display: none;
+}
+
+@media print {
+  /* invert the display (show/hide) properties of the main */
+  /* aplication component and the printing component       */
+ app-print-contrato {
+      display: block;
+  }
+   .pagina {
+      display: none;
+  }
+  .appmainpage{
+      display: none;
+  }
+  header{
+      display: none;
+  }
+}

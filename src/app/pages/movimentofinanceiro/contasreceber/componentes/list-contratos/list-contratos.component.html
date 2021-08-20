@@ -1,0 +1,101 @@
+<section id="pagina">
+
+
+    <nz-card nzType="inner" style="margin-top:16px;" nzSize="small" nzTitle={{titulo}} [nzExtra]="extraTemplate">
+        <div class="table-responsive" style="overflow-x:auto;  overflow-y:auto;">
+            <nz-table #basicTable [nzData]="faturasContrato" nzSize="small" [nzBordered]="true" style="font-size: 90% ">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th nzWidth="30%">Name</th>
+                        <th>Vencimento</th>
+                        <th>Quitação</th>
+                        <th>Contrato</th>
+                        <th>Parcela</th>
+                        <th>Valor</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of basicTable.data;let i=index">
+                        <td>{{i+1}} </td>
+                        <td>{{data.nome}}</td>
+                        <td>{{data.dataVencimento|date:'dd/MM/yyyy'}}</td>
+                        <td><label>{{data.dataPagamento|date:'dd/MM/yyyy'}}</label></td>
+                        <td>{{data.idordem}}</td>
+                        <td>{{data.numeroparcela}}</td>
+                        <td>{{data.total|currency:'R$'}}</td>
+                        <td>
+                            <a nz-dropdown [nzDropdownMenu]="menu">
+                Ação
+                <i nz-icon nzType="down"></i>
+              </a>
+                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                                <ul nz-menu nzSelectable>
+                                    <li nz-menu-item> <a (click)="medidorfaturamento(data )"> Ficha Leitura</a></li>
+
+                                    <li nz-menu-item>
+                                        <a (click)="print(data )"> Imprimir Recibo</a>
+                                    </li>
+                                    <li nz-menu-item *ngIf="data.status!='Quit'"> <a (click)="showModal(data)"> Baixar Fatura</a> </li>
+                                </ul>
+                            </nz-dropdown-menu>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <a>{{totalServico|currency:'R$'}} </a>
+    </ng-template>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Recibo Contrato" (nzOnCancel)="handleCancelforn()" [nzFooter]="modalFooter">
+        <div *nzModalContent>
+            <app-recibo-contrato [isrealy]='isrealy' (visiblerecibo)='changevisible($event)' [recibodto]='recibodto' [empresa]='empresa'>
+            </app-recibo-contrato>
+
+        </div>
+        <ng-template #modalFooter>
+
+        </ng-template>
+    </nz-modal>
+    <nz-modal [(nzVisible)]="isVisibleoutro" nzTitle="Recibo Contrato" (nzOnCancel)="handleCancelforn()" [nzFooter]="modalFooter">
+        <div *nzModalContent>
+            <!--<app-recibo-contrato [isrealy]='isrealy' (visiblerecibo)='changevisible($event)'
+             [recibodto]='recibodto' [empresa]='empresa'>
+            </app-recibo-contrato>
+          -->
+            <app-recido-outros [isrealy]='isrealy' (visiblerecibo)='changevisible($event)' [recibodto]='recibodto' [empresa]='empresa'></app-recido-outros>
+
+        </div>
+        <ng-template #modalFooter>
+
+        </ng-template>
+    </nz-modal>
+    <nz-modal [(nzVisible)]="isVisiblemedidor" nzTitle="Medidores de Faturamento" nzWidth='50%' (nzOnCancel)="handleCancelforn()" [nzFooter]="modalFooter">
+        <div *nzModalContent>
+            <app-leitura-producao [isrealy]='isrealy' (visiblerecibo)='changevisible($event)' [fatura]='fatura' [fichaleituras]='ficha' (onload)='changeonload($event)'></app-leitura-producao>
+        </div>
+        <ng-template #modalFooter>
+
+        </ng-template>
+    </nz-modal>
+
+
+    <nz-modal [(nzVisible)]="isVisiblebaixar" nzTitle="Quitar fatura" nzWidth='50%' (nzOnCancel)="handleCancelforn()" [nzFooter]="modalFooter">
+        <div *nzModalContent>
+            <app-quitar-fatura-contrato [isrealy]='isrealy' [fatura]='fatura' (onload)='changeonload($event)' (visiblequitar)='changevisible($event)'></app-quitar-fatura-contrato>
+        </div>
+        <ng-template #modalFooter>
+
+        </ng-template>
+    </nz-modal>
+    <nz-modal [(nzVisible)]="isVisiblebaixaroutros" nzTitle="Quitar fatura" nzWidth='50%' (nzOnCancel)="handleCancelforn()" [nzFooter]="modalFooter">
+        <div *nzModalContent>
+            <app-quitar-fatura-entrada [isrealy]='isrealy' [fatura]='fatura' (onload)='changeonload($event)' (visiblequitar)='changevisible($event)'></app-quitar-fatura-entrada>
+        </div>
+        <ng-template #modalFooter>
+
+        </ng-template>
+    </nz-modal>
+</section>

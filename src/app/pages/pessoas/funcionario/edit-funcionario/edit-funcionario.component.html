@@ -1,0 +1,128 @@
+<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+    <nz-card nzTitle="Cadastro de Funcionários" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
+
+
+        <div class="row" *ngIf="isrealy">
+            <div class="col-lg-3">
+                <div align="center" class="panel panel-primary" style="float: center;">
+
+                    <div class="panel-body">
+                        <form enctype="multipart/form-data">
+                            <div class=" form-group ">
+                                <div class="fileinput fileinput-new " data-provides="fileinput ">
+                                    <div class="fileinput-new thumbnail " style="width: 200px; height: 150px; ">
+                                        <img alt="" [src]=" pessoa.imagemView || 'assets/images/avatar.png'" width="200px" height="150px" />
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                        <button class="btn btn-primary btn-sm" nz-button><i nz-icon nzType="upload"></i>Selecione logo</button>
+                    </nz-upload>
+                    <button nz-button class="btn btn-primary btn-sm" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-bottom: 16px;">
+            {{ uploading ? 'Uploading' : 'Start Upload' }}
+          </button>
+                </div>
+            </div>
+
+
+            <div class="col-lg-9 ">
+                <div class="row" *ngIf="isrealy">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <nz-form-label nzFor="nome" nzRequired>CPF</nz-form-label>
+                            <nz-form-control nzErrorTip="Cnpj requerido">
+                                <input type="text" [(ngModel)]="pessoa.cnpj" id="cnpj" nz-input placeholder="Cpf" mask="000.000.000-00" />
+                            </nz-form-control>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <nz-form-label nzFor="telefone" nzRequired>Email do Login</nz-form-label>
+                            <nz-form-control nzErrorTip="Insira Email">
+                                <input nz-input type="text" id="telefone" [(ngModel)]="pessoa.email" />
+                            </nz-form-control>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <nz-form-label nzFor="nome" nzRequired>Nome Guerra</nz-form-label>
+                            <nz-form-control nzErrorTip="Cnpj requerido">
+                                <input type="text" [(ngModel)]="pessoa.nomeGuerra" id="cnpj" nz-input placeholder="Nome Guerra" />
+                            </nz-form-control>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <nz-form-label nzFor="telefone" nzRequired>Salário</nz-form-label>
+                            <nz-form-control nzErrorTip="Insira Email">
+                                <input nz-input type="text" id="salario" currencyMask [(ngModel)]="pessoa.salario" />
+                            </nz-form-control>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group   ">
+                          <nz-form-label nzFor="nome" nzRequired>Status</nz-form-label>
+                          <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch nzPlaceHolder="Select a Mês" [(ngModel)]="pessoa.status">
+                              <nz-option nzLabel='Ativo' nzValue='Ativo' ></nz-option>
+                              <nz-option nzLabel='Inativo' nzValue='Inativo' ></nz-option>
+                          </nz-select>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group   ">
+                            <nz-form-label nzFor="nome" nzRequired>Férias</nz-form-label>
+                            <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch nzPlaceHolder="Select a Mês" [(ngModel)]="pessoa.mesFerias">
+                                <nz-option nzLabel={{item}} nzValue={{item}} *ngFor="let item of ferias; let i=index"></nz-option>
+
+                            </nz-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <nz-form-label nzFor="telefone" nzRequired>Acesso</nz-form-label>
+                            <nz-form-control nzErrorTip="Insira Email">
+                                <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch nzPlaceHolder="Select a Mês" [(ngModel)]="pessoa.rolers">
+                                    <nz-option nzLabel={{item}} nzValue={{item}} *ngFor="let item of rules; let i=index"></nz-option>
+
+                                </nz-select>
+                            </nz-form-control>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <nz-form-label nzFor="pessoa" nzRequired>Nome</nz-form-label>
+                            <nz-form-control nzErrorTip="Insira nome da pessoa">
+                                <input nz-input type="text" id="pessoa" [(ngModel)]="pessoa.nome" />
+                            </nz-form-control>
+                        </div>
+                    </div>
+
+
+                </div>
+                <app-endereco-pessoa [endereco]="pessoa.endereco" [controller]="controller" (enderecoChange)="enderecoChange($event)"></app-endereco-pessoa>
+
+            </div>
+
+        </div>
+
+    </nz-card>
+</div>
+<ng-template #extraTemplate>
+    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="onsave()">
+    <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Funcionário</button>
+
+</ng-template>
+
+<nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy"></nz-skeleton>

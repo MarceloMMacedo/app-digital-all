@@ -1,0 +1,85 @@
+<nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <a [routerLink]="['/anunciosprodutos']" routerLinkActive="router-link-active">Lista de Grupo anuncio</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Editar Grupo Anúncio</nz-breadcrumb-item>
+</nz-breadcrumb>
+<ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+    <nz-card nzTitle="Cadastro de  Grupo Anúncio" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
+                    <input type="text" [(ngModel)]="obj.nome" id="nome" name="nome" nz-input placeholder="nome" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <nz-form-label nzFor="fantasia" nzRequired>Percentual Desconto</nz-form-label>
+                    <input nz-input type="text" id="fantasia" [(ngModel)]="obj.percentualDesconto" name="saldo" currencyMask />
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <nz-form-label nzFor="fantasia">Percentual Total</nz-form-label>
+                    <input nz-input type="text" id="fantasia" readonly [(ngModel)]="obj.percentualTotal" name="saldo" currencyMask />
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <nz-card nzTitle="Cadastro de Agregados Grupo anuncio" style="margin-top: 30px; " nzType="inner" [nzExtra]="extraTemplate1" *ngIf="isrealy">
+            <div *ngFor="let item of obj.agregadoGrupo ; let i=index">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
+                            <input type="text" [(ngModel)]="item.nome" id="nome" name="nome" nz-input placeholder="nome" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group   ">
+                            <nz-form-label nzFor="nome" nzRequired>Centro de Custo</nz-form-label>
+                            <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch nzPlaceHolder="Select centro de custo" [(ngModel)]="item.centroCusto.id">
+                                <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of centrocustos;
+                                let i=index"></nz-option>
+                            </nz-select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <nz-form-label nzFor="fantasia" nzRequired>Percentual</nz-form-label>
+                            <input nz-input type="text" id="fantasia" [(ngModel)]="item.percentual" name="saldo" currencyMask />
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+
+                            <button style="margin-top: 40px;" class="btn btn-sm  mg-t-15 btn-danger btn-uppercase mg-l-5" nz-popconfirm nzPopconfirmTitle="Deseja EXCLUIR Agregado no Grupo anuncio?" (nzOnConfirm)="excliragregado(i)">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+                <nz-divider></nz-divider>
+            </div>
+
+        </nz-card>
+        <ng-template #extraTemplate1>
+            <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" nz-popconfirm nzPopconfirmTitle="Deseja Incluir Agregado no Grupo anuncio?" (nzOnConfirm)="novohistorico()">
+      <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Agregado anuncio</button>
+        </ng-template>
+        <ng-template #extraTemplate>
+            <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="onsave()">
+      <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Grupo anuncio</button>
+
+        </ng-template>
+
+    </nz-card>
+</div>
+<nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+</nz-skeleton>

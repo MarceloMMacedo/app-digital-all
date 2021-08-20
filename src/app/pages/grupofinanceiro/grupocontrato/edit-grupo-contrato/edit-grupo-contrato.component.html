@@ -1,0 +1,125 @@
+<nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <a [routerLink]="['/anuncioscontratos']" routerLinkActive="router-link-active">Lista de Grupo Contrato</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Editar Grupo Contrato</nz-breadcrumb-item>
+</nz-breadcrumb>
+<ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+    <nz-card nzTitle="Cadastro de Grupo Contrato" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
+                    <input type="text" [(ngModel)]="grupofinanceiro.nome" id="nome" name="nome" nz-input placeholder="nome" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group   ">
+                    <nz-form-label nzFor="nome" nzRequired>Banco</nz-form-label>
+
+                    <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch nzPlaceHolder="Select banco" [(ngModel)]="grupofinanceiro.banco.id">
+                        <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of bancos; let i=index"></nz-option>
+
+                    </nz-select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <nz-form-label nzFor="fantasia" nzRequired>Percentual Total</nz-form-label>
+                    <input nz-input type="text" id="fantasia" readonly [(ngModel)]="grupofinanceiro.percentualTotal" name="saldo" currencyMask />
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <nz-form-label nzFor="fantasia" nzRequired>A Receber</nz-form-label>
+                    <input nz-input type="text" id="fantasia" readonly [(ngModel)]="grupofinanceiro.totalReceber" name="saldo" currencyMask />
+
+                </div>
+            </div>
+        </div>
+
+        <nz-card nzTitle="Cadastro de Agregados Grupo Contrato" nzType="inner" [nzExtra]="extraTemplate1" *ngIf="isrealy">
+            <div *ngFor="let item of grupofinanceiro.agregados ; let i=index">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
+                            <input type="text" [(ngModel)]="item.nome" id="nome" name="nome" nz-input placeholder="nome" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group   ">
+                            <nz-form-label nzFor="nome" nzRequired>Centro de Custo</nz-form-label>
+                            <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch nzPlaceHolder="Select centro de custo" [(ngModel)]="item.centroCusto.id">
+                                <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of centrocustos; let i=index"></nz-option>
+                            </nz-select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <nz-form-label nzFor="fantasia" nzRequired>Percentual</nz-form-label>
+                            <input nz-input type="text" id="fantasia" [(ngModel)]="item.percentual" name="saldo" currencyMask />
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            <button style="margin-top: 40px;" class="btn btn-sm  mg-t-15 btn-danger btn-uppercase mg-l-5" nz-popconfirm nzPopconfirmTitle="Deseja EXCLUIR Agregado no Grupo Contrato?" (nzOnConfirm)="excliragregado(i)">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+                <nz-divider></nz-divider>
+            </div>
+
+        </nz-card>
+        <ng-template #extraTemplate1>
+            <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" nz-popconfirm nzPopconfirmTitle="Deseja Incluir Agregado no Grupo Contrato?" (nzOnConfirm)="novohistorico()">
+        <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Agregado Contrato</button>
+        </ng-template>
+        <ng-template #extraTemplate>
+            <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="onsave()">
+        <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Grupo Contrato</button>
+
+        </ng-template>
+
+        <nz-divider></nz-divider>
+        <h4>Faturas em Aberto</h4>
+        <table class="table align-middle table-nowrap table-check table-sm">
+            <thead>
+                <tr>
+                    <th class="wd-25p">id</th>
+                    <th class="wd-25p">Nome</th>
+                    <th class="wd-25p">Vencimento</th>
+                    <th class="wd-25p">Parcela</th>
+                    <th class="wd-25p">Valor</th>
+                    <th class="wd-25p">Origem</th>
+                    <th class="wd-20p">Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let a of grupofinanceiro.faturasAberta; let i=index">
+                    <td>{{i +1}} </td>
+                    <td>{{a.nome}} </td>
+                    <td>{{a.dataVencimento | date:"dd/MM/yy"}} </td>
+                    <td>{{a.numeroparcela}} </td>
+                    <td>{{a.valor|currency:'R$'}} </td>
+                    <td>{{a.origem}} </td>
+                    <td>
+                        <a> <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </nz-card>
+</div>
+<nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+</nz-skeleton>

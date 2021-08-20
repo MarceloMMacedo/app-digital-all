@@ -1,0 +1,27 @@
+@import url('../../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css');
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+#componentID {
+  /* hide the printing component from @media screen  */
+  display: none;
+}
+
+@media print {
+  /* invert the display (show/hide) properties of the main */
+  /* aplication component and the printing component       */
+  #componentID {
+      display: block;
+  }
+   .pagina {
+      display: none;
+  }
+  .appmainpage{
+      display: none;
+  }
+  header{
+      display: none;
+  }
+}
+

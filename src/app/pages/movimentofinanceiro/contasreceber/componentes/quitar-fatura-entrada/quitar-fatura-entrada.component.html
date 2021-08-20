@@ -1,0 +1,37 @@
+<div class="table-responsive" style="overflow-x:auto;  overflow-y:auto;">
+    <table class="table table-sm table-borderless fs--1 ">
+        <tbody>
+            <tr>
+                <th class="text-sm-end">Valor:</th>
+                <td>{{fatura.total +fatura.jurus +fatura.multa |currency:'R$' }} </td>
+            </tr>
+            <tr>
+                <th class="text-sm-end">Jurus:</th>
+                <td><input [(ngModel)]="fatura.jurus" nz-input currencyMask [options]="customIntMaskConfig"></td>
+            </tr>
+            <tr>
+                <th class="text-sm-end">Multas:</th>
+                <td><input [(ngModel)]="fatura.multa" nz-input currencyMask [options]="customIntMaskConfig"> </td>
+            </tr>
+            <tr>
+                <th class="text-sm-end">Data Quitação:</th>
+                <td>
+                    <nz-date-picker class="col-lg-12" [nzFormat]="dateFormat" [(ngModel)]="fatura.dataPagamento" id="fim" style="width: 120px;" placeholder="Fim"></nz-date-picker>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="text-sm-end">Banco/Caixa:</th>
+                <td>
+                    <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" [(ngModel)]='fatura.banco.id' nzShowSearch nzPlaceHolder="Select Banco">
+                        <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of bancos "></nz-option>
+                    </nz-select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr>
+<button nz-button nzType="primary" nz-popconfirm nzPopconfirmTitle="Deseja Quitar Fatura ?" (nzOnConfirm)="onBaixa()">
+    <span>Finalizar</span>
+  </button>

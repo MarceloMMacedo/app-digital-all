@@ -1,0 +1,166 @@
+<nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+  <nz-breadcrumb-item>
+    <a   [routerLink]="['/contaspagar/'+ return]" routerLinkActive="router-link-active" > Voltar</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>Contas a Pagar</a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+
+<div class=" container" style="margin-top: 30px; ">
+  <nz-card nzTitle="Contas a Pagar"  [nzExtra]="extraTemplate">
+    <div *ngIf="isrealy" style="margin-top: 30px; ">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome"> Nome </nz-form-label>
+                <label class="form-control">{{contaspagar.nome}}</label>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome"> Histórico </nz-form-label>
+                <label class="form-control">{{contaspagar.historico.nome}}</label>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome"> Fornecedor </nz-form-label>
+                <label class="form-control">{{contaspagar.fornecedor.nome}}</label>
+              </div>
+            </div>
+
+
+            <div class="col-lg-12">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome"> Grupo Financeiro </nz-form-label>
+                <label class="form-control">{{contaspagar.grupofinanceiro.nome}} </label>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Banco</nz-form-label>
+                <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;"
+                  [(ngModel)]='contaspagar.banco.id' nzShowSearch nzPlaceHolder="Select Banco">
+                  <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of bancos "></nz-option>
+                </nz-select>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <nz-form-label nzFor="nome">Centro de Custo</nz-form-label>
+              <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;"
+                [(ngModel)]='contaspagar.centroCusto.id' nzShowSearch nzPlaceHolder="Select Centro Custo">
+                <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of centrocustos "></nz-option>
+              </nz-select>
+            </div>
+
+
+
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Valor</nz-form-label>
+                <label type="text" class="form-control form-control-sm" nz-input nzSize="small">
+                  {{contaspagar.valor|currency:'R$'}} </label>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Jurus</nz-form-label>
+                <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask
+                  [options]="customMaskConfig" [(ngModel)]="contaspagar.jurus" id="valor" placeholder="Valor">
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Multa</nz-form-label>
+                <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask
+                  [options]="customMaskConfig" [(ngModel)]="contaspagar.multa" id="valor" placeholder="Valor">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Desconto</nz-form-label>
+                <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask
+                  [options]="customMaskConfig" [(ngModel)]="contaspagar.desconto" id="valor" placeholder="Valor">
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Total</nz-form-label>
+                <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask
+                  [options]="customMaskConfig" [(ngModel)]="contaspagar.total" id="valor" placeholder="Valor">
+              </div>
+            </div>
+
+
+            <div class="col-lg-6">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Parcela</nz-form-label>
+                <label class="form-control form-control-sm">{{contaspagar.numeroparcela}} </label>
+              </div>
+            </div>
+
+
+
+            <div class="col-lg-6">
+              <div class="form-group   ">
+                <nz-form-label nzFor="nome">Data Vencimento</nz-form-label>
+                <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="contaspagar.dataVencimento" id="vencimento"
+                  placeholder="Vencimento">
+                </nz-date-picker>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <div class="col-lg-6">
+
+          <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" style="margin: 10px;">
+            <button nz-button><i nz-icon nzType="upload"></i>Selecione Arquivo</button>
+
+          </nz-upload>
+          <button nz-button (click)="handleUpload()" [disabled]="fileList.length == 0"
+            style="margin-top: 16px;margin-bottom: 16px;margin: 10px">
+            {{ uploading ? 'Uploading' : 'Start Upload' }}
+          </button>
+          <form enctype="multipart/form-data">
+            <div class=" form-group ">
+              <div class="fileinput fileinput-new " data-provides="fileinput ">
+                <iframe [src]="targetUrl" height="600px" width="100%"></iframe>
+
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </nz-card>
+
+  <ng-template #extraTemplate>
+    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"  nz-popconfirm
+    nzPopconfirmTitle="Deseja Quitar Fatura?" (nzOnConfirm)="quitarftura()">
+      <i data-feather="plus" class="wd-10 mg-r-5"></i> Quitar Conta a Pagar</button>
+
+  </ng-template>
+
+  <nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+  </nz-skeleton>

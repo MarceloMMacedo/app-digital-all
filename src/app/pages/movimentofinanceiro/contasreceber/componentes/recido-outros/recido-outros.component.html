@@ -1,0 +1,121 @@
+<nz-card nzType="inner" style="margin-top:16px;" nzSize="small" nzTitle='Fatura Contrato' [nzExtra]="extraTemplate">
+    <div class="table-responsive" style="overflow-x:auto;  overflow-y:auto;">
+
+        <div id="componentID" class=" " style="font-size:90%;" *ngIf="isrealy">
+
+
+            <div nz-row style="font-size:90%;">
+                <div nz-col nzSpan="4"> <img [src]="empresa.imagemview" alt="" width="80"></div>
+                <div nz-col nzSpan="12">
+                    {{empresa.name}}
+                    <address>
+            <small>{{empresa.logradouro}}, Nº {{empresa.numero}} / </small>
+            <small>{{empresa.bairro}} - {{empresa.localidade}} </small><br />
+            <small> CEP:{{empresa.cep}} - {{empresa.telefone}} </small> <small> Email:{{empresa.email}} </small>
+          </address>
+                </div>
+            </div>
+            <hr />
+            <div style="background-color: black; color: white; height: 30px;">
+                <h3 style="  color: white; margin-right: 10px;;text-align: right; float: right">
+                    {{recibodto.valor|currency:'R$'}} </h3>
+                <h3 style=" color: white;margin-left: 10px;float: left"> Recibo</h3>
+            </div>
+            <div nz-row style=" margin-top: 15px; ">
+
+                <div nz-col nzSpan="16" style="font-size: 90%; text-align: justify;  border: 0px solid black;  border-radius: 10px 10px 10px 10px; padding: 5px;">
+                    {{recibodto.descricao}}
+                </div>
+                <div nz-col nzSpan="8" style="font-size: 90%; border: 0px solid black;  border-left: 1px  solid rgba(0, 0, 0, 0.411);;">
+                    <table class="table table-sm table-borderless fs--1 " style="font-size: 80%;">
+                        <tbody>
+                            <tr>
+                                <th class="text-sm-end">Fatura No:</th>
+                                <td>{{recibodto.id}} </td>
+                            </tr>
+                            <tr>
+                                <th class="text-sm-end">Vencimento:</th>
+                                <td>{{recibodto.data|date:'dd/MM/yyyy'}} </td>
+                            </tr>
+                            <tr>
+                                <th class="text-sm-end">Atividade:</th>
+                                <td>{{recibodto.atividade}} </td>
+                            </tr>
+                            <tr>
+                                <th class="text-sm-end">Setor:</th>
+                                <td>{{recibodto.setorentrega } </td>
+                            </tr>
+                            <!--<tr>
+                <th class="text-sm-end">Atrasos:</th>
+                <td>{{recibodto.acrecimosatraso|currency:'R$'}} </td>
+              </tr>
+            -->
+                            <tr>
+                                <th class="text-sm-end">Valor:</th>
+                                <td>{{recibodto.valor|currency:'R$'}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <table class="table table-sm  ">
+                <thead>
+                    <tr>
+                        <th>*</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unit.</th>
+                        <th>Sub Total</th>
+
+                        <th>valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of recibodto.itensrecibos;let i=index" align='center'>
+                        <td>{{i+1}} </td>
+                        <td>{{data.qtd}}</td>
+                        <td>{{data.descricao}}</td>
+                        <td>{{data.valorUnitarioqtd|currency:'R$'}}</td>
+                        <td>{{data.valortotalqtd|currency:'R$'}}</td>
+                </tbody>
+
+            </table>
+
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div style=" position: fixed;  left: 0;  bottom: 15px;  width: 100%;   ">
+                <p style="    margin-right: 10px;;text-align: right; float: right">
+                    {{empresa.localidade}} , {{data|date:'EEEE,d MMMM , y'}}
+                </p>
+                <br>
+                <p style=" margin-right: 10px;;text-align: right; float: right">
+                    _________________________________________________________
+                </p>
+            </div>
+
+            <div style=" position: fixed;  left: 0;  bottom: 0;  width: 100%; height: 20px;   background-color:black;  color: white;
+      text-align: center;"></div>
+        </div>
+
+
+
+
+        <div class="row" style="margin-left: 10px;">
+
+            <p style="  margin-top: 20px;;text-align: justify;  ">
+                {{recibodto.descricao}}
+            </p>
+        </div>
+
+
+    </div>
+    <ng-template #extraTemplate>
+        <button class="btn btn-link" printSectionId="componentID" printTitle="Recibo Contrato" ngxPrint [useExistingCss]="true"> Imprimir Recibo
+    </button>
+    </ng-template>

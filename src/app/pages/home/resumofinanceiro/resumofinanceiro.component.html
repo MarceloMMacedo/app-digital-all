@@ -1,0 +1,194 @@
+<nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item><a [routerLink]="['/']" routerLinkActive="router-link-active">Home</a> </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <a>Resumo Ativirades Financeiro</a>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+<ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+
+
+
+<div class="  container " style="margin-top: 20px;" *ngIf="isrealy">
+
+    <div class="form-group col-lg-4">
+        <nz-form-label nzFor="cep" nzRequired>Exercício</nz-form-label>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtoncep">
+            <nz-form-control nzErrorTip="Ano requerido">
+                <input type="text" [(ngModel)]="ano" id="cep" nz-input placeholder="Exercíco" />
+            </nz-form-control>
+        </nz-input-group>
+        <ng-template #suffixIconButtoncep>
+            <button nz-button nzType="primary" (click)="filterexercicio()"><i nz-icon nzType="search"></i></button>
+        </ng-template>
+    </div>
+    <hr />
+</div>
+
+<div class="container" *ngIf="isrealy">
+    <div style=" padding:30px;" class="row ">
+        <div class="col-lg-4">
+            <nz-card [nzBordered]="false" nzTitle="RESULTADOS ABERTOS" style="padding: 10px;">
+                <p>Entradas:{{resumoFuturos.valorEntrada | currency:'R$' }} </p>
+                <p>Saídas: {{resumoFuturos.valorSaida | currency:'R$' }} </p>
+                <p>Resultado: {{resumoFuturos.resultado | currency:'R$' }}</p>
+            </nz-card>
+        </div>
+        <div class="col-lg-4">
+            <nz-card [nzBordered]="false" nzTitle="RESULTADOS REALIZADOS" style="padding: 10px;">
+                <p>Entradas:{{resumoRealizados.valorEntrada | currency:'R$' }} </p>
+                <p>Saídas: {{resumoRealizados.valorSaida | currency:'R$' }} </p>
+                <p>Resultado: {{resumoRealizados.resultado | currency:'R$' }}</p>
+            </nz-card>
+        </div>
+        <div class="col-lg-4">
+            <nz-card [nzBordered]="false" nzTitle="RESULTADOS ACUMULADOS" style="padding: 10px;">
+                <p>Entradas:{{resumoFuturos.valorEntrada + resumoRealizados.valorEntrada | currency:'R$' }} </p>
+                <p>Saídas: {{resumoFuturos.valorSaida + resumoRealizados.valorSaida | currency:'R$' }} </p>
+                <p>Resultado: {{resumoFuturos.resultado + resumoRealizados.resultado | currency:'R$' }}</p>
+            </nz-card>
+        </div>
+    </div>
+
+    <nz-card nzType="inner" nzTitle="Lançamentos Futuros">
+        <nz-table #virtualTable [nzBordered]="true" [nzVirtualItemSize]="54" [nzData]="itemMonthReportFuturos" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ x:'1700px',y: '500px' }">
+            <thead>
+                <tr>
+                    <th width=10 nzLeft> </th>
+                    <th *ngFor="let item of itemMonthReportFuturos">{{item.mes}} </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th width=10 nzLeft>Entradas</th>
+                    <td>{{ itemMonthReportFuturos[0].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[01].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[2].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[3].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[4].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[5].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[6].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[7].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[8].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[9].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[10].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[11].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[12].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[13].entradas | currency:'R$' }}</td>
+
+                </tr>
+                <tr>
+                    <th width=10 nzLeft>Saídas</th>
+
+                    <td>{{ itemMonthReportFuturos[0].saidas| currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[01].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[2].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[3].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[4].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[5].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[6].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[7].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[8].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[9].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[10].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[11].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[12].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[13].saidas | currency:'R$' }}</td>
+
+                </tr>
+                <tr>
+                    <th width=10 nzLeft>Resultados</th>
+                    <td>{{ itemMonthReportFuturos[0].entradas -itemMonthReportFuturos[0].saidas| currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[01].entradas -itemMonthReportFuturos[01].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[2].entradas - itemMonthReportFuturos[02].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[3].entradas -itemMonthReportFuturos[ 3].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[4].entradas -itemMonthReportFuturos[ 4].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[5].entradas -itemMonthReportFuturos[ 5].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[6].entradas -itemMonthReportFuturos[ 6].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[7].entradas -itemMonthReportFuturos[ 7].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[8].entradas -itemMonthReportFuturos[ 8].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[9].entradas -itemMonthReportFuturos[ 9].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[10].entradas -itemMonthReportFuturos[10 ].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[11].entradas -itemMonthReportFuturos[11 ].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[12].entradas -itemMonthReportFuturos[12 ].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportFuturos[13].entradas - itemMonthReportFuturos[13].saidas | currency:'R$' }}</td>
+
+                </tr>
+            </tbody>
+        </nz-table>
+    </nz-card>
+
+
+    <nz-card nzType="inner" nzTitle="Lançamentos Realizados">
+        <nz-table #virtualTable [nzBordered]="true" *ngIf="isrealyrealizados" [nzVirtualItemSize]="54" [nzData]="itemMonthReportFuturos" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ x:'1700px',y: '500px' }">
+            <thead>
+                <tr>
+                    <th width=10 nzLeft> </th>
+                    <th *ngFor="let item of itemMonthReportRealizados">{{item.mes}} </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th nzLeft>Entradas</th>
+                    <td>{{ itemMonthReportRealizados[0].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[01].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[2].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[3].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[4].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[5].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[6].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[7].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[8].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[9].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[10].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[11].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[12].entradas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[13].entradas | currency:'R$' }}</td>
+
+                </tr>
+                <tr>
+                    <th nzLeft>Saídas</th>
+
+                    <td>{{ itemMonthReportRealizados[0].saidas| currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[01].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[2].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[3].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[4].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[5].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[6].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[7].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[8].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[9].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[10].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[11].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[12].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[13].saidas | currency:'R$' }}</td>
+
+                </tr>
+                <tr>
+                    <th width=10 nzLeft>Resultados</th>
+                    <td>{{ itemMonthReportRealizados[0].entradas -itemMonthReportRealizados[0].saidas| currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[01].entradas -itemMonthReportRealizados[01].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[2].entradas - itemMonthReportRealizados[02].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[3].entradas -itemMonthReportRealizados[ 3].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[4].entradas -itemMonthReportRealizados[ 4].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[5].entradas -itemMonthReportRealizados[ 5].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[6].entradas -itemMonthReportRealizados[ 6].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[7].entradas -itemMonthReportRealizados[ 7].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[8].entradas -itemMonthReportRealizados[ 8].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[9].entradas -itemMonthReportRealizados[ 9].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[10].entradas -itemMonthReportRealizados[10 ].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[11].entradas -itemMonthReportRealizados[11 ].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[12].entradas -itemMonthReportRealizados[12 ].saidas | currency:'R$' }}</td>
+                    <td>{{ itemMonthReportRealizados[13].entradas - itemMonthReportRealizados[13].saidas | currency:'R$' }}</td>
+
+                </tr>
+            </tbody>
+        </nz-table>
+    </nz-card>
+</div>
+<nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows:5 }" *ngIf="!isrealy">
+</nz-skeleton>

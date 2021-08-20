@@ -1,0 +1,35 @@
+<nz-card nzType="inner" style="margin-top:16px;" nzSize="small" nzTitle={{contaspagar.nome}} [nzExtra]="extraTemplate">
+  <div class="table-responsive" style="overflow-x:auto;  overflow-y:auto;">
+    <nz-table #basicTable [nzData]="contaspagar.faturasAberta" nzSize="small" [nzBordered]="true"
+      style="font-size: 90% ">
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th nzWidth="40%">Name</th>
+          <th nzWidth="40%">Fornecedor</th>
+          <th>Vencimento</th>
+          <th>Parcela</th>
+          <th>Valor</th>
+          <th>Quitar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data;let i=index">
+          <td>{{i+1}} </td>
+          <td>{{data.nome}}</td>
+          <td>{{data.fornecedor.nome}}</td>
+          <td>{{data.dataVencimento|date:'dd/MM/yyyy'}}</td>
+          <td>{{data.numeroparcela}}</td>
+          <td>{{data.valor|currency:'R$'}}</td>
+          <td> <a [routerLink]="['/contaspagar/quitar-fatura', 'contas-pagar-historico',data.id]"
+              routerLinkActive="router-link-active"><i nz-icon nzType="audit" nzTheme="outline"></i> </a> </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>
+<ng-template #extraTemplate>
+  <a>{{contaspagar.valor|currency:'R$'}} </a>
+</ng-template>
+
+

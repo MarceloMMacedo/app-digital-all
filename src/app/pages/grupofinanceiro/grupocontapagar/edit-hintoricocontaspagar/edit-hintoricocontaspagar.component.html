@@ -1,0 +1,31 @@
+<form class="form-horizontal auth-form" nz-form [formGroup]="validateFormHS" (ngSubmit)="submitForm()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group   ">
+                <nz-form-label nzFor="nome" nzRequired>Historico</nz-form-label>
+                <input nz-input [(ngModel)]="historico.nome" formControlName="nome">
+            </div>
+        </div>
+        <!--<div class="col-md-6">
+            <div class="form-group   ">
+                <nz-form-label nzFor="nome" nzRequired>Banco</nz-form-label>
+                <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" formControlName="banco" nzShowSearch nzPlaceHolder="Select banco" [(ngModel)]="historico.banco.id">
+                    <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of bancos; let i=index"></nz-option>
+
+                </nz-select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group   ">
+                <nz-form-label nzFor="nome" nzRequired>Centro de Custo</nz-form-label>
+
+                <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" formControlName="centrocusto" nzShowSearch nzPlaceHolder="Select centro de custo" [(ngModel)]="historico.centroCusto.id">
+                    <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of centrocustos; let i=index"></nz-option>
+
+                </nz-select>
+            </div>
+        </div>
+      -->
+
+    </div>
+</form>

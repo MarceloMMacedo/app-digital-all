@@ -1,0 +1,168 @@
+<div *ngIf="isready==true">
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <nz-form-label nzFor="nome" nzRequired>CNPJ</nz-form-label>
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                    <nz-form-control nzErrorTip="Cnpj requerido">
+                        <input type="text" [(ngModel)]="empresa.cnpj" id="cnpj" nz-input placeholder="Cnpj ou Cpf" mask="000.000.000-00||00.000.000/0000-00" />
+                    </nz-form-control>
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                    <button nz-button nzType="primary" nzSearch *ngIf="empresa.cnpj.length >=14" (click)="opdatecnpj()"><i nz-icon
+                nzType="search"></i></button>
+                </ng-template>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group">
+                <nz-form-label nzFor="fantasia" nzRequired>Fantasia</nz-form-label>
+                <nz-form-control nzErrorTip="Insira Nome Fantasia">
+                    <input nz-input type="text" id="fantasia" [(ngModel)]="empresa.fantasia" />
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <nz-form-label nzFor="empresa" nzRequired>Nome</nz-form-label>
+                <nz-form-control nzErrorTip="Insira nome da Empresa">
+                    <input nz-input type="text" id="empresa" [(ngModel)]="empresa.name" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-top: 5px;">
+            <div class="form-group">
+                <nz-form-label nzFor="descricao" nzRequired>Slogan</nz-form-label>
+                <nz-form-control nzErrorTip="Insira Slogan">
+                    <input nz-input type="text" id="descricao" [(ngModel)]="empresa.descricao" />
+                </nz-form-control>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <nz-form-label nzFor="cep" nzRequired>CEP</nz-form-label>
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtoncep">
+                    <nz-form-control nzErrorTip="CEP requerido">
+                        <input type="text" [(ngModel)]="empresa.cep" id="cep" nz-input placeholder="CEP" mask="00.000-000" />
+                    </nz-form-control>
+                </nz-input-group>
+                <ng-template #suffixIconButtoncep>
+                    <button nz-button nzType="primary" (click)="getendereco()"><i nz-icon nzType="search"></i></button>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <nz-form-label nzFor="bairro" nzRequired>Bairro</nz-form-label>
+                <nz-form-control nzErrorTip="Insira bairro">
+                    <input nz-input type="text" id="bairro" [(ngModel)]="empresa.bairro" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <nz-form-label nzFor="localidade" nzRequired>Cidade</nz-form-label>
+                <nz-form-control nzErrorTip="Insira localidade">
+                    <input nz-input type="text" id="localidade" [(ngModel)]="empresa.localidade" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <nz-form-label nzFor="uf" nzRequired>UF</nz-form-label>
+                <nz-form-control nzErrorTip="Insira uf">
+                    <input nz-input type="text" id="uf" [(ngModel)]="empresa.uf" />
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <nz-form-label nzFor="logradouro" nzRequired>Endereço</nz-form-label>
+                <nz-form-control nzErrorTip="Insira logradouro">
+                    <input nz-input type="text" id="logradouro" [(ngModel)]="empresa.logradouro" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <nz-form-label nzFor="numero" nzRequired>Número</nz-form-label>
+                <nz-form-control nzErrorTip="Insira Número">
+                    <input nz-input type="text" id="numero" [(ngModel)]="empresa.numero" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <nz-form-label nzFor="complemento" nzRequired>Complemento</nz-form-label>
+                <nz-form-control nzErrorTip="Insira complemento">
+                    <input nz-input type="text" id="complemento" [(ngModel)]="empresa.complemento" />
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <nz-form-label nzFor="telefone" nzRequired>Telefone</nz-form-label>
+                <nz-form-control nzErrorTip="Insira telefone">
+                    <input nz-input type="text" id="telefone" mask='(00)00000-0000' [(ngModel)]="empresa.telefone" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <nz-form-label nzFor="@Tag" nzRequired>#Tag</nz-form-label>
+                <nz-form-control nzErrorTip="Insira @Tag">
+                    <input nz-input type="text" id="@Tag" [(ngModel)]="empresa.instagram" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <nz-form-label nzFor="email" nzRequired>Email</nz-form-label>
+                <nz-form-control nzErrorTip="Insira email">
+                    <input nz-input type="text" id="email" [(ngModel)]="empresa.email" />
+                </nz-form-control>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <nz-form-label nzFor="site" nzRequired>Site</nz-form-label>
+                <nz-form-control nzErrorTip="Insira site">
+                    <input nz-input type="text" id="site" [(ngModel)]="empresa.site" />
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+</div>
+<!--descricao?: string,
+  site?: string,
+  instagram?: string,
+  telefone?: string,
+  streinstagramet?: string,
+  cep?:string,
+  logradouro?: string,
+  complemento?:string,
+  numero?: string,
+  uf?: string ,
+  ibge?: string,
+  gia?: string,
+  ddd?: string,
+  siafi?: string,
+  imagem?:string,
+  imagemview?: string,
+  email?: string ,
+  extension?: string,
+  fantasia?: string,-->

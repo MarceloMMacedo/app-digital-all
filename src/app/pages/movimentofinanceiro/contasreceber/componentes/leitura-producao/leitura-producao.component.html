@@ -1,0 +1,51 @@
+<div class="table-responsive" style="overflow-x:auto;  overflow-y:auto;">
+  <table class="table table-sm  ">
+    <thead>
+      <!--
+        dataLeitura?: Data,
+  valorContrato?: number,
+  medidorAnteriorA3?: number,
+  medidorAnteriorA4?: number,
+  medidorConvertidoA4?: number,
+  excedente?: number,
+  producao?: number,
+  valorExcedente?: number,
+  valorFinal?: number,
+  contrato?: SampleDto,
+  status?: string,
+      -->
+      <tr>
+        <th>*</th>
+        <th style="width: 30px;">Data Leitura</th>
+        <th>Medidor Ant.A3</th>
+        <th>Medidor Atual A3</th>
+        <th>Medidor Ant.A4</th>
+        <th>Medidor Atual A4</th>
+        <th>Produção A3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of fichaleituras;let i=index">
+        <td> {{i+1}}
+        <td> <label  *ngIf="data.status=== 'Quit' ">{{data.dataLeitura|date:'dd/MM/yyyy'}} </label>
+          <nz-date-picker class="col-lg-12" [nzFormat]="dateFormat" [(ngModel)]="data.dataLeitura" id="fim" style="width: 120px;"
+            placeholder="Fim"  *ngIf="data.status!='Quit'"></nz-date-picker>
+        </td>
+        <td>{{data.medidorAnteriorA3}}</td>
+        <td><label  *ngIf="data.status=='Quit'">{{data.medidores.medidorA3Final}}</label>
+          <input [(ngModel)]="data.medidores.medidorA3Final"  nz-input nzSize="small" currencyMask
+           [options]="customIntMaskConfig" *ngIf="data.status!='Quit'"  > </td>
+        <td> {{data.medidorAnteriorA4}}</td>
+        <td><label  *ngIf="data.status=='Quit'">{{data.medidores.medidorA4Final}}</label>
+          <input  style="width: 90px;" [(ngModel)]="data.medidores.medidorA4Final" nzSize="small" currencyMask  [options]="customIntMaskConfig" *ngIf="data.status!='Quit'"  >
+         </td>
+        <td>{{( data.medidores.medidorA3Final- data.medidorAnteriorA3 ) +
+          (data.medidores.medidorA4Final/2 - data.medidorAnteriorA4/2 )
+          }} </td>
+    </tbody>
+
+  </table>
+</div>
+<hr>
+<button nz-button [nzType]="'primary'" (click)="onValidar()"
+  style=" margin-right: 10px;;text-align: right; float: right"> Gravar </button>

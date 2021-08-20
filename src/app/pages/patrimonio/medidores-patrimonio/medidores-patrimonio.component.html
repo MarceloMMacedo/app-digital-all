@@ -1,0 +1,72 @@
+<div style="margin-top: 10px; padding:30px;">
+  <div class="row">
+    <div class="col-md-4">
+      <nz-card nzType="inner" nzTitle="Medidor Seviço">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <nz-form-label nzFor="pessoa" nzRequired>Medidor A3</nz-form-label>
+              <nz-form-control nzErrorTip="Insira nome da pessoa">
+                <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.medidorServico.medidorA3Final" />
+              </nz-form-control>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <nz-form-label nzFor="pessoa" nzRequired>MedidorA4</nz-form-label>
+              <nz-form-control nzErrorTip="Insira nome da pessoa">
+                <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.medidorServico.medidorA4Final" />
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+
+
+    <div class="col-md-4">
+      <nz-card nzType="inner" nzTitle="Medidor Contrato">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <nz-form-label nzFor="pessoa" nzRequired>Medidor A3</nz-form-label>
+              <nz-form-control nzErrorTip="Insira nome da pessoa">
+                <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.medidorContrato.medidorA3Final" />
+              </nz-form-control>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <nz-form-label nzFor="pessoa" nzRequired>MedidorA4</nz-form-label>
+              <nz-form-control nzErrorTip="Insira nome da pessoa">
+                <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.medidorContrato.medidorA4Final" />
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+    <div class="col-md-4">
+      <nz-card nzType="inner" nzTitle="Istalação Contrato">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <nz-form-label nzFor="pessoa" nzRequired>Medidor A3</nz-form-label>
+              <nz-form-control nzErrorTip="Insira nome da pessoa">
+                <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.medidoresInicial.medidorA3Final" />
+              </nz-form-control>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <nz-form-label nzFor="pessoa" nzRequired>MedidorA4</nz-form-label>
+              <nz-form-control nzErrorTip="Insira nome da pessoa">
+                <input nz-input type="text" id="pessoa" [(ngModel)]="patrimonio.medidoresInicial.medidorA4Final" />
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+</div>

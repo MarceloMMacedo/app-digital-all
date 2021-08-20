@@ -1,0 +1,221 @@
+<section class="pagina">
+  <nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/contratos']" routerLinkActive="router-link-active">Lista de Contratos</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Editar Contrato</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+
+    <div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+
+      <nz-card nzTitle="Cadastro de Contrato" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
+
+        <div class="row">
+          <div class="col-lg-6">
+
+            <div class="row">
+
+              <div class="form-group col-md-12 ">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Por faveo digite o nome do Contrato">
+                    <label for="inputAddress2">Nome Contrato</label>
+                    <input type="text" class="form-control form-control-sm" nz-input nzSize="small"
+                      [(ngModel)]="obj.nome" id="inputAddress2" placeholder="Contratos">
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-12">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Por favor selecione um cliente">
+                    <div class="form-group   ">
+                      <nz-form-label nzFor="nome" nzRequired>Cliente</nz-form-label>
+                      <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch
+                        nzPlaceHolder="Select Cliente" [(ngModel)]="obj.cliente.id">
+                        <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of clientes;
+                  let i=index"></nz-option>
+                      </nz-select>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-8">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Por favor Selecione um grupo financeiro Contrato">
+                    <div class="form-group   ">
+                      <nz-form-label nzFor="nome" nzRequired>Grupo Finenceiro Contrato</nz-form-label>
+                      <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" nzShowSearch
+                        nzPlaceHolder="Select Grupo Finenceiro Contrato" [(ngModel)]="obj.grupoFinanceiro.id">
+                        <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of grupoFinanceiro;
+                let i=index"></nz-option>
+                      </nz-select>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="periodo">Início</label>
+
+                <nz-date-picker [(ngModel)]="obj.dataInicio" id="Inicio" placeholder="Inicio" [nzFormat]="dateFormat">
+                </nz-date-picker>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="form-group col-md-4 ">
+                <label for="periodo">Período</label>
+                <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask
+                  [options]="customIntMaskConfig" [(ngModel)]="obj.periodo" id="periodo" placeholder="Período">
+
+              </div>
+
+
+              <div class="form-group col-md-4">
+                <label for="periodo">Dia Leitura</label>
+                <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask
+                  [options]="customIntMaskConfig" [(ngModel)]="obj.diaLeitura" id="periodo11"
+                  placeholder=">Dia Leitura">
+
+              </div>
+
+
+              <div class="form-group col-md-4">
+                <label for="periodo">Dia Vencimento</label>
+                <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask
+                  [options]="customIntMaskConfig" [(ngModel)]="obj.diaVencimento" id="periodo12"
+                  placeholder="Dia Vencimento">
+
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="form-group col-md-4 ">
+                <label for="periodo">Valor</label>
+                <input type="text" class="form-control form-control-sm  " nz-input readonly nzSize="small" currencyMask
+                  [options]="customCurrencyMaskConfig2" [(ngModel)]="obj.valorFinal" id="valorFinal"
+                  placeholder="valorFinal">
+
+              </div>
+              <div class="form-group col-md-4 ">
+                <label for="periodo">A Receber</label>
+                <input type="text" class="form-control form-control-sm  " nz-input readonly nzSize="small" currencyMask
+                  [options]="customCurrencyMaskConfig2" [(ngModel)]="obj.valorAberto" id="valorAberto"
+                  placeholder="valorAberto">
+
+              </div>
+              <div class="form-group col-md-4 ">
+                <label for="periodo">Recebido</label>
+                <input type="text" class="form-control form-control-sm   " readonly nzSize="small" currencyMask
+                  [options]="customCurrencyMaskConfig2" [(ngModel)]="obj.valorQuitado" id="valorQuitado"
+                  placeholder="valorQuitado">
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-6">
+            <nz-tabset>
+              <nz-tab nzTitle="Faturas Abertas">
+                <button style="margin-bottom: 10px;" class="btn btn-sm  mg-t-15 btn-danger btn-uppercase mg-l-5"
+                  nz-popconfirm nz-button nzPopconfirmTitle="Deseja regerar Faturas?" (nzOnConfirm)='regerar()'>Regerar
+                  Parcelas </button>
+
+                <app-faturas-contrato [id]='index' [faturas]='obj.faturaAberta' [descricao]="'Abertas'"
+                  (atualizar)='load()'></app-faturas-contrato>
+              </nz-tab>
+
+              <nz-tab nzTitle="Faturas Quitadas">
+                <app-faturas-contrato [id]='index' [faturas]='obj.faturaQuit' [descricao]="'Abertas'"
+                  (atualizar)='load()'></app-faturas-contrato>
+              </nz-tab>
+            </nz-tabset>
+          </div>
+        </div>
+
+        <button (click)="printcontrato()" style="margin-top: 0px;"
+          class="btn btn-sm  mg-t-15 btn-danger btn-uppercase mg-l-5">imprimir/capturar</button>
+
+      </nz-card>
+
+
+
+
+      <ng-template #extraTemplate>
+        <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="onsave()">
+          <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Contrato</button>
+      </ng-template>
+      <div>
+        <nz-tabset>
+          <nz-tab nzTitle="Equipamentos">
+            <nz-card nzTitle=" " nzType="inner" [nzExtra]="extraTemplateequipamento" *ngIf="isrealy">
+              <div *ngFor="let item of obj.itenspatrimonio; let i=index">
+                <div style="position: absolute; right: 0;">
+                  <button style="margin-top: 0px;" class="btn btn-sm  mg-t-15 btn-danger btn-uppercase mg-l-5"
+                    nz-popconfirm nzPopconfirmTitle="Deseja EXCLUIR Equipamento?"
+                    (nzOnConfirm)='removeitem(item.id,i)'>Excluir</button>
+                </div>
+                <h3><strong> Equipamento {{i+1}} </strong></h3>
+                <hr />
+
+
+                <app-equipamento-contrato (item)='setitem($event,i)' [itempatrimoniocontrato]='item'
+                  [patrimonios]='patrimonios'>
+                </app-equipamento-contrato>
+
+              </div>
+            </nz-card>
+          </nz-tab>
+          <nz-tab nzTitle="Peças e Consumíveis">
+            <nz-card nzTitle=" " nzType="inner" [nzExtra]="extraTemplatePecasConsumiveis" *ngIf="isrealy">
+              <div *ngFor="let item of obj.anuncioContratos; let i=index">
+                <div style="position: absolute; right: 0;">
+                  <button style="margin-top: 0px;" class="btn btn-sm  mg-t-15 btn-danger btn-uppercase mg-l-5"
+                    nz-popconfirm nzPopconfirmTitle="Deseja EXCLUIR Anúncio?"
+                    (nzOnConfirm)='removeanuncio(item.id,i)'>Excluir</button>
+                </div>
+                <h3><strong> Anuncio {{i+1}} </strong></h3>
+                <hr />
+
+                <app-pecas-consumiveis [gruposanuncio]='gruposanuncio' [produtos]='produtos' [unidades]='unidades'
+                  [anuncio]='item'></app-pecas-consumiveis>
+
+              </div>
+            </nz-card>
+          </nz-tab>
+        </nz-tabset>
+
+
+        <ng-template #extraTemplatePecasConsumiveis>
+          <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" nz-button nz-popconfirm
+            nzPopconfirmTitle="Deseja Incluir novo Anuncio de peças e consumível no contrato?"
+            (nzOnConfirm)="newanuncio()">
+            <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Anúncio</button>
+        </ng-template>
+        <ng-template #extraTemplateequipamento>
+          <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5 " nz-button nz-popconfirm
+            nzPopconfirmTitle="Deseja Incluir novo equipamento no contrato?" (nzOnConfirm)="additem()">
+            <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Equipamento</button>
+        </ng-template>
+        <div style="position: absolute; right: 0;">
+          <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="onsave()">
+            <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Contrato</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--
+     periodo;
+     ;
+
+  -->
+
+  <div *ngIf="isrealy">
+
+    <app-print-contrato id="componentID" [contrato]='obj' [periodo]='periodo' [valor]='valor' [dataforum]='dataforum'>
+    </app-print-contrato>
+  </div>
+  <nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+  </nz-skeleton>

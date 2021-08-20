@@ -1,0 +1,67 @@
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>Adicinar Parimônio</ng-template>
+
+  <ng-template #modalContent>
+    <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+
+      <div class="form-row">
+
+
+        <div class="form-group col-md-12 ">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor digite o motivo remoção do Patrimônio">
+              <label for="inputAddress2">Motivo remoção</label>
+              <input type="email" class="form-control" nz-input [(ngModel)]="remocao.motivoremocao"
+                id="inputAddress2" formControlName="motivo" placeholder="Motivo Remoção">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+          <div class="form-group col-md-12 ">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Por favor digite a data de remoção do Patrimônio">
+                <label for="inputAddress2">Data Remoção</label>
+                <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="remocao.dataremocao"
+                  formControlName="dataRemocao"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+
+          </div>
+
+          <div class="form-group col-md-12 ">
+            <nz-card nzType="inner" nzTitle="Medidor Seviço">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <nz-form-label nzFor="pessoa" nzRequired>Medidor A3</nz-form-label>
+                    <nz-form-control nzErrorTip="Insira Medidor A3">
+                      <input formControlName="a3" nz-input type="text" id="pessoa"
+                        [(ngModel)]="remocao.medidorRemocao.medidorA3Final" />
+                    </nz-form-control>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <nz-form-label nzFor="pessoa" nzRequired>MedidorA4</nz-form-label>
+                    <nz-form-control nzErrorTip="Insira Medidor A3">
+                      <input formControlName="a4" nz-input type="text" id="pessoa"
+                        [(ngModel)]="remocao.medidorRemocao.medidorA4Final" />
+                    </nz-form-control>
+                  </div>
+                </div>
+              </div>
+            </nz-card>
+          </div>
+      </div>
+
+
+    </form>
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+    <button nz-button nzType="primary" [disabled]="!validateForm.valid" (click)="handleOk()">Confirmar</button>
+  </ng-template>
+</nz-modal>

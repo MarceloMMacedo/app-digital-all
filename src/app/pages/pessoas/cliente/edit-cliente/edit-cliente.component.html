@@ -1,0 +1,56 @@
+<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+    <nz-card nzTitle="Cadastro de Clientes" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
+        <div class="" *ngIf="isrealy">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <nz-form-label nzFor="telefone" nzRequired>Email do Login</nz-form-label>
+                        <nz-form-control nzErrorTip="Insira Contato">
+                            <input nz-input type="text" id="telefone" [(ngModel)]="pessoa.email" />
+                        </nz-form-control>
+                    </div>
+                </div>
+            </div>
+            <app-dados-geral [pessoaedit]="pessoa" [controller]="controller"
+             (pessoaChange)="pessoaChange($event)">
+            </app-dados-geral>
+            <app-endereco-pessoa [endereco]="pessoa.endereco" [controller]="controller" (enderecoChange)="enderecoChange($event)"></app-endereco-pessoa>
+            <app-contato-pessoa [contato]="pessoa.contato"></app-contato-pessoa>
+            <nz-tabset>
+                <nz-tab nzTitle="Outros Endereços">
+                    <ng-template #extraTemplateEndereco>
+                        <button nz-popconfirm nzPopconfirmTitle="Deseja Incluir novo endereço de cliente?" class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (nzOnConfirm)="novoendereco()">
+                            <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Endereço</button>
+
+                    </ng-template>
+                    <nz-card nzType="inner" nzTitle="Cadastro de Clientes" [nzExtra]="extraTemplateEndereco">
+                        <nz-form-item *ngFor="let control of pessoa.enderecos; let i = index">
+                            <app-endereco-pessoa [endereco]="control" [controller]="controller" (enderecoChange)="enderecosChange($event,i )"></app-endereco-pessoa>
+                            <nz-divider></nz-divider>
+                        </nz-form-item>
+                    </nz-card>
+                </nz-tab>
+                <nz-tab nzTitle="Outros Contatos">
+                    <ng-template #extraTemplatecontato>
+                        <button nz-popconfirm nzPopconfirmTitle="Deseja Incluir novo contato de cliente?" class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (nzOnConfirm)="novocontato()">
+                            <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Contato</button>
+
+                    </ng-template>
+                    <nz-card nzType="inner" nzTitle="Cadastro de Contatos" [nzExtra]="extraTemplatecontato">
+                        <nz-form-item *ngFor="let control of pessoa.contatos; let i = index">
+                            <app-contato-pessoa [contato]="control"></app-contato-pessoa>
+                            <nz-divider></nz-divider>
+                        </nz-form-item>
+                    </nz-card>
+                </nz-tab>
+            </nz-tabset>
+
+        </div>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="onsave()">
+            <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Cliente</button>
+
+    </ng-template>
+
+    <nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy"></nz-skeleton>

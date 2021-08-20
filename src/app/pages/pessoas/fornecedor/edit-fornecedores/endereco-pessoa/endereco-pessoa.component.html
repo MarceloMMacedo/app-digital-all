@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <nz-form-label nzFor="cep" nzRequired>CEP</nz-form-label>
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtoncep">
+                <nz-form-control nzErrorTip="CEP requerido">
+                    <input type="text" [(ngModel)]="endereco.cep" id="cep" nz-input placeholder="CEP" mask="00.000-000" />
+                </nz-form-control>
+            </nz-input-group>
+            <ng-template #suffixIconButtoncep>
+                <button nz-button nzType="primary" (click)="getendereco()"><i nz-icon nzType="search"></i></button>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <nz-form-label nzFor="bairro" nzRequired>Bairro</nz-form-label>
+            <nz-form-control nzErrorTip="Insira bairro">
+                <input nz-input type="text" id="bairro" [(ngModel)]="endereco.bairro" />
+            </nz-form-control>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <nz-form-label nzFor="localidade" nzRequired>Cidade</nz-form-label>
+            <nz-form-control nzErrorTip="Insira localidade">
+                <input nz-input type="text" id="localidade" [(ngModel)]="endereco.localidade" />
+            </nz-form-control>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <nz-form-label nzFor="uf" nzRequired>UF</nz-form-label>
+            <nz-form-control nzErrorTip="Insira uf">
+                <input nz-input type="text" id="uf" [(ngModel)]="endereco.uf" />
+            </nz-form-control>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <nz-form-label nzFor="logradouro" nzRequired>Endereço</nz-form-label>
+            <nz-form-control nzErrorTip="Insira logradouro">
+                <input nz-input type="text" id="logradouro" [(ngModel)]="endereco.logradouro" />
+            </nz-form-control>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <nz-form-label nzFor="numero" nzRequired>Número</nz-form-label>
+            <nz-form-control nzErrorTip="Insira Número">
+                <input nz-input type="text" id="numero" [(ngModel)]="endereco.numero" />
+            </nz-form-control>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <nz-form-label nzFor="complemento" nzRequired>Complemento</nz-form-label>
+            <nz-form-control nzErrorTip="Insira complemento">
+                <input nz-input type="text" id="complemento" [(ngModel)]="endereco.complemento" />
+            </nz-form-control>
+        </div>
+    </div>
+</div>

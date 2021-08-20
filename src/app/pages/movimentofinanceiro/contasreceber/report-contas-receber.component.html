@@ -1,0 +1,90 @@
+<div class=" card  container " style="margin-top: 20px;" *ngIf="isrealy">
+  <div id="printcontainner">
+    <div class="form-group col-lg-4">
+      <nz-form-label nzFor="cep" nzRequired>Exercício</nz-form-label>
+      <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtoncep">
+        <nz-form-control nzErrorTip="Ano requerido">
+          <input type="text" [(ngModel)]="ano" id="ano" nz-input placeholder="Exercíco" />
+        </nz-form-control>
+      </nz-input-group>
+      <ng-template #suffixIconButtoncep>
+        <button nz-button nzType="primary" (click)="filterexercicio()"><i nz-icon nzType="search"></i></button>
+      </ng-template>
+    </div>
+    <hr />
+
+    <div class="container" *ngIf="isrealy">
+      <nz-card nzTitle="Contas a Receber" nzType="inner" [nzExtra]="extraTemplate">
+        <div *ngIf="isrealy" style="margin-top: 30px; ">
+          <div class="row container">
+            <div class="col-lg-4  mb-4 mt-4 shadow h-100 py-2">
+              <nb-card accent="info">
+                <nb-card-header>Contrato</nb-card-header>
+                <nb-card-body>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{resumo.totalresumocontratos|currency:'R$'}}
+                  </div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+
+            <div class="col-lg-4  mb-4 mt-4 shadow h-100 py-2">
+              <nb-card accent="info">
+                <nb-card-header>Serviços</nb-card-header>
+                <nb-card-body>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{resumo.totalresumoservicos|currency:'R$'}}</div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+            <div class="col-lg-4  mb-4 mt-4 shadow h-100 py-2">
+              <nb-card accent="info">
+                <nb-card-header>Vendas</nb-card-header>
+                <nb-card-body>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{resumo.totalresumovendas|currency:'R$'}}</div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class="chart-area">
+              <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+    <ng-template #extraTemplate>
+
+      <a nz-dropdown [nzDropdownMenu]="menu">
+        Opções
+        <i nz-icon nzType="down"></i>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item>
+            <button nz-button nzSize='small' nzType="link" [routerLink]="['/contasreceber/contas-receber-periodo']"
+              routerLinkActive="router-link-active">
+              <i nz-icon nzType="diff" nzTheme="outline"></i> Contas receber por período</button>
+          </li>
+          <li nz-menu-item>
+            <button nz-button nzSize='small' nzType="link" [routerLink]="['/contasreceber/contas-receber-cliente']"
+              routerLinkActive="router-link-active">
+              <i nz-icon nzType="diff" nzTheme="outline"></i> Contas pagar por cliente</button>
+          </li>
+
+
+
+        </ul>
+      </nz-dropdown-menu>
+
+
+    </ng-template>
+
+  </div>
+</div>

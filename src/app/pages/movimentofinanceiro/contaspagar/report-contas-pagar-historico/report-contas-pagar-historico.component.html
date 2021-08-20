@@ -1,0 +1,35 @@
+<div class=" container">
+
+  <nz-card nzType="inner" style="margin-top:16px;" nzSize="small" nzTitle={{contaspagar.nome}}
+    [nzExtra]="extraTemplate">
+
+      <table class="table table-sm"   >
+        <thead>
+          <tr  style="font-size: 70%;; padding: 0px;">
+            <th>Index</th>
+            <th nzWidth="40%">Name</th>
+            <th nzWidth="40%">Fornecedor</th>
+            <th>Vencimento</th>
+            <th>Parcela</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of contaspagar.faturasAberta;let i=index"  style="font-size: 70%;; padding: 0px;">
+            <td>{{i+1}} </td>
+            <td>{{data.nome}}</td>
+            <td>{{data.fornecedor.nome}}</td>
+            <td>{{data.dataVencimento|date:'dd/MM/yyyy'}}</td>
+            <td>{{data.numeroparcela}}</td>
+            <td>{{data.valor|currency:'R$'}}</td>
+
+        </tbody>
+      </table>
+
+  </nz-card>
+  <ng-template #extraTemplate>
+    <a>{{contaspagar.valor|currency:'R$'}} </a>
+  </ng-template>
+
+
+</div>

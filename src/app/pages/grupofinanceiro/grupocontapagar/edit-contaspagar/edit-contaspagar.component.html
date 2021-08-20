@@ -1,0 +1,117 @@
+<nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <a [routerLink]="['/grupocontaspagar']" routerLinkActive="router-link-active">Lista de Grupo Contas a Pagar</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Editar Grupo Contas a Pagar</nz-breadcrumb-item>
+</nz-breadcrumb>
+<ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+    <nz-card nzTitle="Cadastro de  Grupo Contas a Pagar" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
+                    <input type="text" [(ngModel)]="grupofinanceiro.nome" id="nome" name="nome" nz-input placeholder="nome" />
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <nz-form-label nzFor="fantasia" nzRequired>A Pagar</nz-form-label>
+                    <input nz-input type="text" id="fantasia" readonly [(ngModel)]="grupofinanceiro.saidasFuturo" name="saldo" currencyMask />
+
+                </div>
+            </div>
+        </div>
+
+        <nz-card nzTitle="Cadastro de Históricos" nzType="inner" [nzExtra]="extraTemplate1" *ngIf="isrealy">
+
+
+
+            <table class="table align-middle table-nowrap table-check table-sm">
+                <thead>
+                    <tr>
+                        <th class="wd-25p">id</th>
+                        <th class="wd-25p">Nome</th>
+                        <!--<th class="wd-25p">Banco</th>
+                        <th class="wd-25p">Centro Custo</th>
+                        -->
+                        <th class="wd-20p">Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let a of grupofinanceiro.historicos; let i=index">
+                        <td>{{i +1}} </td>
+                        <td>{{a.nome}} </td>
+                     <!--  <td>{{a.banco.nome}} </td>
+                        <td>{{a.centroCusto.nome}} </td>
+                    -->
+                        <td>
+                            <a (click)="edithistorico(a)"> <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </nz-card>
+        <ng-template #extraTemplate1>
+            <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="novohistorico()">
+          <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Histórico</button>
+        </ng-template>
+
+        <nz-divider></nz-divider>
+        <h4>Faturas em Aberto</h4>
+        <table class="table align-middle table-nowrap table-check table-sm">
+            <thead>
+                <tr>
+                    <th class="wd-25p">id</th>
+                    <th class="wd-25p">Nome</th>
+                    <th class="wd-25p">Vencimento</th>
+                    <th class="wd-25p">Parcela</th>
+                    <th class="wd-25p">Valor</th>
+                    <th class="wd-25p">Origem</th>
+                    <th class="wd-20p">Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let a of grupofinanceiro.faturasAberta; let i=index">
+                    <td>{{i +1}} </td>
+                    <td>{{a.nome}} </td>
+                    <td>{{a.dataVencimento | date:"dd/MM/yy"}} </td>
+                    <td>{{a.numeroparcela}} </td>
+                    <td>{{a.valor|currency:'R$'}} </td>
+                    <td>{{a.origem}} </td>
+                    <td>
+                        <a> <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </nz-card>
+</div>
+<ng-template #extraTemplate>
+    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="onsave()">
+  <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar  Grupo Contas a Pagar</button>
+
+</ng-template>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Cadastro Histórico" (nzOnCancel)="handleCancel()">
+    <div *nzModalContent>
+        <app-edit-hintoricocontaspagar [historico]="historico" (onsave)='onsave()'></app-edit-hintoricocontaspagar>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" nz-popconfirm nzPopconfirmTitle="Deseja Salvar Histórico?" (nzOnConfirm)="handleOk()"><i nz-icon nzType="save" nzTheme="outline"></i>
+  Salvar</button>
+    </div>
+</nz-modal>
+<nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+</nz-skeleton>
