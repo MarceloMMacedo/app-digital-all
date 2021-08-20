@@ -75,6 +75,7 @@ import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const ngzorroModules = [
+  NzPopconfirmModule,
   NzAffixModule,
   NzAlertModule,
   NzAnchorModule,
@@ -114,7 +115,6 @@ const ngzorroModules = [
   NzNotificationModule,
   NzPageHeaderModule,
   NzPaginationModule,
-  NzPopconfirmModule,
   NzPopoverModule,
   NzProgressModule,
   NzRadioModule,
@@ -148,7 +148,6 @@ const ngzorroModules = [
   NzCardModule,
   NzIconModule,
   NzButtonModule,
-  NzPopconfirmModule,
   NzUploadModule,
   NzInputModule,
   NzSelectModule,

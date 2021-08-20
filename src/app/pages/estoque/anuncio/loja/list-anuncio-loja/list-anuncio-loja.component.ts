@@ -37,7 +37,9 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
   }
 
   ngOnInit(): void {
+
     super.getLista();
+    this.inicio();
     this.servicegeral.getAllsampledto('produtos')
       .then(
         (rest) => {
@@ -56,7 +58,16 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
 
     console.log(this.controller);
 
+  }
+  inicio(){
 
+    this.subject.pipe(
+      debounceTime(1000)
+    ).subscribe(searchTextValue => {
+      console.log(searchTextValue);
+      this.getLista();
+      ;
+    });
 
   }
   onChange(value: { id: number, nome: string }): void {

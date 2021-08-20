@@ -1,3 +1,4 @@
+import { CurrencyMaskInputMode } from 'ngx-currency';
 import { AnuncioDto } from './../../../../models/anuncio-dto';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { ItemProdutoAnuncio } from './../../../../models/item-produto-anuncio';
@@ -25,7 +26,7 @@ export class BaseAnuncioProduto  implements OnInit {
   fileList: NzUploadFile[] = [];
   grupofinanceiros: SampleDto[];
   produtos: SimpleProdutoDto[];
-
+  isVisible:false;
   modalService: NzModalService;
   router: Router;
   isreadonly: boolean = false;
@@ -39,15 +40,47 @@ export class BaseAnuncioProduto  implements OnInit {
   index;
   isrealy;
 
+  fb: FormBuilder
+  customIntMaskConfig = {
+    align: "right",
+    allowNegative: true,
+    allowZero: true,
+    decimal: ",",
+    precision: 0,
+    prefix: "",
+    suffix: "",
+    thousands: ".",
+    nullable: true,
+    min: 0,
+    max: null,
+    inputMode: CurrencyMaskInputMode.FINANCIAL
+  };
+
+
+  customCurrencyMaskConfig = {
+    align: "right",
+    allowNegative: true,
+    allowZero: true,
+    decimal: ",",
+    precision: 6,
+    prefix: "R$",
+    suffix: "",
+    thousands: ".",
+    nullable: true,
+    min: 0,
+    max: null,
+    inputMode: CurrencyMaskInputMode.FINANCIAL
+  };
   constructor(
     _router: Router,
-    private fb: FormBuilder,
+      _fb: FormBuilder,
     _servicegeral: SeviceGeralService,
     _controller: String,
     _activatedRoute: ActivatedRoute,
     _utilservice:UtilsService
     ) {
     this.router = _router;
+   this.fb=_fb;
     this.servicegeral = _servicegeral;
     this.controller = _controller
     this.obj = _servicegeral._obj;
@@ -100,7 +133,7 @@ export class BaseAnuncioProduto  implements OnInit {
     });
   }
   async load() {
-    this.servicegeral.fingbyid(this.controller, this.index)
+    this.servicegeral.getAny(`${this.controller}/${this.index}` )
       .then(
         (response) => {
           this.isrealy = true;
@@ -194,7 +227,9 @@ export class BaseAnuncioProduto  implements OnInit {
     this.obj.itensProduto.push(descricao);
   }
   excluirproduto(id): void {
-    this.modalService.confirm({
+    console.log(id);
+    this.obj.itensProduto.splice(id, 1);
+    /*this.modalService.confirm({
       nzTitle: 'Confirm',
       nzContent: 'Deseja excluir produto',
       nzOkText: 'OK',
@@ -203,6 +238,7 @@ export class BaseAnuncioProduto  implements OnInit {
         this.obj.itensProduto.splice(id, 1);
       }
     })
+    */
   }
   selectproduto(item, i) {
     let p = this.produtos.filter(el => el.id == item);
@@ -232,6 +268,8 @@ export class BaseAnuncioProduto  implements OnInit {
   cloneWeb(){
 
         let anuncioclone:AnuncioDto=this.obj;
+        console.log((anuncioclone));
+
         anuncioclone.id=null;
         this.servicegeral.newobj('anuncioweb',anuncioclone)
         .then(
