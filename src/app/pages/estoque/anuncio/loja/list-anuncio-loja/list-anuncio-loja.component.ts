@@ -1,5 +1,5 @@
+import { AnuncioDto } from './../../../../../../models/anuncio-dto';
 import { debounceTime } from 'rxjs/operators';
-import { AnuncioLoja } from './../../../../../../models/estoque/anuncio-loja';
 import { ItemProdutoAnuncio } from './../../../../../../models/item-produto-anuncio';
 import { SampleDto } from './../../../../../../models/sample-dto';
 import { SeviceGeralService } from './../../../../../../services/sevice-geral.service';
@@ -37,6 +37,7 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
   }
 
   ngOnInit(): void {
+    super.getLista();
     this.servicegeral.getAllsampledto('produtos')
       .then(
         (rest) => {
@@ -54,14 +55,7 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
     });
 
     console.log(this.controller);
-    this.getLista();
-    this.subject.pipe(
-      debounceTime(1000)
-    ).subscribe(searchTextValue => {
-      console.log(searchTextValue);
-      this.getLista();
-      ;
-    });
+
 
 
   }
@@ -76,7 +70,7 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
       nzOkText: 'OK',
       nzCancelText: 'Cancel',
       nzOnOk: () => {
-        this.obj = {} as AnuncioLoja;
+        this.obj = {} as AnuncioDto;
         this.obj.itensProduto = []
         let it: ItemProdutoAnuncio = {} as ItemProdutoAnuncio;
         it.produto = {} as SampleDto;

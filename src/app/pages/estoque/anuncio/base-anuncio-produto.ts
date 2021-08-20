@@ -1,6 +1,7 @@
+import { AnuncioDto } from './../../../../models/anuncio-dto';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { ItemProdutoAnuncio } from './../../../../models/item-produto-anuncio';
 import { DescricaoAnuncio } from './../../../../models/estoque/descricao-anuncio';
-import { AnuncioLoja } from './../../../../models/estoque/anuncio-loja';
 import { SimpleProdutoDto } from './../../../../models/estoque/simple-produto-dto';
 import { SampleDto } from './../../../../models/sample-dto';
 import { EditGeneric } from './../../genericclasses/edit-generic';
@@ -15,25 +16,59 @@ import { SeviceGeralService } from 'src/services/sevice-geral.service';
 @Component({
   template: ''
 })
-export class BaseAnuncioProduto extends EditGeneric  implements OnInit {
+export class BaseAnuncioProduto  implements OnInit {
 
   validateForm!: FormGroup;
   isload: boolean = false;
   anuncios : any;
-
+  uploading = false;
+  fileList: NzUploadFile[] = [];
   grupofinanceiros: SampleDto[];
   produtos: SimpleProdutoDto[];
+
+  modalService: NzModalService;
+  router: Router;
+  isreadonly: boolean = false;
+  nzMessage: NzMessageServiceModule;
+  activatedRoute: ActivatedRoute;
+  servicegeral: SeviceGeralService;
+  utilservice:UtilsService;
+  time: any;
+  obj: AnuncioDto;
+  controller;
+  index;
+  isrealy;
+
   constructor(
-    public activatedRoute: ActivatedRoute,
-    public router: Router,
-    public servicegeral: SeviceGeralService,
-    public utilservice: UtilsService,
-    public message: NzMessageService,
-    private modalService1: NzModalService,private fb: FormBuilder,
-  ) {
-    super(router, servicegeral, 'patrimonios', activatedRoute, utilservice);
+    _router: Router,
+    private fb: FormBuilder,
+    _servicegeral: SeviceGeralService,
+    _controller: String,
+    _activatedRoute: ActivatedRoute,
+    _utilservice:UtilsService
+    ) {
+    this.router = _router;
+    this.servicegeral = _servicegeral;
+    this.controller = _controller
+    this.obj = _servicegeral._obj;
+    this.activatedRoute=_activatedRoute;
+    this.utilservice=_utilservice;
   }
+
   ngOnInit(): void {
+
+    this.index = this.activatedRoute.snapshot.paramMap.get('id');
+    let i = 1;
+     this.load();
+    this.time = setInterval(async () => {
+     // console.log(i++);
+      this.isrealy = false;
+      try {
+      await  this.load();
+      } catch (error) {
+
+      }
+    }, 500);
     this.servicegeral.getAllsampledto('grupofinanceiroanuncio')
       .then(
         rest => {
@@ -63,8 +98,81 @@ export class BaseAnuncioProduto extends EditGeneric  implements OnInit {
       nome: [null, [Validators.required]],
       remember: [true]
     });
-    super.ngOnInit();
   }
+  async load() {
+    this.servicegeral.fingbyid(this.controller, this.index)
+      .then(
+        (response) => {
+          this.isrealy = true;
+          this.obj = response;
+          console.log(this.obj);
+
+          if (this.time) {
+            clearInterval(this.time);
+          }
+
+          this.isrealy = true;
+
+        },
+        (error) => { }
+      );
+
+  }
+
+  /* Handle form errors in Angular 8 */
+  public errorHandling = (control: string, error: string) => {
+    return this.validateForm.controls[control].hasError(error);
+  }
+
+  onsave(): void {
+    //console.log(this.obj);
+ {
+      this.servicegeral.saveobj(this.controller, this.obj, this.index)
+        .then(
+          rest => {
+
+            this.servicegeral.createNotification('success', 'Dados salvo com sucesso!', 'Sucesso');
+           /* this.servicegeral.fingbyid(this.controller, this.index)
+              .then(
+                (response) => {
+                  this.obj = response;
+                  //console.log(response);
+
+                  this.isrealy = true;
+
+                },
+                (error) => { }
+              );*/
+              this.load();
+          }
+        )
+    }
+
+  }
+  handleOk(): void {
+    this.onsave();
+
+
+  }
+
+  handleCancel(): void {
+  }
+
+
+  ngOnDestroy(): void {
+
+    if (this.time) {
+      clearInterval(this.time);
+    }
+  }
+
+  submitForm(): void {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+  }
+
   adddescricao() {
     let descricao: DescricaoAnuncio = {} as DescricaoAnuncio;
     this.obj.descricoes.push(descricao);
@@ -123,14 +231,40 @@ export class BaseAnuncioProduto extends EditGeneric  implements OnInit {
   }
   cloneWeb(){
 
-        let anuncioclone:AnuncioLoja=this.obj;
+        let anuncioclone:AnuncioDto=this.obj;
         anuncioclone.id=null;
         this.servicegeral.newobj('anuncioweb',anuncioclone)
         .then(
           rest=>this.utilservice.createNotification('success','Sucesso','Novo anuncio criado com sucesso')
         )
 
+  }
+  beforeUpload = (file: NzUploadFile): boolean => {
+    this.fileList = this.fileList.concat(file);
+    return false;
+  };
+  handleUpload(): void {
 
+    let formData = new FormData();
+    // tslint:disable-next-line:no-any
+    //console.log(this.fileList);
 
+    this.fileList.forEach((file: any) => {
+      formData.append('file', file);
+      //console.log(formData);
+
+    });
+    this.servicegeral.uploadfile(this.controller, this.obj.id, formData)
+      .then(
+
+        (rest) => {
+          //console.log(rest);
+          this.obj.imagemView = rest;//this.sanitizer.bypassSecurityTrustResourceUrl(this.produto.imagemView);
+          this.uploading = false;
+          this.fileList = [];
+
+        }
+      )
+    this.uploading = true;
   }
 }
