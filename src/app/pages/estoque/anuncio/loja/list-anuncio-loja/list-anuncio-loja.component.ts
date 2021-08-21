@@ -23,7 +23,9 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
   controller = 'anunciosloja';
   validateForm!: FormGroup;
   produtos: SampleDto[];
-  nome;
+  grupofinanceiros: SampleDto[];
+  grupofinanceiro: SampleDto;
+    nome;
   produto: SampleDto;
   constructor(
     public modalService: NzModalService,
@@ -40,18 +42,24 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
 
     super.getLista();
     this.inicio();
+    this.servicegeral.getAllsampledto('grupofinanceiroanuncio')
+    .then(
+      rest => {
+        this.grupofinanceiros = rest;
+        console.log(rest);
+      }
+    )
     this.servicegeral.getAllsampledto('produtos')
       .then(
         (rest) => {
           this.produtos = rest;
           console.log(rest);
-
         }
       );
     this.validateForm = this.fb.group({
       produto: [null, [Validators.required]],
       nome: [null, [Validators.required]],
-      //   categoria: [null, [Validators.required]],
+        categoria: [null, [Validators.required]],
       //   unidade: [null, [Validators.required]],
       remember: [true]
     });
@@ -90,13 +98,16 @@ export class ListAnuncioLojaComponent extends ListGenericClass implements OnInit
         it.quantidade = 1;
         this.obj.itensProduto.push(it);
         this.obj.nome = this.nome;
+        this.obj.grupopreco=this.grupofinanceiro;
         console.log(this.obj);
 
         this.servicegeral.newobj(this.controller, this.obj).then(
           (rest) =>
-            this.router.navigate(['digital/list-anuncio-loja/', rest.body])
+            this.router.navigate(['estoque/anuncios/anunciosloja/', rest.body])
         )
       }
     })
   }
+
+
 }

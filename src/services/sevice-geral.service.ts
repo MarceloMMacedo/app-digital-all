@@ -102,7 +102,7 @@ _obj:any;
   }
   */
   uploadfile(controller,id,formData: FormData): Promise<any>  {
-    return this.hhtp.post(`${API_CONFIG.baseUrl}/${controller}/${id}/uploadfile`, formData, { observe: 'response', responseType: 'text', reportProgress: true })
+    return this.hhtp.post(`${API_CONFIG.baseUrl}/${controller}/${id}/uploadfile`, formData, { observe: 'response', responseType: 'text' })
       .toPromise() ;
   }
   //Empresa

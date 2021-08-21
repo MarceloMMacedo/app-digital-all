@@ -1,3 +1,4 @@
+import { ContratoDto } from './../../../../models/contrato-dto';
 import { CurrencyMaskInputMode } from 'ngx-currency';
 import { AnuncioDto } from './../../../../models/anuncio-dto';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
@@ -17,23 +18,23 @@ import { SeviceGeralService } from 'src/services/sevice-geral.service';
 @Component({
   template: ''
 })
-export class BaseAnuncioProduto  implements OnInit {
+export class BaseAnuncioProduto implements OnInit {
 
   validateForm!: FormGroup;
   isload: boolean = false;
-  anuncios : any;
+  anuncios: any;
   uploading = false;
   fileList: NzUploadFile[] = [];
   grupofinanceiros: SampleDto[];
   produtos: SimpleProdutoDto[];
-  isVisible:false;
+  isVisible = false;
   modalService: NzModalService;
   router: Router;
   isreadonly: boolean = false;
   nzMessage: NzMessageServiceModule;
   activatedRoute: ActivatedRoute;
   servicegeral: SeviceGeralService;
-  utilservice:UtilsService;
+  utilservice: UtilsService;
   time: any;
   obj: AnuncioDto;
   controller;
@@ -73,31 +74,32 @@ export class BaseAnuncioProduto  implements OnInit {
   };
   constructor(
     _router: Router,
-      _fb: FormBuilder,
+    _fb: FormBuilder,
     _servicegeral: SeviceGeralService,
     _controller: String,
     _activatedRoute: ActivatedRoute,
-    _utilservice:UtilsService
-    ) {
+    _utilservice: UtilsService
+  ) {
     this.router = _router;
-   this.fb=_fb;
+    this.fb = _fb;
     this.servicegeral = _servicegeral;
     this.controller = _controller
     this.obj = _servicegeral._obj;
-    this.activatedRoute=_activatedRoute;
-    this.utilservice=_utilservice;
+    this.activatedRoute = _activatedRoute;
+    this.utilservice = _utilservice;
   }
 
   ngOnInit(): void {
 
     this.index = this.activatedRoute.snapshot.paramMap.get('id');
     let i = 1;
-     this.load();
+    this.load();
     this.time = setInterval(async () => {
-     // console.log(i++);
-      this.isrealy = false;
+      // console.log(i++);
+
       try {
-      await  this.load();
+        await this.load();
+
       } catch (error) {
 
       }
@@ -121,19 +123,17 @@ export class BaseAnuncioProduto  implements OnInit {
     this.servicegeral.fingbyid(this.controller, this.index)
       .then(
         (response) => {
-          this.anuncios  = response;
+          this.anuncios = response;
           this.isload = true;
         },
         (error) => { }
       );
     this.validateForm = this.fb.group({
-      produto: [null, [Validators.required]],
-      nome: [null, [Validators.required]],
-      remember: [true]
+      grupo: [null, [Validators.required]],
     });
   }
   async load() {
-    this.servicegeral.getAny(`${this.controller}/${this.index}` )
+    this.servicegeral.getAny(`${this.controller}/anuncio/${this.index}`)
       .then(
         (response) => {
           this.isrealy = true;
@@ -159,36 +159,45 @@ export class BaseAnuncioProduto  implements OnInit {
 
   onsave(): void {
     //console.log(this.obj);
- {
+    var valida=true;
+    if(this.obj.grupopreco.id==null){
+      valida=false;
+    }
+    if(valida){
+    {
       this.servicegeral.saveobj(this.controller, this.obj, this.index)
         .then(
           rest => {
 
             this.servicegeral.createNotification('success', 'Dados salvo com sucesso!', 'Sucesso');
-           /* this.servicegeral.fingbyid(this.controller, this.index)
-              .then(
-                (response) => {
-                  this.obj = response;
-                  //console.log(response);
+            /* this.servicegeral.fingbyid(this.controller, this.index)
+               .then(
+                 (response) => {
+                   this.obj = response;
+                   //console.log(response);
 
-                  this.isrealy = true;
+                   this.isrealy = true;
 
-                },
-                (error) => { }
-              );*/
-              this.load();
+                 },
+                 (error) => { }
+               );*/
+            this.load();
           }
         )
     }
-
+  }else{
+    this.servicegeral.createNotification('error','Selecine um grupo de Preço','Alerta');
+  }
   }
   handleOk(): void {
     this.onsave();
-
+    this.isVisible = false;
 
   }
 
   handleCancel(): void {
+
+    this.isVisible = false;
   }
 
 
@@ -223,7 +232,7 @@ export class BaseAnuncioProduto  implements OnInit {
   }
   addproduto() {
     let descricao: ItemProdutoAnuncio = {} as ItemProdutoAnuncio;
-    descricao.produto={};
+    descricao.produto = {};
     this.obj.itensProduto.push(descricao);
   }
   excluirproduto(id): void {
@@ -243,13 +252,14 @@ export class BaseAnuncioProduto  implements OnInit {
   selectproduto(item, i) {
     let p = this.produtos.filter(el => el.id == item);
     console.log(p[0]);
-    this.obj.itensProduto[i].valor=p[0].valor;
+    this.obj.itensProduto[i].valor = p[0].valor;
     this.obj.itensProduto[i].produto = p[0];
-    this.obj.itensProduto[i].subtotal=p[0].valor * this.obj.itensProduto[i].quantidade;
+    this.obj.itensProduto[i].subtotal = p[0].valor * this.obj.itensProduto[i].quantidade;
 
   }
 
   save() {
+    this.obj.id= this.index;
     this.servicegeral.saveobj(this.controller, this.obj, this.index)
       .then(
         (response) => {
@@ -265,17 +275,22 @@ export class BaseAnuncioProduto  implements OnInit {
         (error) => { }
       )
   }
-  cloneWeb(){
+  beforeclonecontrato() {
+    this.obj.contrato = { id: 0 } as SampleDto;
+    this.isVisible = true;
+  }
+  cloneWeb() {
 
-        let anuncioclone:AnuncioDto=this.obj;
-        console.log((anuncioclone));
+    let anuncioclone: AnuncioDto = this.obj;
+    console.log((anuncioclone));
 
-        anuncioclone.id=null;
-        this.servicegeral.newobj('anuncioweb',anuncioclone)
-        .then(
-          rest=>this.utilservice.createNotification('success','Sucesso','Novo anuncio criado com sucesso')
-        )
+    anuncioclone.id = null;
+    this.servicegeral.newobj('anuncioweb', anuncioclone)
+      .then(
+        rest => this.utilservice.createNotification('success', 'Sucesso', 'Novo anuncio criado com sucesso')
+      )
 
+    this.obj = this.index;
   }
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);
@@ -284,20 +299,17 @@ export class BaseAnuncioProduto  implements OnInit {
   handleUpload(): void {
 
     let formData = new FormData();
-    // tslint:disable-next-line:no-any
-    //console.log(this.fileList);
 
     this.fileList.forEach((file: any) => {
       formData.append('file', file);
-      //console.log(formData);
 
     });
-    this.servicegeral.uploadfile(this.controller, this.obj.id, formData)
+    this.servicegeral.uploadfile(this.controller, this.index, formData)
       .then(
-
         (rest) => {
-          //console.log(rest);
-          this.obj.imagemView = rest;//this.sanitizer.bypassSecurityTrustResourceUrl(this.produto.imagemView);
+          console.log(rest);
+         //this.obj.imagemView = rest;//this.sanitizer.bypassSecurityTrustResourceUrl(this.produto.imagemView);
+         this.load();
           this.uploading = false;
           this.fileList = [];
 

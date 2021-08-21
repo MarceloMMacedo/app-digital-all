@@ -47,7 +47,7 @@
 </div>
 <ng-template #extraTemplate>
     <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" (click)="showModal()">
-  <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Anúncio Loja</button>
+    <i data-feather="plus" class="wd-10 mg-r-5"></i> Novo Anúncio Loja</button>
     <nz-divider nzType="vertical"></nz-divider>
 
 </ng-template>
@@ -60,7 +60,18 @@
 
 
             <div class="form-row">
+                <div class="form-group col-md-12  ">
+                    <nz-form-item class="col-md-12">
+                        <nz-form-control nzErrorTip="Por faveo digite Modelo do produto">
+                            <label for="inputAddress2">Produto</label>
+                            <nz-select [(ngModel)]="produto" name="value" nzPlaceHolder="" (ngModelChange)='onChange($event)' nzAllowClear nzShowSearch formControlName='produto'>
+                                <nz-option *ngFor="let item of produtos" [nzLabel]="item.nome" [nzValue]="item">
+                                </nz-option>
+                            </nz-select>
 
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
                 <div class="form-group col-md-12  ">
                     <nz-form-item>
                         <nz-form-control nzErrorTip="Por faveo digite Categoria do produto">
@@ -69,12 +80,13 @@
                         </nz-form-control>
                     </nz-form-item>
                 </div>
+
                 <div class="form-group col-md-12  ">
                     <nz-form-item class="col-md-12">
-                        <nz-form-control nzErrorTip="Por faveo digite Modelo do produto">
-                            <label for="inputAddress2">Produto</label>
-                            <nz-select [(ngModel)]="produto" name="value" nzPlaceHolder="" (ngModelChange)='onChange($event)' nzAllowClear nzShowSearch formControlName='produto'>
-                                <nz-option *ngFor="let item of produtos" [nzLabel]="item.nome" [nzValue]="item">
+                        <nz-form-control nzErrorTip="Por faveo digite Grupo Preço">
+                            <label for="inputAddress2">Grupo de Preço</label>
+                            <nz-select [(ngModel)]="grupofinanceiro" name="value" nzPlaceHolder="" nzAllowClear nzShowSearch formControlName='categoria'>
+                                <nz-option *ngFor="let item of grupofinanceiros" [nzLabel]="item.nome" [nzValue]="item">
                                 </nz-option>
                             </nz-select>
 

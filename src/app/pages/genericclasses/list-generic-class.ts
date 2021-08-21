@@ -95,7 +95,7 @@ export class ListGenericClass implements OnInit {
   }
   getLista() {
     //  this.mainAtiviadade.pagesample(this.controller, this.value, this.page - 1);
-    this.servicegeral.getallpagesampledto(this.controller, this.value, this.page - 1)
+    this.servicegeral.pagesample(this.controller, this.value, this.page - 1)
       .then(
         (response) => {
           console.log(response);
