@@ -307,7 +307,7 @@ export class BaseAnuncioProduto implements OnInit {
     this.servicegeral.uploadfile(this.controller, this.index, formData)
       .then(
         (rest) => {
-          console.log(rest);
+        //  console.log(rest);
          //this.obj.imagemView = rest;//this.sanitizer.bypassSecurityTrustResourceUrl(this.produto.imagemView);
          this.load();
           this.uploading = false;
