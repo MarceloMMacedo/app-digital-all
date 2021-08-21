@@ -16,6 +16,8 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { DescricaoProdutoComponent } from './descricao-produto/descricao-produto.component';
 import { ListAnuncioLojaComponent } from './loja/list-anuncio-loja/list-anuncio-loja.component';
 import { EditAnuncioLojaComponent } from './loja/edit-anuncio-loja/edit-anuncio-loja.component';
+import { ListAnuncioWebComponent } from './web/list-anuncio-web/list-anuncio-web.component';
+import { EditAnuncioWebComponent } from './web/edit-anuncio-web/edit-anuncio-web.component';
 
 export const customCurrencyMaskConfig = {
   align: "right",
@@ -40,7 +42,9 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     DescricaoProdutoComponent,
     ListAnuncioLojaComponent,
-    EditAnuncioLojaComponent
+    EditAnuncioLojaComponent,
+    ListAnuncioWebComponent,
+    EditAnuncioWebComponent
   ],
   imports: [
     CommonModule,

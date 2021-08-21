@@ -10,15 +10,15 @@ export interface AnuncioDto {
   id?: number,
   nome?: string,
   descricao?: string,
-  grupopreco?:  SampleDto,
+  grupopreco?: SampleDto,
   dataVencimento?: Date,
   saldo?: number,
   saldoMinimo?: number,
   saldoReserva?: number,
   saldoMaximo?: number,
   status?: string,
- // valorInterno?: number,
- saldoReposicao?:number,
+  // valorInterno?: number,
+  saldoReposicao?: number,
   valorFinal?: number,
   peso?: number,
   largura?: number,
@@ -29,20 +29,10 @@ export interface AnuncioDto {
   descricoes?: DescricaoAnuncio[],
   imagens?: ListaImagens[],
   imagem?: string,
-  imagemView:string,
-
-	  extension ?:string,
-
-	  desconto ?:number,
-
-
-	  isPrecificado ?:string,
-
-
-
-	  valorInterno ?:number,
-
-
-
-	 contrato ?:SampleDto,
+  imagemView: string,
+  extension?: string,
+  desconto?: number,
+  isPrecificado?: string,
+  valorInterno?: number,
+  tocontrato?: SampleDto,
 }

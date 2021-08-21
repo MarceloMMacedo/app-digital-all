@@ -190,8 +190,21 @@ export class BaseAnuncioProduto implements OnInit {
   }
   }
   handleOk(): void {
-    this.onsave();
+
     this.isVisible = false;
+    let anuncioclone: AnuncioDto = this.obj;
+    console.log((anuncioclone));
+
+    anuncioclone.id = null;
+    this.servicegeral.newobj('anunciocontrato', anuncioclone)
+      .then(
+       ()=>{ this.isVisible = false;
+         this.utilservice.createNotification('success', 'Sucesso', 'Novo anuncio criado com sucesso')
+       }
+      )
+
+    this.obj = this.index;
+
 
   }
 
@@ -276,7 +289,7 @@ export class BaseAnuncioProduto implements OnInit {
       )
   }
   beforeclonecontrato() {
-    this.obj.contrato = { id: 0 } as SampleDto;
+    this.obj.tocontrato = { id: 0 } as SampleDto;
     this.isVisible = true;
   }
   cloneWeb() {
@@ -290,7 +303,29 @@ export class BaseAnuncioProduto implements OnInit {
         rest => this.utilservice.createNotification('success', 'Sucesso', 'Novo anuncio criado com sucesso')
       )
 
-    this.obj = this.index;
+    this.obj.id = this.index;
+  }
+  clonecontrato(anuncioclone){
+    this.servicegeral.newobj('anunciocontrato', anuncioclone)
+    .then(
+     ()=>{ this.isVisible = false;
+       this.utilservice.createNotification('success', 'Sucesso', 'Novo anuncio criado com sucesso')
+     }
+    )
+
+  }
+  cloneloja() {
+
+    let anuncioclone: AnuncioDto = this.obj;
+    console.log((anuncioclone));
+
+    anuncioclone.id = null;
+    this.servicegeral.newobj('anunciosloja', anuncioclone)
+      .then(
+        rest => this.utilservice.createNotification('success', 'Sucesso', 'Novo anuncio criado com sucesso')
+      )
+
+    this.obj.id = this.index;
   }
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);

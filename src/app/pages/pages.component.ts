@@ -203,20 +203,11 @@ export class PagesComponent implements OnInit {
           {
             title: 'Anuncios Loja',
             link: 'estoque/anuncios/anunciosloja',
-          },
+          } ,
           {
-            title: 'Infinite List',
-            link: '/pages/layout/infinite-list',
-          },
-          {
-            title: 'Accordion',
-            link: '/pages/layout/accordion',
-          },
-          {
-            title: 'Tabs',
-            pathMatch: 'prefix',
-            link: '/pages/layout/tabs',
-          },
+            title: 'Anuncios web',
+            link: 'estoque/anuncios/anuncioweb',
+          }
         ],
       },
       {

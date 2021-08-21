@@ -2,7 +2,7 @@
     <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                <li class="breadcrumb-item"><a [routerLink]="['/estoque/anuncios/anunciosloja']" routerLinkActive="router-link-active">Lista Produtos</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/estoque/anuncios/anuncioweb']" routerLinkActive="router-link-active">Lista Produtos</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Anuncios Loja</li>
             </ol>
         </nav>
@@ -25,8 +25,8 @@
 
                     </nz-upload>
                     <button nz-button (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-bottom: 16px;margin: 10px">
-            {{ uploading ? 'Uploading' : 'Start Upload' }}
-          </button>
+          {{ uploading ? 'Uploading' : 'Start Upload' }}
+        </button>
                     <hr>
                     <img [src]="obj.imagemView|| 'assets/images/estoque/produto.gif'" width="150px">
                 </div>
@@ -115,7 +115,7 @@
                         <th class="col-sm-3">Título </th>
                         <th class="col-sm-7">Descrição </th>
                         <th> <button nz-button nzType="link" nzSize="small" (click)="adddescricao()"><i nz-icon
-                  nzType="plus"></i></button>
+                nzType="plus"></i></button>
                         </th>
                     </tr>
                     <tr *ngFor="let item of obj.descricoes; let i=index ">
@@ -134,7 +134,7 @@
 
                         <th>Total </th>
                         <th> <button nz-button nzType="link" nzSize="small" (click)="addproduto()"><i nz-icon
-                  nzType="plus"></i></button>
+                nzType="plus"></i></button>
                         </th>
                     </tr>
                     <tr *ngFor="let item of obj.itensProduto; let i=index ">
@@ -153,7 +153,7 @@
                         <th> {{item.valor * item.quantidade| currency :'R$'}} </th>
                         <th>
                             <button nz-button nzType="link" nzSize="small" title="Excluir" nz-popconfirm nzPopconfirmTitle="Deseja excluir produto?" (nzOnConfirm)="excluirproduto(i)"> <i nz-icon
-                  nzType="delete" nzTheme="outline"></i></button>
+                nzType="delete" nzTheme="outline"></i></button>
                         </th>
                     </tr>
                 </table>
@@ -176,20 +176,20 @@
                     <li nz-menu-item>
                         <a (click)="beforeclonecontrato()"> Para Contrato</a>
                     </li>
-                    <li nz-menu-item><a nz-popconfirm nzPopconfirmTitle="Deseja clonar para Web?" (nzOnConfirm)="cloneWeb()"> Para
-              Web</a> </li>
+                    <li nz-menu-item><a nz-popconfirm nzPopconfirmTitle="Deseja clonar para Web?" (nzOnConfirm)="cloneloja()"> Para
+            Loja</a> </li>
                 </ul>
             </li>
         </ul>
     </ng-template>
 </nz-card>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Cadastro Banco" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Cadastro Anuncio Contrato" (nzOnCancel)="handleCancel()">
     <div *nzModalContent>
         <div class="mb-3">
             <label class="form-label"> Contrato: </label>
-            <nz-select class="col-sm-12" nzShowSearch [(ngModel)]="obj.tocontrato.id" name="value" nzPlaceHolder="">
-                <nz-option *ngFor="let  item1 of contratos" [nzLabel]="item1.nome" [nzValue]="item1.id">
+            <nz-select class="col-sm-12" nzShowSearch [(ngModel)]="obj.tocontrato" name="value" nzPlaceHolder="">
+                <nz-option *ngFor="let  item1 of contratos" [nzLabel]="item1.nome" [nzValue]="item1">
                 </nz-option>
             </nz-select>
         </div>
@@ -197,6 +197,6 @@
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
         <button nz-button nzType="primary" nz-popconfirm nzPopconfirmTitle="Deseja Clonar para Contrato?" (nzOnConfirm)="handleOk()"><i nz-icon nzType="save" nzTheme="outline"></i>
-      Cadastrar</button>
+    Cadastrar</button>
     </div>
 </nz-modal>
