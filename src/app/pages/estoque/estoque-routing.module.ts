@@ -1,3 +1,4 @@
+import { ReposicaoEstoqueComponent } from './reposicao-estoque/reposicao-estoque.component';
 import { ListProdutosComponent } from './produto/list-produtos/list-produtos.component';
 
 
@@ -25,6 +26,12 @@ const routes: Routes = [
     path: 'anuncios',
     loadChildren: () => import('./anuncio/anuncio.module')
     .then(m => m.AnuncioModule),
+  }
+/*reposi*/
+,
+  {
+    path: 'ressuprimento',
+    component:ReposicaoEstoqueComponent,
   }];
 
 @NgModule({

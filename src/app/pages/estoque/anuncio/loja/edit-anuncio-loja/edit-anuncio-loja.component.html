@@ -46,43 +46,51 @@
                         <textarea class="form-control" [(ngModel)]="obj.descricao" rows="5"></textarea>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label"> Saldo</label>
                                 <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldo">
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label"> Saldo Minimo</label>
                                 <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldoMinimo">
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label"> Saldo Maximo</label>
                                 <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldoMaximo">
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="mb-3">
-                                <label class="form-label"> Saldo Reserva</label>
-                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="small" [(ngModel)]="obj.saldoReserva">
+                        <div class="row ">
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label"> Reposição</label>
+                                    <input class="form-control" nzSize="default" [(ngModel)]="obj.saldoReposicao" readonly nz-input nzSize="default">
+                                </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label"> Saldo Retido</label>
+                                    <input readonly class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="small" [(ngModel)]="obj.saldoReserva">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label"> Saldo Disponível</label>
+                                    <input readonly class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="small" [(ngModel)]="obj.saldoDisponivel">
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
 
-
-
                     <div class="row ">
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                                <label class="form-label"> Reposição</label>
-                                <input class="form-control" nzSize="default" [(ngModel)]="obj.saldoReposicao" readonly nz-input nzSize="default">
-                            </div>
-                        </div>
-                        <div class=" col-lg-4  ">
+
+                        <div class=" col-lg-6  ">
                             <div class="form-group  mt-1  ">
                                 <label for=""> Grupo de Preço </label>
                                 <nz-select class='col-lg-12' [(ngModel)]="obj.grupopreco.id" name="value" nzPlaceHolder="">
@@ -91,7 +99,7 @@
                                 </nz-select>
                             </div>
                         </div>
-                        <div class=" col-lg-4   ">
+                        <div class=" col-lg-6   ">
                             <div class="form-group  mt-1  ">
                                 <label for="inputAddress2">Ativo</label>
                                 <nz-select [(ngModel)]="obj.status" name="value" nzPlaceHolder="" class='col-lg-12'>

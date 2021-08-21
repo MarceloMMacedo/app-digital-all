@@ -35,4 +35,5 @@ export interface AnuncioDto {
   isPrecificado?: string,
   valorInterno?: number,
   tocontrato?: SampleDto,
+  saldoDisponivel?:number,
 }

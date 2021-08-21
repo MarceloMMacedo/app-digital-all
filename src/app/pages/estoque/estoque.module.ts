@@ -1,3 +1,5 @@
+import { CotacaoComponent } from './cotacao/cotacao.component';
+import { ReposicaoEstoqueComponent } from './reposicao-estoque/reposicao-estoque.component';
 
 import { AvatarProdutosComponent } from './produto/avatar-produtos/avatar-produtos.component';
 import { EditProdutosComponent } from './produto/edit-produtos/edit-produtos.component';
@@ -43,6 +45,8 @@ const maskConfig: Partial<IConfig> = {
     EditProdutosComponent,
     DescricaoProdutoComponent,
     AvatarProdutosComponent,
+    ReposicaoEstoqueComponent,
+    CotacaoComponent
   ],
   imports: [
     CommonModule,
