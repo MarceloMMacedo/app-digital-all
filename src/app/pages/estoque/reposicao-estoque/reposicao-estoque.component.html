@@ -1,0 +1,64 @@
+<section class="pagina card">
+    <nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a> Lista Reposição Estoque</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+    <nz-card nzTitle="Lista Reposição Estoque" [nzExtra]="extraTemplate">
+        <div *ngIf="isrealy" style="margin-top: 30px; ">
+
+        </div>
+    </nz-card>
+
+    <ng-template #extraTemplate>
+
+        <a nz-dropdown [nzDropdownMenu]="menu">
+      Menu
+      <i nz-icon nzType="down"></i>
+    </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+                <li nz-menu-item>
+
+                </li>
+                <li nz-menu-item>
+                    <button nz-button nzSize='small' nzType="link" printTitle="Print Title" printSectionId="componentID" ngxPrint><i nz-icon nzType="printer" nzTheme="outline"></i>
+            Print
+          </button>
+                </li>
+            </ul>
+        </nz-dropdown-menu>
+    </ng-template>
+</section>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>Adicinar Contas a Pagar</ng-template>
+
+    <ng-template #modalContent>
+        <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+        </form>
+    </ng-template>
+    <ng-template #modalFooter>
+
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid" nz-popconfirm nzPopconfirmTitle="Deseja criar Cotação?" (nzOnConfirm)="handleOk()">
+      <span>Finalizar</span>
+    </button>
+    </ng-template>
+</nz-modal>
+<div id="componentID" class="container" style="font-size:90%;" *ngIf="isrealy">
+    <div nz-row style="font-size:90%;">
+        <div nz-col nzSpan="4"> <img [src]="empresa.imagemview" alt="" width="100"></div>
+        <div nz-col nzSpan="8">
+            {{empresa.name}}
+            <address>
+        <small>{{empresa.logradouro}}, Nº {{empresa.numero}} </small><br />
+        <small>{{empresa.bairro}} - {{empresa.localidade}} </small><br />
+        <small> CEP:{{empresa.cep}} - {{empresa.telefonecontato}}</small>
+        <small> Email:{{empresa.emailcontato}} </small>
+      </address>
+        </div>
+    </div>
+    <hr>
+</div>
