@@ -33,6 +33,11 @@ const routes: Routes = [
     path: 'ressuprimento',
     loadChildren: () => import('./reposicao-estoque/reposicao-estoque.module')
     .then(m => m.ReposicaoEstoqueModule),
+  },
+  {
+    path: 'cotacoes',
+    loadChildren: () => import('./cotacao/cotacao.module')
+    .then(m => m.CotacaoModule),
   }];
 
 @NgModule({

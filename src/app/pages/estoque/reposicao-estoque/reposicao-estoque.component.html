@@ -9,9 +9,10 @@
     <nz-card nzTitle="Lista Reposição Estoque" [nzExtra]="extraTemplate">
 
         <div *ngIf="isrealy" style="margin-top: 5px; ">
-            <app-lista-ressuprimento (emitTotal)='ngOnChangesLoja($event)' [total]='reposicao.totalitensAnuncioLoja' [listOfData]='reposicao.itensAnuncioLoja' *ngIf="reposicao.itensAnuncioLoja.length" [title]="'Ressuprimento para Estoque Loja'"></app-lista-ressuprimento>
-            <app-lista-ressuprimento (emitTotal)='ngOnChangesWeb($event)' *ngIf="reposicao.itensAnuncioWeb.length" [total]='reposicao.totalitensAnuncioWeb' [listOfData]='reposicao.itensAnuncioWeb' [title]="'Ressuprimento para Estoque WEB'"></app-lista-ressuprimento>
-            <app-lista-ressuprimento (emitTotal)='ngOnChangesContrato($event)' *ngIf="reposicao.itensAnuncioContrato.length" [total]='reposicao.totalitensAnuncioContrato' [listOfData]='reposicao.itensAnuncioContrato' [title]="'Ressuprimento para Estoque Contrato'"></app-lista-ressuprimento>
+            <app-lista-ressuprimento (itensAnuncio)='ngOnChangesitensLoja($event)' (emitTotal)='ngOnChangesLoja($event)' [total]='reposicao.totalitensAnuncioLoja' [listOfData]='reposicao.itensAnuncioLoja' *ngIf="reposicao.itensAnuncioLoja.length" [title]="'Ressuprimento para Estoque Loja'"></app-lista-ressuprimento>
+            <app-lista-ressuprimento (itensAnuncio)='ngOnChangesitensWeb($event)' (emitTotal)='ngOnChangesWeb($event)' *ngIf="reposicao.itensAnuncioWeb.length" [total]='reposicao.totalitensAnuncioWeb' [listOfData]='reposicao.itensAnuncioWeb' [title]="'Ressuprimento para Estoque WEB'"></app-lista-ressuprimento>
+            <app-lista-ressuprimento (itensAnuncio)='ngOnChangesitensContrato($event)' (emitTotal)='ngOnChangesContrato($event)' *ngIf="reposicao.itensAnuncioContrato.length" [total]='reposicao.totalitensAnuncioContrato' [listOfData]='reposicao.itensAnuncioContrato'
+                [title]="'Ressuprimento para Estoque Contrato'"></app-lista-ressuprimento>
         </div>
     </nz-card>
 
@@ -24,7 +25,7 @@
         <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu nzSelectable>
                 <li nz-menu-item>
-
+                    <a>Nova Cotação</a>
                 </li>
                 <li nz-menu-item>
                     <button nz-button nzSize='small' nzType="link" [useExistingCss]="true" printTitle="Ressuprimento Estoque" printSectionId="componentID" ngxPrint><i nz-icon nzType="printer" nzTheme="outline"></i>
@@ -36,11 +37,19 @@
     </ng-template>
 </section>
 <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
-    <ng-template #modalTitle>Adicinar Contas a Pagar</ng-template>
+    <ng-template #modalTitle>Adicinar Cotação</ng-template>
 
     <ng-template #modalContent>
         <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-
+            <div *nzModalContent>
+                <div class="mb-3">
+                    <label class="form-label"> Contrato: </label>
+                    <nz-select class="col-sm-12" nzShowSearch name="value" nzPlaceHolder="">
+                        <nz-option *ngFor="let  item1 of fornecedores" [nzLabel]="item1.nome" [nzValue]="item1.id">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
         </form>
     </ng-template>
     <ng-template #modalFooter>

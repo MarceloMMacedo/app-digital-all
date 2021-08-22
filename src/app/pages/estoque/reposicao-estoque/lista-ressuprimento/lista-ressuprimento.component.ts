@@ -1,5 +1,5 @@
 
-import { ItensReposicaoDto } from './../../../../../models/estoque/ressuprimento-dto';
+import { ItensReposicaoDto, RessuprimentoDto } from './../../../../../models/estoque/ressuprimento-dto';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -14,8 +14,10 @@ export class ListaRessuprimentoComponent implements OnInit {
   @Input() title;
   @Input() listOfData: readonly ItensReposicaoDto[] = [];
   @Input() listOfCurrentPageData: readonly ItensReposicaoDto[] = [];
+
   total = 0;
   @Output() emitTotal: EventEmitter<any> = new EventEmitter();
+  @Output() itensAnuncio: EventEmitter<ItensReposicaoDto[]> = new EventEmitter();
   setOfCheckedId = new Set<number>();
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -33,6 +35,7 @@ export class ListaRessuprimentoComponent implements OnInit {
       this.total = element.subtotal;
     });
     this.emitTotal.emit(this.total);
+    this.itensAnuncio.emit(requestData);
   }
 
   onCurrentPageDataChange(listOfCurrentPageData: readonly ItensReposicaoDto[]): void {

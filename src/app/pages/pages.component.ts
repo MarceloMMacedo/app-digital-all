@@ -215,6 +215,11 @@ export class PagesComponent implements OnInit {
         icon: 'layout-outline',
         link: 'estoque/ressuprimento',
         hidden: this.hiddenestoque,},
+        {
+          title: 'Cotações',
+          icon: 'layout-outline',
+          link: 'estoque/cotacoes',
+          hidden: this.hiddenestoque,},
       {
         title: 'Forms',
         icon: 'edit-2-outline',

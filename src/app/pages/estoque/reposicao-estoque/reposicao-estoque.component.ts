@@ -1,10 +1,8 @@
-import { OneColumnLayoutComponent } from './../../../layout/ngx-one-column-layout/one-column.layout';
-import { ItensReposicaoDto } from './../../../../models/estoque/ressuprimento-dto';
+import { CotacaoDto } from './../../../../models/estoque/cotacao-dto';
+import { ItensReposicaoDto, RessuprimentoDto } from './../../../../models/estoque/ressuprimento-dto';
 import { SampleDto } from './../../../../models/sample-dto';
-import { Pessoa } from './../../../../models/pessoa';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SeviceGeralService } from 'src/services/sevice-geral.service';
-import { RessuprimentoDto } from '../../../../models/estoque/ressuprimento-dto';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -21,13 +19,13 @@ export class ReposicaoEstoqueComponent implements OnInit {
   isVisible = false;
   checked = false;
   indeterminate = false;
-
+  cotacaoDto: CotacaoDto;
   totalloja = 0
   totalweb = 0;
   totalcontrato = 0;
   total = 0;
-
-
+  inputRessuprimentoDto: RessuprimentoDto = {};
+  itensressuprimento: ItensReposicaoDto[] = [];
 
   constructor(
     private servicegeral: SeviceGeralService,
@@ -67,7 +65,13 @@ export class ReposicaoEstoqueComponent implements OnInit {
 
 
   /*operacao*/
+  novacotacao(): void {
+    this.cotacaoDto = {} as CotacaoDto;
+    this.cotacaoDto.fornecedor = { id: 0 } as SampleDto;
+    this.cotacaoDto.itensCotacaos = this.itensressuprimento;
+    this.isVisible = true;
 
+  }
   handleOk(): void {
     this.isVisible = false;
   }
@@ -82,22 +86,47 @@ export class ReposicaoEstoqueComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
   }
+  ngOnChangesitensLoja(event): void {
+    console.log(event);
+
+    this.inputRessuprimentoDto.itensAnuncioLoja = [];
+    this.inputRessuprimentoDto.itensAnuncioLoja = event;
+    this.ngOnChangesitenstotal();
+  }
+  ngOnChangesitensWeb(event): void {
+    this.inputRessuprimentoDto.itensAnuncioWeb = [];
+    this.inputRessuprimentoDto.itensAnuncioWeb = event;
+    this.ngOnChangesitenstotal();
+  }
+  ngOnChangesitensContrato(event): void {
+    this.inputRessuprimentoDto.itensAnuncioContrato = [];
+    this.inputRessuprimentoDto.itensAnuncioContrato = event;
+    this.ngOnChangesitenstotal();
+  }
+  ngOnChangesitenstotal(): void {
+    this.itensressuprimento = [];
+    this.itensressuprimento.push(...this.inputRessuprimentoDto.itensAnuncioContrato);
+    this.itensressuprimento.push(...this.inputRessuprimentoDto.itensAnuncioLoja);
+    this.itensressuprimento.push(...this.inputRessuprimentoDto.itensAnuncioWeb);
+  }
+
   ngOnChangesLoja(event): void {
     this.totalloja = event;
-    this.ngOnChangestotal( );
+    this.ngOnChangestotal();
   }
   ngOnChangesWeb(event): void {
     this.totalweb = event;
-    this.ngOnChangestotal( );
+    this.ngOnChangestotal();
   }
   ngOnChangesContrato(event): void {
     this.totalcontrato = event;
-    this.ngOnChangestotal( );
+    this.ngOnChangestotal();
   }
 
 
-  ngOnChangestotal( ): void {
-    this.total=0;
-    this.total=this.totalloja+this.totalweb+this.totalcontrato;
- }
+
+  ngOnChangestotal(): void {
+    this.total = 0;
+    this.total = this.totalloja + this.totalweb + this.totalcontrato;
+  }
 }
