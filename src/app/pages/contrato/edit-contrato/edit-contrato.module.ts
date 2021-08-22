@@ -1,3 +1,4 @@
+import { NgxPrintModule } from 'ngx-print';
 import { NgZorroAntdModule } from 'src/app/nb-modulos/ng-zorro-antd.module';
 import { PrintContratoComponent } from './../componentes/print-contrato/print-contrato.component';
 import { FaturasContratoComponent } from './../componentes/faturas-contrato/faturas-contrato.component';
@@ -32,6 +33,7 @@ const maskConfig: Partial<IConfig> = {
     NgxCurrencyModule ,
     NgZorroAntdModule,
     NgxMaskModule.forRoot(maskConfig),
+    NgxPrintModule,
     EditContratoRoutingModule
   ]
 })

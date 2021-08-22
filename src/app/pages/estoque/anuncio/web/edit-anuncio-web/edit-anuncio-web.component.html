@@ -25,6 +25,106 @@
 
                     </nz-upload>
                     <button nz-button (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-bottom: 16px;margin: 10px">
+        {{ uploading ? 'Uploading' : 'Start Upload' }}
+      </button>
+                    <hr>
+                    <img [src]="obj.imagemView|| 'assets/images/estoque/produto.gif'" width="150px">
+                </div>
+                <div class="col-lg-9">
+                    <h5>
+                        {{obj.nome}}
+
+                    </h5>
+                    <h4 class="d-flex align-items-center">Valor: <span class="text-warning me-2">{{obj.valorFinal|currency:'R$'}} </span> </h4>
+
+                    <div class="mb-3">
+                        <label class="form-label"> Nome</label>
+                        <input class="form-control" [(ngModel)]="obj.nome">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Descrição</label>
+                        <textarea class="form-control" [(ngModel)]="obj.descricao" rows="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label class="form-label"> Saldo</label>
+                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldo">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label class="form-label"> Saldo Minimo</label>
+                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldoMinimo">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label class="form-label"> Saldo Maximo</label>
+                                <input class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="default" [(ngModel)]="obj.saldoMaximo">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label"> Reposição</label>
+                                    <input class="form-control" nzSize="default" [(ngModel)]="obj.saldoReposicao" readonly nz-input nzSize="default">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label"> Saldo Retido</label>
+                                    <input readonly class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="small" [(ngModel)]="obj.saldoReserva">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label"> Saldo Disponível</label>
+                                    <input readonly class="form-control" currencyMask [options]='customIntMaskConfig' nz-input nzSize="small" [(ngModel)]="obj.saldoDisponivel">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+
+                        <div class=" col-lg-6  ">
+                            <div class="form-group  mt-1  ">
+                                <label for=""> Grupo de Preço </label>
+                                <nz-select class='col-lg-12' [(ngModel)]="obj.grupopreco.id" name="value" nzPlaceHolder="">
+                                    <nz-option *ngFor="let item of grupofinanceiros" [nzLabel]="item.nome" [nzValue]="item.id">
+                                    </nz-option>
+                                </nz-select>
+                            </div>
+                        </div>
+                        <div class=" col-lg-6   ">
+                            <div class="form-group  mt-1  ">
+                                <label for="inputAddress2">Ativo</label>
+                                <nz-select [(ngModel)]="obj.status" name="value" nzPlaceHolder="" class='col-lg-12'>
+                                    <nz-option nzLabel="Não" nzValue="Não">
+                                    </nz-option>
+                                    <nz-option nzLabel="Sim" nzValue="Sim">
+                                    </nz-option>
+                                </nz-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" style="margin: 10px; margin-top: 10px;">
+                        <button nz-button><i nz-icon nzType="upload"></i>Selecione Arquivo</button>
+
+                    </nz-upload>
+                    <button nz-button (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-bottom: 16px;margin: 10px">
           {{ uploading ? 'Uploading' : 'Start Upload' }}
         </button>
                     <hr>
@@ -107,6 +207,7 @@
             </div>
         </div>
     </div>
+  -->
     <nz-card nzTitle="Itens do Anuncio">
         <div class="row">
             <div class="col-lg-6">

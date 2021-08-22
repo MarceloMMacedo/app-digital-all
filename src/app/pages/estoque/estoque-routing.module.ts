@@ -31,7 +31,8 @@ const routes: Routes = [
 ,
   {
     path: 'ressuprimento',
-    component:ReposicaoEstoqueComponent,
+    loadChildren: () => import('./reposicao-estoque/reposicao-estoque.module')
+    .then(m => m.ReposicaoEstoqueModule),
   }];
 
 @NgModule({

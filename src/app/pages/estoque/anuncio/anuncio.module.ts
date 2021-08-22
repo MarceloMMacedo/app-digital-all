@@ -18,6 +18,7 @@ import { ListAnuncioLojaComponent } from './loja/list-anuncio-loja/list-anuncio-
 import { EditAnuncioLojaComponent } from './loja/edit-anuncio-loja/edit-anuncio-loja.component';
 import { ListAnuncioWebComponent } from './web/list-anuncio-web/list-anuncio-web.component';
 import { EditAnuncioWebComponent } from './web/edit-anuncio-web/edit-anuncio-web.component';
+import { BodyAnuncioComponent } from './body-anuncio/body-anuncio.component';
 
 export const customCurrencyMaskConfig = {
   align: "right",
@@ -44,7 +45,8 @@ const maskConfig: Partial<IConfig> = {
     ListAnuncioLojaComponent,
     EditAnuncioLojaComponent,
     ListAnuncioWebComponent,
-    EditAnuncioWebComponent
+    EditAnuncioWebComponent,
+    BodyAnuncioComponent
   ],
   imports: [
     CommonModule,

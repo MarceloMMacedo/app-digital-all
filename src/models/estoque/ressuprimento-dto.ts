@@ -6,14 +6,15 @@ export interface ItensReposicaoDto {
   anuncio?: SampleDto,
   valorinterno?: number,
   valor?: number,
-  setcotacao:any,
+  id:any,
+  subtotal?:number,
 }
 
 export interface RessuprimentoDto {
-  itensAnuncioLoja?: ItensReposicaoDto,
+  itensAnuncioLoja?: ItensReposicaoDto[],
   totalitensAnuncioLoja?: number,
-  itensAnuncioWeb?: ItensReposicaoDto,
+  itensAnuncioWeb?: ItensReposicaoDto[],
   totalitensAnuncioWeb?: number,
-  itensAnuncioContrato?: ItensReposicaoDto,
+  itensAnuncioContrato?: ItensReposicaoDto[],
   totalitensAnuncioContrato?: number,
 }

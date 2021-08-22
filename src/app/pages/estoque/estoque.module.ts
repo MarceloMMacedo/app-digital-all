@@ -1,4 +1,4 @@
-import { CotacaoComponent } from './cotacao/cotacao.component';
+
 import { ReposicaoEstoqueComponent } from './reposicao-estoque/reposicao-estoque.component';
 
 import { AvatarProdutosComponent } from './produto/avatar-produtos/avatar-produtos.component';
@@ -19,7 +19,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { DescricaoProdutoComponent } from './produto/descricao-produto/descricao-produto.component';
-
 
 export const customCurrencyMaskConfig = {
   align: "right",
@@ -45,8 +44,6 @@ const maskConfig: Partial<IConfig> = {
     EditProdutosComponent,
     DescricaoProdutoComponent,
     AvatarProdutosComponent,
-    ReposicaoEstoqueComponent,
-    CotacaoComponent
   ],
   imports: [
     CommonModule,

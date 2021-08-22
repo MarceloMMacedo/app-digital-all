@@ -1,0 +1,22 @@
+<nz-table #rowSelectionTable nzShowPagination nzBordered nzSize="small" [nzFooter]="total|currency:'R$'" nzShowSizeChanger [nzTitle]='title' [nzData]="listOfData" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+    <thead>
+        <tr>
+            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Interno</th>
+            <th>Valor Consumidor</th>
+            <th>Valor SubTotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+            <td>{{ data.descricao }}</td>
+            <td>{{ data.qtd }}</td>
+            <td>{{ data.valorinterno|currency:'R$' }}</td>
+            <td>{{ data.valor|currency:'R$' }}</td>
+            <td>{{ data.subtotal|currency:'R$' }}</td>
+        </tr>
+    </tbody>
+</nz-table>

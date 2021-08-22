@@ -7,13 +7,16 @@
     </nz-breadcrumb>
     <ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
     <nz-card nzTitle="Lista Reposição Estoque" [nzExtra]="extraTemplate">
-        <div *ngIf="isrealy" style="margin-top: 30px; ">
 
+        <div *ngIf="isrealy" style="margin-top: 5px; ">
+            <app-lista-ressuprimento (emitTotal)='ngOnChangesLoja($event)' [total]='reposicao.totalitensAnuncioLoja' [listOfData]='reposicao.itensAnuncioLoja' *ngIf="reposicao.itensAnuncioLoja.length" [title]="'Ressuprimento para Estoque Loja'"></app-lista-ressuprimento>
+            <app-lista-ressuprimento (emitTotal)='ngOnChangesWeb($event)' *ngIf="reposicao.itensAnuncioWeb.length" [total]='reposicao.totalitensAnuncioWeb' [listOfData]='reposicao.itensAnuncioWeb' [title]="'Ressuprimento para Estoque WEB'"></app-lista-ressuprimento>
+            <app-lista-ressuprimento (emitTotal)='ngOnChangesContrato($event)' *ngIf="reposicao.itensAnuncioContrato.length" [total]='reposicao.totalitensAnuncioContrato' [listOfData]='reposicao.itensAnuncioContrato' [title]="'Ressuprimento para Estoque Contrato'"></app-lista-ressuprimento>
         </div>
     </nz-card>
 
     <ng-template #extraTemplate>
-
+        <h6>Total: {{total|currency:'R$'}}</h6>
         <a nz-dropdown [nzDropdownMenu]="menu">
       Menu
       <i nz-icon nzType="down"></i>
@@ -24,7 +27,7 @@
 
                 </li>
                 <li nz-menu-item>
-                    <button nz-button nzSize='small' nzType="link" printTitle="Print Title" printSectionId="componentID" ngxPrint><i nz-icon nzType="printer" nzTheme="outline"></i>
+                    <button nz-button nzSize='small' nzType="link" [useExistingCss]="true" printTitle="Ressuprimento Estoque" printSectionId="componentID" ngxPrint><i nz-icon nzType="printer" nzTheme="outline"></i>
             Print
           </button>
                 </li>
@@ -61,4 +64,9 @@
         </div>
     </div>
     <hr>
+    <div *ngIf="isrealy" style="margin-top: 5px; ">
+        <app-pirnt-ressuprimento [total]='reposicao.totalitensAnuncioLoja' [listOfData]='reposicao.itensAnuncioLoja' *ngIf="reposicao.itensAnuncioLoja.length" [title]="'Ressuprimento para Estoque Loja'"></app-pirnt-ressuprimento>
+        <app-pirnt-ressuprimento *ngIf="reposicao.itensAnuncioWeb.length" [total]='reposicao.totalitensAnuncioWeb' [listOfData]='reposicao.itensAnuncioWeb' [title]="'Ressuprimento para Estoque WEB'"></app-pirnt-ressuprimento>
+        <app-pirnt-ressuprimento *ngIf="reposicao.itensAnuncioContrato.length" [total]='reposicao.totalitensAnuncioContrato' [listOfData]='reposicao.itensAnuncioContrato' [title]="'Ressuprimento para Estoque Contrato'"></app-pirnt-ressuprimento>
+    </div>
 </div>

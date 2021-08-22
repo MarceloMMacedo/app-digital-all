@@ -211,6 +211,11 @@ export class PagesComponent implements OnInit {
         ],
       },
       {
+        title: 'Ressupimento',
+        icon: 'layout-outline',
+        link: 'estoque/ressuprimento',
+        hidden: this.hiddenestoque,},
+      {
         title: 'Forms',
         icon: 'edit-2-outline',
         children: [

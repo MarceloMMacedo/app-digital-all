@@ -1,0 +1,27 @@
+<nz-card [nzTitle]="title" nzSize="small" [nzExtra]="extraTemplate">
+    <table class="table table-sm ">
+        <thead>
+            <tr>
+                <th>*</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Valor Interno</th>
+                <th>Valor Consumidor</th>
+                <th>Valor SubTotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of listOfData; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{ data.descricao }}</td>
+                <td>{{ data.qtd }}</td>
+                <td>{{ data.valorinterno|currency:'R$' }}</td>
+                <td>{{ data.valor|currency:'R$' }}</td>
+                <td>{{ data.subtotal|currency:'R$' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</nz-card>
+<ng-template #extraTemplate>
+    <h6>Total: {{total|currency:'R$'}}</h6>
+</ng-template>
