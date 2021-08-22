@@ -49,7 +49,9 @@ let c=0;
 
        c++;
         if (c === 10) {
-          clearInterval(this.time);
+          if (this.time) {
+            clearInterval(this.time);
+          }
         }
       }, 500);
 

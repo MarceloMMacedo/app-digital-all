@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './../account/error-interceptor.service';
 import { API_CONFIG } from './../config/api.config';
 import { AuthInterceptor } from './../account/auth-interceptor.service';
 import { StorageService } from './../services/storage.service';
@@ -136,6 +137,7 @@ registerLocaleData(pt);
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AuthGuard,
     { provide: NbRoleProvider, useClass: RoleProviderService },

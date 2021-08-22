@@ -1,3 +1,8 @@
+import { AccountService } from './../../../../account/account.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { StorageService } from './../../../../services/storage.service';
+import { Router } from '@angular/router';
+import { NbAuthService, NbAuthJWTToken } from '@nebular/auth';
 import { SeviceGeralService } from './../../../../services/sevice-geral.service';
 import { UsuarioWeb } from './../../../../models/usuario-web';
 
@@ -6,6 +11,7 @@ import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeServ
 
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'ngx-header',
@@ -44,22 +50,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
+    private router: Router,
+    private storage: AccountService,
     //rivate userService: UserData,
     // private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
-    private servicegeral: SeviceGeralService,
+    private servicegeral: SeviceGeralService
   ) {
+
   }
 
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
+    //this.storage.refreshToken();
 
     this.servicegeral.getAll('usuarioweb').then(
       (rest) => {
 
         this.user = rest;
-        console.log(rest);
+        // console.log(rest);
       }
     )
 

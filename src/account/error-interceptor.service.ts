@@ -125,11 +125,11 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
   handle403(errorObj) {
     // this.storage.setLocalUser(null);
-    //////console.log(errorObj.message);
-    //:////console.log("error" + errorObj.message + 'Erro ' + errorObj.status + ': ' + errorObj.error);
+    console.log(errorObj.message);
+   console.log("error" + errorObj.message + 'Erro ' + errorObj.status + ': ' + errorObj.error);
     // this.toastr.error(errorObj.message,  errorObj.status + ': ' + errorObj.error);
-
-    this.router.navigate(['acessonegado']);
+localStorage.clear();
+    this.router.navigate(['/login']);
 
   }
 
