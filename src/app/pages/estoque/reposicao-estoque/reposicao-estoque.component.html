@@ -24,7 +24,7 @@
     </a>
         <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu nzSelectable>
-                <li nz-menu-item>
+                <li nz-menu-item *ngIf="itensressuprimento.length>0">
                     <a (click)="novacotacao()">Nova Cotação</a>
                 </li>
                 <li nz-menu-item>
@@ -41,20 +41,20 @@
 
     <ng-template #modalContent>
         <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-            <div *nzModalContent>
-                <div class="mb-3">
-                    <label class="form-label"> Contrato: </label>
-                    <nz-select class="col-sm-12" nzShowSearch name="value" nzPlaceHolder="">
-                        <nz-option *ngFor="let  item1 of fornecedores" [nzLabel]="item1.nome" [nzValue]="item1.id">
-                        </nz-option>
-                    </nz-select>
-                </div>
+
+            <div class="mb-3">
+                <label class="form-label"> Contrato: </label>
+                <nz-select class="col-sm-12" nzShowSearch name="value" formControlName='fornecedor' nzPlaceHolder="" [(ngModel)]="cotacaoDto.fornecedor.id">
+                    <nz-option *ngFor="let  item1 of fornecedores" [nzLabel]="item1.nome" [nzValue]="item1.id">
+                    </nz-option>
+                </nz-select>
             </div>
+
         </form>
     </ng-template>
     <ng-template #modalFooter>
 
-        <button nz-button nzType="primary" [disabled]="!validateForm.valid" nz-popconfirm nzPopconfirmTitle="Deseja criar Cotação?" (nzOnConfirm)="handleOk()">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid" nz-popconfirm nzPopconfirmTitle="Deseja criar Cotação,operção irá redirecionar para pagina de cotação?" (nzOnConfirm)="handleOk()">
       <span>Finalizar</span>
     </button>
     </ng-template>

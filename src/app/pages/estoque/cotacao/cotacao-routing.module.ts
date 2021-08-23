@@ -8,7 +8,7 @@ const routes: Routes = [
     path:'',
     component:ListCotacaoComponent
   }, {
-    path:'/:id',
+    path:'edit-cotacao/:id',
     component:EditCotacaoComponent
   }
 ];

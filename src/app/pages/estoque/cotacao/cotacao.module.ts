@@ -16,6 +16,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { NgZorroAntdModule } from 'src/app/nb-modulos/ng-zorro-antd.module';
 import { ChartsModule } from 'ng2-charts';
 import { EstoqueRoutingModule } from '../estoque-routing.module';
+import { ListItensCotacaoComponent } from './list-itens-cotacao/list-itens-cotacao.component';
 
 
 
@@ -40,7 +41,8 @@ export const customCurrencyMaskConfig = {
 @NgModule({
   declarations: [
     EditCotacaoComponent,
-    ListCotacaoComponent
+    ListCotacaoComponent,
+    ListItensCotacaoComponent
   ],
   imports: [
     CommonModule,

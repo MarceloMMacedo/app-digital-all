@@ -1,1 +1,45 @@
-<p>edit-cotacao works!</p>
+<nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+
+    <nz-breadcrumb-item>
+        <a [routerLink]="['/estoque/cotacoes']" routerLinkActive="router-link-active">Lista de Cotações</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Editar Cotação</nz-breadcrumb-item>
+</nz-breadcrumb>
+<ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+    <nz-card nzTitle="Cadastro de Cotação" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
+        Fornecedor: {{obj.fornecedor.nome}}<br>
+        <div class="row">
+            <div class="col-lg-4"> Data: {{obj.dataAbertura|date:'dd/MM/yyyy'}}</div>
+            <div class="col-lg-4"> Contato: {{obj.contato.nome}}</div>
+            <div class="col-lg-4"> Contato: {{obj.contato.telefone}}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4"> Valor: {{obj.total|currency:'R$'}}</div>
+            <div class="col-lg-4"> Contato: <input nz-input id="fantasia" [(ngModel)]="obj.tipoFrete" name="saldo" /> </div>
+            <div class="col-lg-4"> Contato: <input nz-input id="fantasia" [(ngModel)]="obj.valorFrete" name="saldo" currencyMask /> </div>
+            <div class="col-lg-4"> Contato: {{obj.contato.telefone}}</div>
+        </div>
+        <!--
+            id?: number,
+  nome?: string,
+  dataAbertura?: Date,
+  dataFim?: Date,
+  fornecedor?: SampleDto;
+  contato?: Contato,
+  endereco?: Endereco,
+  status?: string,
+  itensCotacaos?: ItensCotacao[],
+  total?: number,
+  tipoFrete?: string,
+  valorFrete?: number,
+        -->
+    </nz-card>
+    <ng-template #extraTemplate>
+        <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+      <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Cotação</button>
+
+    </ng-template>
+
+    <nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+    </nz-skeleton>

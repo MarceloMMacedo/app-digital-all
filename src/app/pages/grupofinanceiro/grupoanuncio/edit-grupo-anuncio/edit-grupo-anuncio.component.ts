@@ -26,7 +26,6 @@ export class EditGrupoAnuncioComponent extends EditGeneric implements OnInit {
     public message: NzMessageService,
   ) {
     super(router, servicegeral, 'grupofinanceiroanuncio', activatedRoute, utilservice);
-
   }
 
 

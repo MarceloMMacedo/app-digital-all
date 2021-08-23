@@ -1,6 +1,7 @@
 
 import { ItensReposicaoDto, RessuprimentoDto } from './../../../../../models/estoque/ressuprimento-dto';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ItensCotacao } from 'src/models/estoque/itens-cotacao';
 
 @Component({
   selector: 'app-lista-ressuprimento',
@@ -17,20 +18,20 @@ export class ListaRessuprimentoComponent implements OnInit {
 
   total = 0;
   @Output() emitTotal: EventEmitter<any> = new EventEmitter();
-  @Output() itensAnuncio: EventEmitter<ItensReposicaoDto[]> = new EventEmitter();
+  @Output() itensAnuncio: EventEmitter<ItensCotacao[]> = new EventEmitter();
   setOfCheckedId = new Set<number>();
 
-  updateCheckedSet(id: number, checked: boolean): void {
+  updateCheckedSet(idinfo: number, checked: boolean): void {
 
 
     if (checked) {
-      this.setOfCheckedId.add(id);
+      this.setOfCheckedId.add(idinfo);
 
     } else {
-      this.setOfCheckedId.delete(id);
+      this.setOfCheckedId.delete(idinfo);
     }
     this.total = 0;
-    const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
+    let requestData:ItensCotacao[] = this.listOfData.filter(data => this.setOfCheckedId.has(data.idinfo));
     requestData.forEach(element => {
       this.total = element.subtotal;
     });
@@ -45,7 +46,7 @@ export class ListaRessuprimentoComponent implements OnInit {
 
   refreshCheckedStatus(): void {
     const listOfEnabledData = this.listOfCurrentPageData;
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    this.indeterminate = listOfEnabledData.some(({ idinfo }) => this.setOfCheckedId.has(idinfo)) && !this.checked;
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -55,13 +56,13 @@ export class ListaRessuprimentoComponent implements OnInit {
 
   onAllChecked(checked: boolean): void {
     this.listOfCurrentPageData
-      .forEach(({ id }) => this.updateCheckedSet(id, checked));
+      .forEach(({ idinfo }) => this.updateCheckedSet(idinfo, checked));
     this.refreshCheckedStatus();
   }
 
   sendRequest(): void {
     this.loading = true;
-    const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
+    const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.idinfo));
     console.log(requestData);
     setTimeout(() => {
       this.setOfCheckedId.clear();

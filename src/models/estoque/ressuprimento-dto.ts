@@ -2,11 +2,11 @@ import { SampleDto } from './../sample-dto';
 export interface ItensReposicaoDto {
   descricao?: string,
   qtd?: number,
-  tipoanuncio?: string,
-  anuncio?: SampleDto,
+  tipoAnuncio?: string,
+  anuncio?: number,
   valorinterno?: number,
   valor?: number,
-  id:any,
+  idinfo:any,
   subtotal?:number,
 }
 

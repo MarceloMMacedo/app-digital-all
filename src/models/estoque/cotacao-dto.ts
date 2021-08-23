@@ -1,6 +1,8 @@
+
 import { Contato } from './../contato';
 import { Endereco } from './../endereco';
 import { SampleDto } from './../sample-dto';
+import { ItensCotacao } from './itens-cotacao';
 export interface CotacaoDto {
   id?: number,
   nome?: string,
@@ -14,12 +16,4 @@ export interface CotacaoDto {
   total?: number,
   tipoFrete?: string,
   valorFrete?: number,
-}
-export interface ItensCotacao {
-  produto?: SampleDto,
-  quantidade?: number,
-  valor?: number,
-  anuncio?: SampleDto,
-  tipoAnuncio?: string,
-  total?: number,
 }
