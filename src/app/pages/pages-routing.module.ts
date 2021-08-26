@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
-    canActivate:[AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -136,7 +136,14 @@ const routes: Routes = [
         path: 'estoque',
         loadChildren: () => import('./estoque/estoque.module')
           .then(m => m.EstoqueModule),
+      },
+      /*maodeobra*/
+      {
+        path: 'maodeobra',
+        loadChildren: () => import('./financeiro/maoobra/maoobra.module')
+          .then(m => m.MaoobraModule),
       }
+
     ]
   }
 ];

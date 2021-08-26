@@ -40,11 +40,11 @@ export class EditCotacaoComponent extends EditGeneric implements OnInit {
       }
     }, 500);
     this.servicegeral.getAll('empresas')
-    .then(
-      (rest) => {
-        this.empresa = rest
-      }
-    )
+      .then(
+        (rest) => {
+          this.empresa = rest
+        }
+      )
 
   }
   async load() {
@@ -84,10 +84,22 @@ export class EditCotacaoComponent extends EditGeneric implements OnInit {
       this.load();
     }
   }
-  ondeletitem(event){
+  ondeletitem(event) {
 
-    this.obj.itensCotacaos=event;
+    this.obj.itensCotacaos = event;
     this.onsave();
   }
+  finalizar() {
+    this.servicegeral.getAny(`${this.controller}/ressuprir/${this.index}`)
+      .then(
+        rest => {
 
+          this.servicegeral.createNotification('success', 'Dados salvo com sucesso!', 'Sucesso');
+
+          this.router.navigate(["estoque/cotacoes"])
+        }
+      )
+  }
 }
+
+
