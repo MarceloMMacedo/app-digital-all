@@ -1,5 +1,5 @@
+import { ListCotacaoComponent } from './list-cotacao/list-cotacao.component';
 import { EditCotacaoComponent } from './edit-cotacao/edit-cotacao.component';
-import { ListCotacaoComponent } from './../list-cotacao/list-cotacao.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
