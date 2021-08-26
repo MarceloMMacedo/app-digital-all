@@ -7,6 +7,7 @@ export interface ItensReposicaoDto {
   valorinterno?: number,
   valor?: number,
   idinfo:any,
+  unidade?:string,
   subtotal?:number,
 }
 

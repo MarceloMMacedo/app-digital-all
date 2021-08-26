@@ -6,40 +6,85 @@
     <nz-breadcrumb-item>Editar Cotação</nz-breadcrumb-item>
 </nz-breadcrumb>
 <ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
-<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+<div *ngIf="isrealy" class=" card" style="margin-top: 30px; ">
+
     <nz-card nzTitle="Cadastro de Cotação" nzType="inner" [nzExtra]="extraTemplate" *ngIf="isrealy">
         Fornecedor: {{obj.fornecedor.nome}}<br>
         <div class="row">
-            <div class="col-lg-4"> Data: {{obj.dataAbertura|date:'dd/MM/yyyy'}}</div>
-            <div class="col-lg-4"> Contato: {{obj.contato.nome}}</div>
-            <div class="col-lg-4"> Contato: {{obj.contato.telefone}}</div>
+            <div class="col-lg-3"> Data: {{obj.dataAbertura|date:'dd/MM/yyyy'}}</div>
+            <div class="col-lg-3"> Contato: {{obj.contato.contato}}</div>
+            <div class="col-lg-3"> Telefone: {{obj.contato.telefonecontato}}</div>
+            <div class="col-lg-3"> Email: {{obj.contato.emailcontato}}</div>
         </div>
+        <hr>
         <div class="row">
-            <div class="col-lg-4"> Valor: {{obj.total|currency:'R$'}}</div>
-            <div class="col-lg-4"> Contato: <input nz-input id="fantasia" [(ngModel)]="obj.tipoFrete" name="saldo" /> </div>
-            <div class="col-lg-4"> Contato: <input nz-input id="fantasia" [(ngModel)]="obj.valorFrete" name="saldo" currencyMask /> </div>
-            <div class="col-lg-4"> Contato: {{obj.contato.telefone}}</div>
+            <div class="col-lg-3"> Valor: <input nz-input id="fantasia" [(ngModel)]="obj.total + obj.valorFrete" name="saldo" currencyMask readonly /> </div>
+            <div class="col-lg-3"> Tipo Frete: <input nz-input id="fantasia1" [(ngModel)]="obj.tipoFrete" name="saldo" />
+            </div>
+            <div class="col-lg-3"> Valor Frete: <input nz-input id="fantasia" [(ngModel)]="obj.valorFrete" name="saldo" currencyMask /> </div>
+            <div class="col-lg-3">Status:
+                <nz-select class="col-sm-12" nzShowSearch name="value" nzPlaceHolder="" [(ngModel)]="obj.status">
+                    <nz-option [nzLabel]="'Aberto'" [nzValue]="'Aberto'">
+                        <nz-option [nzLabel]="'Aprovado'" [nzValue]="'Aprovado'"></nz-option>
+                        <nz-option [nzLabel]="'Conferência'" [nzValue]="'Conferência'"></nz-option>
+                    </nz-option>
+                </nz-select>
+            </div>
         </div>
-        <!--
-            id?: number,
-  nome?: string,
-  dataAbertura?: Date,
-  dataFim?: Date,
-  fornecedor?: SampleDto;
-  contato?: Contato,
-  endereco?: Endereco,
-  status?: string,
-  itensCotacaos?: ItensCotacao[],
-  total?: number,
-  tipoFrete?: string,
-  valorFrete?: number,
-        -->
+        <app-list-itens-cotacao [itensCotacaos]='obj.itensCotacaos' [idcotacao]='obj.id' (deleteveitem)='ondeletitem($event)' [isVisible]='isVisible' (onsaveitem)='onchangesave($event)'>
+        </app-list-itens-cotacao>
+
+        <ng-template #extraTemplate>
+            <a nz-dropdown [nzDropdownMenu]="menu"> Menu <i nz-icon nzType="down"></i> </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li nz-menu-item>
+                        <button (click)="onsave()" nz-button nzSize='small' nzType="link"> Salvar Cotação</button>
+                    </li>
+
+                    <li nz-menu-item>
+                        <button nz-button nzSize='small' nzType="link" [useExistingCss]="true" printTitle="Cotação" printSectionId="componentID" ngxPrint><i nz-icon nzType="printer" nzTheme="outline"></i>
+              Print
+            </button>
+                    </li>
+
+                    <li nz-menu-item>
+                        <button nz-button nzSize='small' nzType="link"> Finalizar para Financeiro</button>
+                    </li>
+                </ul>
+            </nz-dropdown-menu>
+        </ng-template>
     </nz-card>
-    <ng-template #extraTemplate>
-        <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
-      <i data-feather="plus" class="wd-10 mg-r-5"></i> Salvar Cotação</button>
+</div>
 
-    </ng-template>
 
-    <nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
-    </nz-skeleton>
+<div id="componentID" class="container" style="font-size:90%;" *ngIf="isrealy">
+    <div nz-row style="font-size:90%;">
+        <div nz-col nzSpan="4"> <img [src]="empresa.imagemview" alt="" width="100"></div>
+        <div nz-col nzSpan="8">
+            {{empresa.name}}
+            <address>
+        <small>{{empresa.logradouro}}, Nº {{empresa.numero}} </small><br />
+        <small>{{empresa.bairro}} - {{empresa.localidade}} </small><br />
+        <small> CEP:{{empresa.cep}} - {{empresa.telefonecontato}}</small>
+        <small> Email:{{empresa.emailcontato}} </small>
+      </address>
+        </div>
+    </div>
+    <hr>
+    <h6> Fornecedor:{{obj.fornecedor.nome}}</h6>
+    <address>
+    <small *ngIf="obj.endereco!=null">{{obj.endereco.logradouro}}, Nº {{obj.endereco.numero}} </small><br />
+    <small>{{obj.endereco.bairro}} - {{obj.endereco.localidade}} </small><br />
+    <small *ngIf="obj.endereco!=null && obj.contato!=null "> CEP:{{obj.endereco.cep}} -
+      {{obj.contato.telefonecontato}}</small>
+    <small *ngIf="obj.endereco!=null && obj.contato!=null "> Email:{{obj.contato.emailcontato}} </small>
+  </address>
+    <hr>
+    <div style="margin-top: 5px; ">
+        <app-report-cotacao [listOfData]='obj.itensCotacaos'></app-report-cotacao>
+    </div>
+</div>
+
+<nz-skeleton class=" container" [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!isrealy">
+</nz-skeleton>

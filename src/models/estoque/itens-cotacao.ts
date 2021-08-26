@@ -5,7 +5,7 @@ export interface ItensCotacao {
   valorinterno?: number,
   subtotal?: number,
   valor?: number,
-
-  tipoAnuncio?: string,
+unidade?:string,
+  tipoanuncio?: string,
   total?: number,
 }

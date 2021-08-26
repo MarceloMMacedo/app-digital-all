@@ -17,6 +17,7 @@ import { NgZorroAntdModule } from 'src/app/nb-modulos/ng-zorro-antd.module';
 import { ChartsModule } from 'ng2-charts';
 import { EstoqueRoutingModule } from '../estoque-routing.module';
 import { ListItensCotacaoComponent } from './list-itens-cotacao/list-itens-cotacao.component';
+import { ReportCotacaoComponent } from './report-cotacao/report-cotacao.component';
 
 
 
@@ -24,25 +25,12 @@ const maskConfig: Partial<IConfig> = {
   validation: false,
 };
 
-export const customCurrencyMaskConfig = {
-  align: "right",
-  allowNegative: true,
-  allowZero: true,
-  decimal: ",",
-  precision: 2,
-  prefix: "",
-  suffix: "",
-  thousands: ".",
-  nullable: true,
-  min: null,
-  max: null,
-  inputMode: CurrencyMaskInputMode.FINANCIAL
-};
 @NgModule({
   declarations: [
     EditCotacaoComponent,
     ListCotacaoComponent,
-    ListItensCotacaoComponent
+    ListItensCotacaoComponent,
+    ReportCotacaoComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +42,7 @@ export const customCurrencyMaskConfig = {
     NgxPrintModule,
     NgxMaskModule.forRoot(maskConfig),
 
-    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    NgxCurrencyModule ,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

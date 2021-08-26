@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>*</th>
+            <th>Unidade</th>
             <th>Descrição</th>
             <th>Quantidade</th>
             <th>Valor Interno</th>
@@ -12,6 +13,8 @@
     <tbody>
         <tr *ngFor="let data of rowSelectionTable.data">
             <td [nzChecked]="setOfCheckedId.has(data.idinfo)" (nzCheckedChange)="onItemChecked(data.idinfo, $event)"></td>
+
+            <td>{{data.unidade}}</td>
             <td>{{ data.descricao }}</td>
             <td>{{ data.qtd }}</td>
             <td>{{ data.valorinterno|currency:'R$' }}</td>

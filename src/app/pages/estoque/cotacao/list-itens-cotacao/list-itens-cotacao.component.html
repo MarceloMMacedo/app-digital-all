@@ -1,1 +1,86 @@
-<p>list-itens-cotacao works!</p>
+<hr>
+
+
+<h6 style="   margin-right: 10px;;text-align: right; float:left ">
+    Lista de Materiais</h6>
+<div style="  margin-left: 10px;float:right ">
+    <a nz-dropdown [nzDropdownMenu]="menu">
+    Adicionar Anuncio
+    <i nz-icon nzType="down"></i>
+  </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+            <li nz-menu-item>
+                <button nz-button nzSize='small' nzType="link" (click)="addnewitem('Loja')">  Loja </button>
+            </li>
+
+            <li nz-menu-item>
+                <button nz-button nzSize='small' nzType="link" (click)="addnewitem('Contrato')"> Contrato</button>
+            </li>
+            <li nz-menu-item>
+                <button nz-button nzSize='small' nzType="link" (click)="addnewitem('Web')"> WEB</button>
+            </li>
+        </ul>
+    </nz-dropdown-menu>
+</div>
+<nz-table #rowSelectionTable nzShowPagination nzBordered nzSize="small" nzShowSizeChanger [nzData]="itensCotacaos">
+    <thead>
+        <tr>
+            <th>*</th>
+            <th>Unidade</th>
+            <th>Descrição</th>
+            <th>Origem</th>
+            <th>Quantidade</th>
+            <th>Valor Interno</th>
+            <th>Valor Fornecedor</th>
+            <th>Valor SubTotal</th>
+            <th>Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data; let i=index">
+            <td>{{i+1}}</td>
+            <td>{{data.unidade}}</td>
+            <td>{{ data.descricao }}</td>
+            <td>{{data.tipoanuncio}} </td>
+            <td>{{ data.qtd }}</td>
+            <td>{{ data.valorinterno|currency:'R$' }}</td>
+
+            <td>
+                <div class="editable-cell" [hidden]="editId === i" (click)="startEdit(i)">
+                    {{ data.valor|currency:'R$' }}
+                </div>
+                <input [hidden]="editId !== i" type="text" nz-input [(ngModel)]="data.valor" (blur)="stopEdit()" currencyMask [options]='customCurrencyMaskConfig' />
+            </td>
+            <td>{{ data.valor * data.qtd|currency:'R$' }}</td>
+            <td> <a nz-button nz-popconfirm nzPopconfirmTitle="Deseja Excluir Item?" (nzOnConfirm)='deletitem(i)' nzType="link" nzSize="small"><i nz-icon nzType="delete" nzTheme="outline"></i></a> </td>
+        </tr>
+    </tbody>
+</nz-table>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>Adicinar Anúncio {{tipo}} </ng-template>
+
+    <ng-template #modalContent>
+        <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+            <div class="mb-3">
+                <label class="form-label"> Contrato: </label>
+                <nz-select class="col-sm-12" nzShowSearch name="value" formControlName='anuncio' nzPlaceHolder="" [(ngModel)]="idanuncio">
+                    <nz-option *ngFor="let  item1 of anuncios" [nzLabel]="item1.nome" [nzValue]="item1.id">
+                    </nz-option>
+                </nz-select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"> Quantidade </label>
+                <input [(ngModel)]="qtd" currencyMask nz-input formControlName='qtd' [options]='customIdMaskConfig'>
+            </div>
+
+        </form>
+    </ng-template>
+    <ng-template #modalFooter>
+
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid" nz-popconfirm nzPopconfirmTitle="Deseja Anuncio na cotação?" (nzOnConfirm)="handleOk()">
+      <span>Finalizar</span>
+    </button>
+    </ng-template>
+</nz-modal>

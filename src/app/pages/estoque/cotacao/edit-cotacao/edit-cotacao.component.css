@@ -1,0 +1,50 @@
+.content {
+    display: flex;
+}
+
+.extra>div {
+    display: flex;
+    width: max-content;
+    justify-content: flex-end;
+}
+
+@media (max-width: 576px) {
+    .content {
+        display: block;
+    }
+    .main {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+    .extra {
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+    }
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+#componentID {
+    /* hide the printing component from @media screen  */
+    display: none;
+}
+
+@media print {
+    /* invert the display (show/hide) properties of the main */
+    /* aplication component and the printing component       */
+    #componentID {
+        display: block;
+    }
+    .pagina {
+        display: none;
+    }
+    .appmainpage {
+        display: none;
+    }
+    header {
+        display: none;
+    }
+}

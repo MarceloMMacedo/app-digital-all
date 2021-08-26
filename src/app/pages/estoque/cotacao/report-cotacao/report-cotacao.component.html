@@ -1,0 +1,22 @@
+<nz-card [nzTitle]="'Cotação'" nzSize="small" nzBordered=false>
+    <table class="table table-sm ">
+        <thead>
+            <tr>
+                <th style=" text-align: center;     vertical-align: middle;">*</th>
+                <th style=" text-align: center; vertical-align: middle; ">Unidade</th>
+                <th>Descrição</th>
+                <th style=" text-align: center; vertical-align: middle; ">Quantidade</th>
+                <th style=" text-align: center; vertical-align: middle; ">Valor </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of listOfData; let i=index ">
+                <td style=" text-align: center; vertical-align: middle; ">{{i+1}}</td>
+                <td style=" text-align: center; vertical-align: middle; ">{{ data.unidade }}</td>
+                <td>{{ data.descricao }}</td>
+                <td style=" text-align: center; vertical-align: middle; ">{{ data.qtd }}</td>
+                <td style=" text-align: center; vertical-align: middle; ">________________</td>
+            </tr>
+        </tbody>
+    </table>
+</nz-card>
