@@ -1,3 +1,4 @@
+import { PreContasPagarDto } from './../../../../models/estoque/pre-contas-pagar-dto';
 import { Empresa } from './../../../../models/empresa';
 import { SeviceGeralService } from './../../../../services/sevice-geral.service';
 import { ResumoContasReceber } from './../../../../models/report/resumo-contas-receber';
@@ -16,7 +17,7 @@ export class ContasPagarComponent implements OnInit {
   time;
   isrealy: boolean = false;
   resumo: ResumoContasReceber;
-
+  totalprecontas = 0;
   @ViewChild(BaseChartDirective)
   public chart: BaseChartDirective; // Now you can reference your chart via `this.chart`
 
@@ -24,7 +25,7 @@ export class ContasPagarComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
     scales: { xAxes: [{}], yAxes: [{}] },
-    showLines:true,
+    showLines: true,
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -46,14 +47,25 @@ export class ContasPagarComponent implements OnInit {
     private service: SeviceGeralService,) { }
 
   ngOnInit(): void {
-    this.service.getAll('empresas')
-    .then(
-      (rest) => {
-        this.empresa = rest
-        //console.log(rest);
+    let preconta: PreContasPagarDto[] = [];
+    this.service.getAll("precontaspagar")
+      .then(
+        rest => {
+          preconta = rest;
+          preconta.forEach(el => {
+            this.totalprecontas+=el.cotacao.total;
 
-      }
-    )
+          });
+        }
+      )
+    this.service.getAll('empresas')
+      .then(
+        (rest) => {
+          this.empresa = rest
+          //console.log(rest);
+
+        }
+      )
     let data = new Date();
     var dia = data.getDate();
     var dias = data.getDay();
@@ -71,7 +83,7 @@ export class ContasPagarComponent implements OnInit {
           this.isrealy = true;
           this.barChartLabels = this.resumo.lineChartLabels;
           this.barChartData = [this.resumo.chartspagar]
-     //     this.chart.chart.update(); // This re-renders the canvas element.
+          //     this.chart.chart.update(); // This re-renders the canvas element.
 
         }
       )

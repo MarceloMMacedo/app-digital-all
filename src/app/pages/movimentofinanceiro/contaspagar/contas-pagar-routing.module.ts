@@ -5,6 +5,7 @@ import { ContasPagarComponent } from './contas-pagar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { QuitarContasPagarComponent } from './quitar-contas-pagar/quitar-contas-pagar.component';
+import { PreContasPagarCotacaoComponent } from './pre-contas-pagar-cotacao/pre-contas-pagar-cotacao.component';
 
 const routes: Routes = [  {
   path:'',
@@ -28,6 +29,10 @@ const routes: Routes = [  {
   path:'contas-pagar-faturas',
   component:ListContasPagarFaturasComponent
 },
+{
+  path:'precontaspagar',
+  component:PreContasPagarCotacaoComponent
+}
 ];
 
 @NgModule({

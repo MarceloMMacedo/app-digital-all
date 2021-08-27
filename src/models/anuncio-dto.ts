@@ -36,4 +36,5 @@ export interface AnuncioDto {
   valorInterno?: number,
   tocontrato?: SampleDto,
   saldoDisponivel?:number,
+  valorPredefinido?:number,
 }

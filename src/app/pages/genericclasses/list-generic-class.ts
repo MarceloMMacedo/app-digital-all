@@ -137,7 +137,6 @@ export class ListGenericClass implements OnInit {
   }
 
   showConfirm(): void {
-console.log(this.obj);
 
     this.servicegeral.newobj(this.controller, this.obj)
       .then(
@@ -147,11 +146,8 @@ console.log(this.obj);
         },
         (error) => {
           console.log(error);
-
         }
       )
-
-
   }
 
 

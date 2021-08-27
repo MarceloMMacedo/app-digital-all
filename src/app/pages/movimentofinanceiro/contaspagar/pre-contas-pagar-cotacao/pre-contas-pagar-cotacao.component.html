@@ -1,0 +1,229 @@
+<nz-breadcrumb class=" container" style="margin-top: 30px; " [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <a>Lista de Pré contas Pagar Cotação</a>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+<ng-template #iconTemplate><i nz-icon nzType="arrow-right"></i></ng-template>
+
+<div *ngIf="isrealy" class=" container" style="margin-top: 30px; ">
+    <nz-card nzTitle="Lista de Pré contas Pagar Cotação" [nzExtra]="extraTemplate" *ngIf="isrealy">
+        <div class="table-responsive" style="overflow-x:auto;  overflow-y:auto;" *ngIf="isrealy">
+            <br>
+
+
+            <hr>
+            <table mat-table class="table align-middle table-nowrap table-check">
+                <thead>
+                    <tr>
+                        <tr>
+                            <th class="wd-20p">id</th>
+                            <th class="wd-25p">Data</th>
+                            <th class="wd-25p">Fornecedor</th>
+                            <th class="wd-25p">Status</th>
+                            <th class="wd-25p">Tipo Frete</th>
+                            <th class="wd-25p">Total</th>
+                            <th class="wd-20p">Editar</th>
+                        </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let a of pages.content; let i=index">
+                        <td>{{i +1}} </td>
+                        <td>{{a.cotacao.dataAbertura|date:'dd/MM/yyyy'}} </td>
+                        <td>{{a.cotacao.fornecedor.nome}} </td>
+                        <td>{{a.cotacao.status}} </td>
+                        <td>{{a.cotacao.tipoFrete}} </td>
+                        <td>{{a.cotacao.total|currency:'R$'}} </td>
+                        <td>
+                            <a (click)="loadpreconta(a)"> <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [(page)]="page" [pageSize]="10" (pageChange)="changepage()" [maxSize]="5" [rotate]="true" size='sm' [collectionSize]="pages.totalElements"></ngb-pagination>
+
+            </div>
+        </div>
+
+
+        <ng-template #extraTemplate>
+
+        </ng-template>
+    </nz-card>
+    <nz-modal *ngIf="isrealy" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+        <ng-template #modalTitle>Adicinar Contas a Pagar</ng-template>
+
+        <ng-template #modalContent>
+
+
+            <nz-steps [nzCurrent]="current" nzSize="small">
+                <nz-step nzTitle="Descrição"> </nz-step>
+                <nz-step nzTitle="Conta Pagador"></nz-step>
+                <nz-step nzTitle="Valor"></nz-step>
+                <nz-step nzTitle="Finalizar"></nz-step>
+            </nz-steps>
+
+            <div class="steps-content" style="margin-top: 20px;">
+                <div *ngIf="current===0">
+                    <div class="form-group   ">
+                        <nz-form-label nzRequired>Fornecedor</nz-form-label>
+                        {{contaspagar.fornecedor.nome }}
+                    </div>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Por favor selecione um Grupo Financeiro">
+                            <div class="form-group   ">
+                                <nz-form-label nzFor="nome" nzRequired>Grupo Financeiro</nz-form-label>
+                                <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" (onselect)="selectgrupo($event)" [(ngModel)]='contaspagar.grupoFinanceiro.id
+                                    ' (ngModelChange)="selectgrupo($event)" nzShowSearch nzPlaceHolder="Select Grupo financeiro">
+                                    <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of
+                                       grupofinanceiros;  let i=index"></nz-option>
+                                </nz-select>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Por favor selecione um Históricos">
+                            <div class="form-group   ">
+                                <nz-form-label nzFor="nome" nzRequired>Históricos</nz-form-label>
+                                <input placeholder='selecione um Históricos' nz-input [(ngModel)]="hs" (ngModelChange)="onChange($event)" [nzAutocomplete]="auto" />
+                                <nz-autocomplete [nzDataSource]="filteredOptions" #auto></nz-autocomplete>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                </div>
+
+
+                <div *ngIf="current===1">
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Por favor selecione Banco">
+                            <div class="form-group   ">
+                                <nz-form-label nzFor="nome" nzRequired>Banco</nz-form-label>
+                                <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" (ngModelChange)="selectgrupobanco($event)" [(ngModel)]='contaspagar.financeiro.banco.id' nzShowSearch nzPlaceHolder="Select Banco">
+                                    <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of bancos "></nz-option>
+                                </nz-select>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Por favor selecione um Centro de Custo">
+                            <div class="form-group   ">
+                                <nz-form-label nzFor="nome" nzRequired>Centro de Custo</nz-form-label>
+                                <nz-select class="col-lg-12" style="padding-left: 0; padding-right: 0;" (ngModelChange)="selectgrupocc($event)" [(ngModel)]='contaspagar.financeiro.centroCusto.id' nzShowSearch nzPlaceHolder="Select Centro Custo">
+                                    <nz-option nzLabel={{item.nome}} [nzValue]='item.id' *ngFor="let item of centrocustos ">
+                                    </nz-option>
+                                </nz-select>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                </div>
+
+                <div *ngIf="current===2">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="Por favor selecione Valor">
+                                    <div class="form-group   ">
+                                        <nz-form-label nzFor="nome" nzRequired>Valor</nz-form-label>
+
+                                        <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask [options]="customMaskConfig" [(ngModel)]="contaspagar.valor" id="valor" placeholder="Valor">
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="Por favor selecione Qtd Parcelas">
+                                    <div class="form-group   ">
+                                        <nz-form-label nzFor="nome" nzRequired>Parcelas</nz-form-label>
+                                        <input type="text" class="form-control form-control-sm" nz-input nzSize="small" currencyMask [options]="customIntMaskConfig" [(ngModel)]='contaspagar.financeiro.parcelas' id="parcelas" placeholder="Período">
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="Por favor selecione Primeiro Vencimento">
+                                    <div class="form-group   ">
+                                        <nz-form-label nzFor="nome" nzRequired>Data Vencimento</nz-form-label>
+                                        <nz-date-picker [nzFormat]="dateFormat" class="form-control form-control-sm" nz-input nzSize="small" [(ngModel)]="contaspagar.financeiro.datavencimento" id="vencimento" placeholder="Vencimento">
+                                        </nz-date-picker>
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="Por favor Descrição">
+                                    <div class="form-group   ">
+                                        <nz-form-label nzFor="nome" nzRequired>Descrição</nz-form-label>
+                                        <input type="text" class="form-control form-control-sm" nz-input nzSize="small" [(ngModel)]='contaspagar.descricao' id="descricao" placeholder="Descrição">
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="current===3">
+                    Grupo Financeiro:{{contaspagar.grupoFinanceiro.nome}}
+                    <br /> Históricos:{{contaspagar.historico.nome}}
+                    <br /> Fornecedor:{{contaspagar.fonercedor.nome}}
+                    <br /> Banco: {{contaspagar.financeiro.banco.nome}}
+                    <br />Centro de Custo: {{contaspagar.financeiro.centroCusto.nome}}
+                    <br />
+
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            Valor:{{contaspagar.valor|currency:'R$'}}
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            Parcelas:{{contaspagar.financeiro.parcelas}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            Data Vencimento:{{contaspagar.financeiro.datavencimento|date:'dd/MM/yyyy'}}
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            Descrição:{{contaspagar.descricao}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #modalFooter>
+            <div class="steps-action">
+                <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+          <span>Anterior</span>
+        </button>
+                <button nz-button nzType="default" (click)="next()" *ngIf="current < 3">
+          <span>Próximo</span>
+        </button>
+                <button nz-button nzType="primary" nz-popconfirm nzPopconfirmTitle="Deseja Incluir Contas a Pagar ?" (nzOnConfirm)="handleOk()" *ngIf="current === 3">
+          <span>Finalizar</span>
+        </button>
+            </div>
+        </ng-template>
+    </nz-modal>

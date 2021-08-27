@@ -18,6 +18,7 @@ import { ListContasPagarComponent } from './list-contas-pagar/list-contas-pagar.
 
 
 import {NgxPrintModule} from 'ngx-print';
+import { PreContasPagarCotacaoComponent } from './pre-contas-pagar-cotacao/pre-contas-pagar-cotacao.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -31,7 +32,7 @@ const maskConfig: Partial<IConfig> = {
     ItemsListContaspagarComponent,
     ListContasPagarComponent,
     ReportContasPagarHistoricoComponent,
-    ListContasPagarGrupoComponent,ListContasPagarFaturasComponent
+    ListContasPagarGrupoComponent,ListContasPagarFaturasComponent, PreContasPagarCotacaoComponent
   ],
   imports: [
     ChartsModule,

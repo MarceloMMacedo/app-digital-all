@@ -7,6 +7,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MaoobraRoutingModule } from './maoobra-routing.module';
+import { EditMaoObraComponent } from './edit-mao-obra/edit-mao-obra.component';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -29,7 +30,8 @@ export const customCurrencyMaskConfig = {
 
 @NgModule({
   declarations: [
-    ListaMaoObraComponent],
+    ListaMaoObraComponent,
+    EditMaoObraComponent],
   imports: [
     CommonModule,
     MaoobraRoutingModule,
